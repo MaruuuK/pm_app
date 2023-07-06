@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg bg-primary sticky-top" data-bs-theme="dark">
+  <div class="container-fluid px-4">
+    <div class="header-toggle-btn">
+      <pm-slide-toggle></pm-slide-toggle>
+    </div>
+    <h1><a class="navbar-brand" href="#">WellDone</a></h1>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+      aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [class]="'collapse navbar-collapse' + ' ' +(navbarShow ? 'show' : '')" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item p-2">
+          <a class="nav-link" href="#"><fa-icon [icon]="faArrowRightToBracket"></fa-icon>
+            Log In</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link" href="#"><fa-icon [icon]="faUserPlus"></fa-icon> Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

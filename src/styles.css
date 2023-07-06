@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~normalize.css';
+
+/**********************FONTS*********************/
+
+@font-face {
+  font-family: 'georgia normal';
+  src: url('./assets/fonts/Georgia/georgia.ttf');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'georgia bold';
+  src: url('./assets/fonts/Georgia/georgiab.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'arial normal';
+  src: url('./assets/fonts/Arial/arial.ttf');
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'georgia normal', sans-serif;
+  font-size: 15px;
+  background-color: #fafafa;
+  letter-spacing: 0.05em;
+}
