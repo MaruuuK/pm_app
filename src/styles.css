@@ -1,5 +1,9 @@
 @import '~normalize.css';
 
+:root {
+  --cyanBlue: #0d6efd;
+}
+
 /**********************FONTS*********************/
 
 @font-face {
@@ -20,12 +24,18 @@
   font-style: normal;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
   height: 100%;
   font-family: 'georgia normal', sans-serif;
   font-size: 15px;
-  background-color: #fafafa;
+  background-color: #e8fcff;
   letter-spacing: 0.05em;
 }

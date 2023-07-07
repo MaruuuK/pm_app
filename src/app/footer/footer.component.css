@@ -1,5 +1,5 @@
 .container-footer {
-  background-color: #0d6efd;
+  background-color: var(--cyanBlue);;
 }
 
 .col {
