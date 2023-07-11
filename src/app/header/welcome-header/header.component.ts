@@ -1,14 +1,16 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRightToBracket,
+  faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'pm-header',
+  selector: 'pm-welcome-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) {}
 
   //fontawesome
   faArrowRightToBracket = faArrowRightToBracket;

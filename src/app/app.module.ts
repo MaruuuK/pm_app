@@ -6,13 +6,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './header/welcome-header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { MainComponent } from './main/main.component';
+import { WelcomeComponent } from './welcome-page/welcome.component';
+import { MainComponent } from './main-page/main.component';
 import { SlideToggleComponent } from './header/slide-toggle/slide-toggle.component';
-import { LogInComponent } from './welcome/log-in/log-in.component';
-import { SignUpComponent } from './welcome/sign-up/sign-up.component';
+import { MainWelcomeComponent } from './welcome-page/main-welcome/main-welcome.component';
+import { MainHeaderComponent } from './header/main-header/main-header.component';
+import { LogInComponent } from './welcome-page/log-in/log-in.component';
+import { SignUpComponent } from './welcome-page/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { SignUpComponent } from './welcome/sign-up/sign-up.component';
     WelcomeComponent,
     MainComponent,
     SlideToggleComponent,
+    MainWelcomeComponent,
+    MainHeaderComponent,
     LogInComponent,
     SignUpComponent,
   ],
