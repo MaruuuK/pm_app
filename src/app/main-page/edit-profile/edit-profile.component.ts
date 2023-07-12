@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from '../../custom-validators';
-@Component({
-  selector: 'pm-signup',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'],
-})
+import { CustomValidators } from 'src/app/custom-validators';
 
-export class SignUpComponent implements OnInit {
-  signupForm!: FormGroup;
+@Component({
+  selector: 'pm-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css'],
+})
+export class EditProfileComponent {
+  editProfileForm!: FormGroup;
   constructor() {}
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup(
+    this.editProfileForm = new FormGroup(
       {
         name: new FormControl('', [
           Validators.required,
@@ -24,15 +24,11 @@ export class SignUpComponent implements OnInit {
           Validators.minLength(6),
           CustomValidators.containSpecialSymbols,
         ]),
-        confirmPassword: new FormControl('', [Validators.required]),
       },
-      {
-        validators: CustomValidators.matchPassword,
-      }
     );
   }
 
   onSubmit() {
-    console.log(this.signupForm);
+    console.log(this.editProfileForm);
   }
 }

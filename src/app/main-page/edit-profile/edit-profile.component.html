@@ -1,0 +1,58 @@
+<main>
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-10 col-lg-5 col-md-10 col-sm-8 p-3 p-sm-5 border rounded-5 border-primary bg-white m-auto">
+        <h2 class="text-center mb-4 text-primary signup-login-header">Edit Profile</h2>
+        <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="name-field" class="form-label">Name</label>
+            <input type="text" class="form-control border border-primary input-field " id="name-field"
+              formControlName="name">
+            <span *ngIf="!editProfileForm.get('name')?.valid && editProfileForm.get('name')?.touched"
+              class="help is-danger" style="color: red;">
+              <span *ngIf="editProfileForm.get('name')?.hasError('invalidName')">
+                This name is invalid!
+              </span>
+              <span *ngIf="editProfileForm.get('name')?.hasError('required')">
+                This field is required!
+              </span>
+            </span>
+          </div>
+          <div class="mb-3">
+            <label for="login-field" class="form-label">Login</label>
+            <input type="text" class="form-control border border-primary input-field" id="login-field"
+              formControlName="login">
+            <span *ngIf="!editProfileForm.get('login')?.valid && editProfileForm.get('login')?.touched"
+              class="help is-danger" style="color: red;">
+              This field is required!
+            </span>
+          </div>
+          <div class="mb-3">
+            <label for="password-field" class="form-label">Password</label>
+            <input type="password" class="form-control border border-primary input-field" id="password-field"
+              formControlName="password">
+            <span *ngIf="!editProfileForm.get('password')?.valid && editProfileForm.get('password')?.touched"
+              class="help is-danger" style="color: red;">
+              <span
+                *ngIf="editProfileForm.get('password')?.value.length > 0 && editProfileForm.get('password')?.value.length < 6">
+                Password must contain at least 6 characters.
+              </span>
+              <span
+                *ngIf="editProfileForm.get('password')?.value.length > 5 && editProfileForm.get('password')?.hasError('passwordWithoutSpecialSymbols')">
+                Password must contain special symbols.
+              </span>
+              <span *ngIf="editProfileForm.get('password')?.hasError('required')">
+                This field is required!
+              </span>
+            </span>
+          </div>
+          <div class="text-end">
+              <button class="btn btn-success mx-3" type="submit" [disabled]="!editProfileForm.valid">UPDATE</button>
+              <button class="btn btn-danger" type="submit" [disabled]="!editProfileForm.valid">DELETE</button>
+            </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

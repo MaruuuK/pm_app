@@ -17,6 +17,8 @@ import { MainWelcomeComponent } from './welcome-page/main-welcome/main-welcome.c
 import { MainHeaderComponent } from './header/main-header/main-header.component';
 import { LogInComponent } from './welcome-page/log-in/log-in.component';
 import { SignUpComponent } from './welcome-page/sign-up/sign-up.component';
+import { MainContentComponent } from './main-page/main-content/main-content.component';
+import { EditProfileComponent } from './main-page/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { SignUpComponent } from './welcome-page/sign-up/sign-up.component';
     MainHeaderComponent,
     LogInComponent,
     SignUpComponent,
+    MainContentComponent,
+    EditProfileComponent,
   ],
 
   imports: [
