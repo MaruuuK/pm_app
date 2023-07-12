@@ -34,8 +34,25 @@ html,
 body {
   margin: 0;
   height: 100%;
+  padding: 0;
   font-family: 'georgia normal', sans-serif;
   font-size: 15px;
   background-color: #e8fcff;
   letter-spacing: 0.05em;
+
+}
+
+.signup-login-header {
+  font-family: 'georgia bold', sans-serif;
+  color: var(--cyanBlue);
+}
+
+.input-field,
+.have-account {
+  font-size: 17px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+  box-shadow: 0 0 8px red !important;
 }
