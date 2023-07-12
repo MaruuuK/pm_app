@@ -5,10 +5,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/welcome-header/header.component';
+import { HeaderComponent } from './header/welcome-header/welcome-header.component';
 import { FooterComponent } from './footer/footer.component';
 import { WelcomeComponent } from './welcome-page/welcome.component';
 import { MainComponent } from './main-page/main.component';

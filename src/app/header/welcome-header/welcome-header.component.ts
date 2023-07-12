@@ -6,8 +6,8 @@ import {
 
 @Component({
   selector: 'pm-welcome-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  templateUrl: './welcome-header.component.html',
+  styleUrls: ['./welcome-header.component.css'],
 })
 export class HeaderComponent {
   constructor(private elementRef: ElementRef) {}
