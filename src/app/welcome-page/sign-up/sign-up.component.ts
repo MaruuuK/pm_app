@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from '../../custom-validators';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { CustomValidators } from '../auth/custom-validators';
+import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'pm-signup',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
 })
-
 export class SignUpComponent implements OnInit {
+  isLoading = false;
+  error: string | null = null;
+
   signupForm!: FormGroup;
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.signupForm = new FormGroup(
@@ -32,7 +35,28 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  onSubmit() {
-    console.log(this.signupForm);
+  onSubmit(signupForm: FormGroup) {
+    if (!signupForm.valid) {
+      return;
+    }
+    const name = signupForm.value.name;
+    const login = signupForm.value.login;
+    const password = signupForm.value.password;
+
+    this.isLoading = true;
+    this.authService.signup(name, login, password).subscribe({
+      next: (responseData) => {
+        console.log(responseData);
+        this.isLoading = false;
+      },
+      error: (errorMessage) => {
+        this.error = errorMessage;
+        this.isLoading = false;
+      },
+    });
+
+    this.signupForm.reset();
   }
+
+  onFetch() {}
 }

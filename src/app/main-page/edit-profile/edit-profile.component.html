@@ -9,12 +9,12 @@
             <input type="text" class="form-control border border-primary input-field " id="name-field"
               formControlName="name">
             <span *ngIf="!editProfileForm.get('name')?.valid && editProfileForm.get('name')?.touched"
-              class="help is-danger" style="color: red;">
+              class="help is-danger">
               <span *ngIf="editProfileForm.get('name')?.hasError('invalidName')">
-                This name is invalid!
+                This name is invalid
               </span>
               <span *ngIf="editProfileForm.get('name')?.hasError('required')">
-                This field is required!
+                This field is required
               </span>
             </span>
           </div>
@@ -23,8 +23,8 @@
             <input type="text" class="form-control border border-primary input-field" id="login-field"
               formControlName="login">
             <span *ngIf="!editProfileForm.get('login')?.valid && editProfileForm.get('login')?.touched"
-              class="help is-danger" style="color: red;">
-              This field is required!
+              class="help is-danger">
+              This field is required
             </span>
           </div>
           <div class="mb-3">
@@ -32,17 +32,17 @@
             <input type="password" class="form-control border border-primary input-field" id="password-field"
               formControlName="password">
             <span *ngIf="!editProfileForm.get('password')?.valid && editProfileForm.get('password')?.touched"
-              class="help is-danger" style="color: red;">
+              class="help is-danger">
               <span
                 *ngIf="editProfileForm.get('password')?.value.length > 0 && editProfileForm.get('password')?.value.length < 6">
-                Password must contain at least 6 characters.
+                Password must contain at least 6 characters
               </span>
               <span
                 *ngIf="editProfileForm.get('password')?.value.length > 5 && editProfileForm.get('password')?.hasError('passwordWithoutSpecialSymbols')">
-                Password must contain special symbols.
+                Password must contain special symbols
               </span>
               <span *ngIf="editProfileForm.get('password')?.hasError('required')">
-                This field is required!
+                This field is required
               </span>
             </span>
           </div>

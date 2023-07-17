@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from 'src/app/custom-validators';
+import { CustomValidators } from 'src/app/welcome-page/auth/custom-validators';
 
 @Component({
   selector: 'pm-edit-profile',
@@ -12,20 +12,18 @@ export class EditProfileComponent {
   constructor() {}
 
   ngOnInit(): void {
-    this.editProfileForm = new FormGroup(
-      {
-        name: new FormControl('', [
-          Validators.required,
-          CustomValidators.invalidName,
-        ]),
-        login: new FormControl('', Validators.required),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6),
-          CustomValidators.containSpecialSymbols,
-        ]),
-      },
-    );
+    this.editProfileForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        CustomValidators.invalidName,
+      ]),
+      login: new FormControl('', Validators.required),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        CustomValidators.containSpecialSymbols,
+      ]),
+    });
   }
 
   onSubmit() {

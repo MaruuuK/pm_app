@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   faArrowRightToBracket,
   faPenToSquare,
@@ -11,7 +12,7 @@ import {
   styleUrls: ['./main-header.component.css'],
 })
 export class MainHeaderComponent {
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private router: Router) {}
   //fontawesome
   faArrowRightToBracket = faArrowRightToBracket;
   faPenToSquare = faPenToSquare;
@@ -29,4 +30,6 @@ export class MainHeaderComponent {
       this.navbarShow = false;
     }
   }
+
+
 }

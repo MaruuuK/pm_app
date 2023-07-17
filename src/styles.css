@@ -1,5 +1,10 @@
 @import '~normalize.css';
 
+/* @import '~@angular/material/prebuilt-themes/indigo-pink.css'; */
+.mat-form-field {
+  --mat-form-field-underline: none !important;
+}
+
 :root {
   --cyanBlue: #0d6efd;
 }
@@ -55,4 +60,8 @@ body {
 input.ng-invalid.ng-touched {
   border: 1px solid red !important;
   box-shadow: 0 0 8px red !important;
+}
+
+.help {
+  color: red;
 }
