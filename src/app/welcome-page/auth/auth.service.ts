@@ -32,7 +32,7 @@ export class AuthService {
       .pipe(
         catchError(this.handleError.bind(this)),
         tap((resData) => {
-          const user = new User(resData.token);
+          const user = new User(login, resData.token);
           this.user.next(user);
         })
       );
@@ -44,7 +44,7 @@ export class AuthService {
       errorRes.error.statusCode === 409 &&
       errorRes.error.message === this.errMessageLoginExist
     ) {
-      errorMessage = 'This user already exist';
+      errorMessage = 'This login already exist';
     }
     if (
       errorRes.error.statusCode === 401 &&

@@ -1,5 +1,5 @@
 export class User {
-  constructor(private _token: string) {}
+  constructor(public login: string, private _token: string) {}
 
   get token() {
     return this._token;

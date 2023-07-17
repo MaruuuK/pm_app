@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CustomValidators } from '../auth/custom-validators';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'pm-signup',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
+  isSignup = false;
   isLoading = false;
   error: string | null = null;
 
   signupForm!: FormGroup;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.signupForm = new FormGroup(
@@ -35,6 +37,10 @@ export class SignUpComponent implements OnInit {
     );
   }
 
+  onLogin() {
+    this.router.navigate(['/login']);
+  }
+
   onSubmit(signupForm: FormGroup) {
     if (!signupForm.valid) {
       return;
@@ -48,15 +54,13 @@ export class SignUpComponent implements OnInit {
       next: (responseData) => {
         console.log(responseData);
         this.isLoading = false;
+        this.isSignup = true;
       },
       error: (errorMessage) => {
         this.error = errorMessage;
         this.isLoading = false;
       },
     });
-
     this.signupForm.reset();
   }
-
-  onFetch() {}
 }
