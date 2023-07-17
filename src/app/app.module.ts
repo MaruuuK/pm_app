@@ -8,13 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/welcome-header/welcome-header.component';
+import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { WelcomeComponent } from './welcome-page/welcome.component';
 import { MainComponent } from './main-page/main.component';
 import { SlideToggleComponent } from './header/slide-toggle/slide-toggle.component';
 import { MainWelcomeComponent } from './welcome-page/main-welcome/main-welcome.component';
-import { MainHeaderComponent } from './header/main-header/main-header.component';
 import { LogInComponent } from './welcome-page/log-in/log-in.component';
 import { SignUpComponent } from './welcome-page/sign-up/sign-up.component';
 import { MainContentComponent } from './main-page/main-content/main-content.component';
@@ -32,7 +31,6 @@ import { LoadingSpinnerComponent } from './welcome-page/loading-spinner/loading-
     MainComponent,
     SlideToggleComponent,
     MainWelcomeComponent,
-    MainHeaderComponent,
     LogInComponent,
     SignUpComponent,
     MainContentComponent,

@@ -12,17 +12,23 @@
 
       <ul class="navbar-nav me-auto">
         <li class="nav-item p-2">
+          <a class="nav-link" href="#" routerLink="/login" *ngIf="!isAuthenticated"><fa-icon [icon]="faArrowRightToBracket"></fa-icon>
+            Log In</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link" href="#" routerLink="/signup" *ngIf="!isAuthenticated"><fa-icon [icon]="faUserPlus"></fa-icon> Sign Up</a>
+        </li>
+        <li class="nav-item p-2" *ngIf="isAuthenticated">
           <a class="nav-link" href="#"><fa-icon [icon]="faPlus"></fa-icon>
             Board</a>
         </li>
-        <li class="nav-item p-2">
+        <li class="nav-item p-2" *ngIf="isAuthenticated">
           <a class="nav-link" href="#" routerLink="editProfile"><fa-icon [icon]="faPenToSquare"></fa-icon> Profile</a>
         </li>
-        <li class="nav-item p-2">
-          <a class="nav-link" href="#" ><fa-icon [icon]="faArrowRightToBracket"></fa-icon> Log Out</a>
+        <li class="nav-item p-2" *ngIf="isAuthenticated">
+          <a class="nav-link" href="#"><fa-icon [icon]="faArrowRightToBracket"></fa-icon> Log Out</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-

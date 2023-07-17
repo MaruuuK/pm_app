@@ -3,3 +3,7 @@ export interface SignupResponseData {
   'name': string,
   'login': string
 }
+
+export interface LoginResponseData{
+  'token': string,
+}

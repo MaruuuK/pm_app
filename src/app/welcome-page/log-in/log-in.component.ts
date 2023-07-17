@@ -1,25 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'pm-login',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
 })
-export class LogInComponent implements OnInit{
+export class LogInComponent implements OnInit {
   loginForm!: FormGroup;
-  constructor() {}
+  isLoading = false;
+  error: string | null = null;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup(
-      {
-        login: new FormControl('', Validators.required),
-        password: new FormControl('', Validators.required),
-      },
-    );
+    this.loginForm = new FormGroup({
+      login: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+    });
   }
 
-  onSubmit() {
-    console.log(this.loginForm);
+  onSubmit(loginForm: FormGroup) {
+    if (!this.loginForm.valid) {
+      return;
+    }
+
+    const login = loginForm.value.login;
+    const password = loginForm.value.password;
+
+    this.isLoading = true;
+
+    this.authService.login(login, password).subscribe({
+      next: (responseData) => {
+        console.log(responseData);
+        this.isLoading = false;
+      },
+      error: (errorMessage) => {
+        this.error = errorMessage;
+        this.isLoading = false;
+      },
+    });
   }
 }
