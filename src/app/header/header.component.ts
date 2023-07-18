@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 import {
   faArrowRightToBracket,
@@ -28,7 +28,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   //fontawesome
@@ -55,8 +56,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  onRedirectPage() {
+    if (this.isAuthenticated) {
+      this.router.navigate(['/main']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  onLogout() {
+    this.authService.logout();
+  }
+
   ngOnDestroy() {
     this.userSub.unsubscribe();
-
   }
 }

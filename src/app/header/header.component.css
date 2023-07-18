@@ -1,3 +1,7 @@
+h1 {
+  cursor: pointer;
+}
+
 .navbar-collapse {
   flex-grow: 0;
 }
