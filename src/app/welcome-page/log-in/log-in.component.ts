@@ -33,8 +33,7 @@ export class LogInComponent implements OnInit {
     this.isLoading = true;
 
     this.authService.login(login, password).subscribe({
-      next: (responseData) => {
-        console.log(responseData);
+      next: () => {
         this.isLoading = false;
         this.router.navigate(['/main']);
       },

@@ -7,6 +7,8 @@ import { MainWelcomeComponent } from './welcome-page/main-welcome/main-welcome.c
 import { MainComponent } from './main-page/main.component';
 import { EditProfileComponent } from './main-page/edit-profile/edit-profile.component';
 import { AuthGuard } from './welcome-page/auth/auth.guard';
+import { MainContentComponent } from './main-page/main-content/main-content.component';
+import { CreateBoardsComponent } from './create-boards/create-boards.component';
 
 const routes: Routes = [
   {
@@ -23,9 +25,16 @@ const routes: Routes = [
     component: MainComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: '', component: MainContentComponent },
+      {
+        path: 'createBoards',
+        component: CreateBoardsComponent,
+        redirectTo: 'main',
+      },
       {
         path: 'editProfile',
         component: EditProfileComponent,
+        data: { editProfilePage: true },
       },
     ],
   },

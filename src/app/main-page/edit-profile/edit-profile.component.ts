@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from 'src/app/welcome-page/auth/custom-validators';
+import { CustomValidators } from 'src/app/shared/custom-validators';
+import { EditProfileService } from './editProfile.service';
 
 @Component({
   selector: 'pm-edit-profile',
@@ -8,8 +9,9 @@ import { CustomValidators } from 'src/app/welcome-page/auth/custom-validators';
   styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent {
+  isLoading = false;
   editProfileForm!: FormGroup;
-  constructor() {}
+  constructor(private editProfileService: EditProfileService) {}
 
   ngOnInit(): void {
     this.editProfileForm = new FormGroup({
@@ -24,9 +26,21 @@ export class EditProfileComponent {
         CustomValidators.containSpecialSymbols,
       ]),
     });
+
+    this.getUserData();
   }
 
-  onSubmit() {
-    console.log(this.editProfileForm);
+  private getUserData() {
+    this.isLoading = true;
+    this.editProfileService.getUserData().subscribe((userData) => {
+      this.editProfileForm.patchValue({
+        name: userData.name,
+        login: userData.login,
+      });
+      this.isLoading = false;
+    });
   }
+
+  onSubmit() {}
+  onDeleteProfile() {}
 }

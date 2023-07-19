@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,8 +19,9 @@ import { SignUpComponent } from './welcome-page/sign-up/sign-up.component';
 import { MainContentComponent } from './main-page/main-content/main-content.component';
 import { EditProfileComponent } from './main-page/edit-profile/edit-profile.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
-import { CreateModalComponent } from './create-modal/create-modal.component';
-import { LoadingSpinnerComponent } from './welcome-page/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthInterceptorService } from './welcome-page/auth/auth-interceptor.service';
+import { CreateBoardsComponent } from './create-boards/create-boards.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,8 @@ import { LoadingSpinnerComponent } from './welcome-page/loading-spinner/loading-
     MainContentComponent,
     EditProfileComponent,
     ConfirmationModalComponent,
-    CreateModalComponent,
     LoadingSpinnerComponent,
+    CreateBoardsComponent,
   ],
 
   imports: [
@@ -50,7 +51,13 @@ import { LoadingSpinnerComponent } from './welcome-page/loading-spinner/loading-
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

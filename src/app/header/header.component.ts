@@ -16,6 +16,7 @@ import {
 
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
+import { CreateService } from '../main-page/create.service';
 
 @Component({
   selector: 'pm-header',
@@ -29,7 +30,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private elementRef: ElementRef,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private createService: CreateService
   ) {}
 
   //fontawesome
@@ -54,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !user ? false : true;
     });
+    this.onRedirectPage();
   }
 
   onRedirectPage() {
@@ -64,8 +67,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  onLogout() {
+  onLogout(e: Event) {
     this.authService.logout();
+    e.preventDefault();
+  }
+
+  onCreateBoard(e: Event) {
+    this.createService.openModalCreateBoard();
+    e.preventDefault();
   }
 
   ngOnDestroy() {

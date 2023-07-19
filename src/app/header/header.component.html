@@ -18,14 +18,14 @@
           <a class="nav-link" href="#" routerLink="/signup"><fa-icon [icon]="faUserPlus"></fa-icon> Sign Up</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link" href="#"><fa-icon [icon]="faPlus"></fa-icon>
+          <a class="nav-link" (click)="onCreateBoard($event)" routerLink="/main"><fa-icon [icon]="faPlus"></fa-icon>
             Board</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link" href="#" routerLink="/main/editProfile"><fa-icon [icon]="faPenToSquare"></fa-icon> Profile</a>
+          <a class="nav-link" routerLink="/main/editProfile"><fa-icon [icon]="faPenToSquare"></fa-icon> Profile</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link" href="#" (click)="onLogout()"><fa-icon [icon]="faArrowRightToBracket"></fa-icon> Log
+          <a class="nav-link" href="#" (click)="onLogout($event)"><fa-icon [icon]="faArrowRightToBracket"></fa-icon> Log
             Out</a>
         </li>
       </ul>
