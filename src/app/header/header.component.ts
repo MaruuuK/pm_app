@@ -16,7 +16,7 @@ import {
 
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
-import { CreateService } from '../main-page/create.service';
+import { CreateBoardsService } from '../main-page/create-boards/createBoards.service';
 
 @Component({
   selector: 'pm-header',
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private authService: AuthService,
     private router: Router,
-    private createService: CreateService
+    private createBoardsService: CreateBoardsService
   ) {}
 
   //fontawesome
@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onCreateBoard(e: Event) {
-    this.createService.openModalCreateBoard();
+    this.createBoardsService.openModalCreateBoard();
     e.preventDefault();
   }
 

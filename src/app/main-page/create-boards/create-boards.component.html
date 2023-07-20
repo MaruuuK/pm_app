@@ -3,10 +3,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Create Board</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModalWindow($event)"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModalWindow($event)"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="createBoardForm" (ngSubmit)="onCreate()">
+        <form [formGroup]="createBoardForm" (ngSubmit)="onCreate(createBoardForm, $event)">
           <div class="mb-3">
             <label for="title-field" class="form-label">Title</label>
             <input type="text" class="form-control border border-primary input-field" id="title-field"
@@ -18,16 +19,18 @@
           </div>
           <div class="mb-3">
             <label for="usersOfBoard" class="form-label">Users</label>
-            <select id="usersOfBoard" class="form-control border border-primary input-field" formControlName="usersOfBoard">
-              <option></option>
+            <select id="usersOfBoard" class="form-control border border-primary input-field"
+              formControlName="usersOfBoard" multiple>
+              <option *ngFor="let user of users" [value]="user._id">{{user.name}} ({{user.login}})</option>
             </select>
           </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModalWindow($event)">CLOSE</button>
-      <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid">CREATE</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              (click)="closeModalWindow($event)">CLOSE</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid">CREATE</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </div>

@@ -52,7 +52,6 @@ export class SignUpComponent implements OnInit {
     this.isLoading = true;
     this.authService.signup(name, login, password).subscribe({
       next: () => {
-        console.log();
         this.isLoading = false;
         this.isSignup = true;
       },

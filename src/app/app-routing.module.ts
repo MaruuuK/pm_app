@@ -8,7 +8,7 @@ import { MainComponent } from './main-page/main.component';
 import { EditProfileComponent } from './main-page/edit-profile/edit-profile.component';
 import { AuthGuard } from './welcome-page/auth/auth.guard';
 import { MainContentComponent } from './main-page/main-content/main-content.component';
-import { CreateBoardsComponent } from './create-boards/create-boards.component';
+import { CreateBoardsComponent } from './main-page/create-boards/create-boards.component';
 
 const routes: Routes = [
   {

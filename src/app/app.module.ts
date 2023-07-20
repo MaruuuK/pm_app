@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -21,7 +23,7 @@ import { EditProfileComponent } from './main-page/edit-profile/edit-profile.comp
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './welcome-page/auth/auth-interceptor.service';
-import { CreateBoardsComponent } from './create-boards/create-boards.component';
+import { CreateBoardsComponent } from './main-page/create-boards/create-boards.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { CreateBoardsComponent } from './create-boards/create-boards.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
   providers: [
     {
