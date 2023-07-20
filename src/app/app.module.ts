@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,10 +18,11 @@ import { LogInComponent } from './welcome-page/log-in/log-in.component';
 import { SignUpComponent } from './welcome-page/sign-up/sign-up.component';
 import { MainContentComponent } from './main-page/main-content/main-content.component';
 import { EditProfileComponent } from './main-page/edit-profile/edit-profile.component';
-import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './welcome-page/auth/auth-interceptor.service';
 import { CreateBoardsComponent } from './main-page/create-boards/create-boards.component';
+import { ModalContentComponent } from './modal-content/modal-content.component';
 
 @NgModule({
   declarations: [
@@ -41,19 +40,18 @@ import { CreateBoardsComponent } from './main-page/create-boards/create-boards.c
     ConfirmationModalComponent,
     LoadingSpinnerComponent,
     CreateBoardsComponent,
+    ModalContentComponent,
   ],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
-    MatSelectModule,
-    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    MatSlideToggleModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

@@ -5,7 +5,7 @@ export interface Users {
 }
 
 
-export interface getBoards {
+export interface Boards {
   _id: string;
   title: string;
   owner: string;

@@ -1,5 +1,5 @@
 <div class="modal" tabindex="-1" id="createBoard">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Create Board</h5>
@@ -7,6 +7,9 @@
           (click)="closeModalWindow($event)"></button>
       </div>
       <div class="modal-body">
+        <div class="alert alert-danger text-center" *ngIf="error">
+          <p class="m-0">{{error}}</p>
+        </div>
         <form [formGroup]="createBoardForm" (ngSubmit)="onCreate(createBoardForm, $event)">
           <div class="mb-3">
             <label for="title-field" class="form-label">Title</label>

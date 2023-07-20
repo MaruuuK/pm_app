@@ -1,8 +1,11 @@
-<div class="modal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal" tabindex="-1" id="confirmation-modal">
+  <div class="modal-dialog">
     <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Are sure you want to delete {{ message }}?</h5>
+      </div>
       <div class="modal-body">
-        <p>Are sure you want to delete {{ message }}</p>
+        <p>This action cannot be undone.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary " data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
