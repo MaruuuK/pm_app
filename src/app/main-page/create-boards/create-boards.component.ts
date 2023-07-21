@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateBoardsService } from './createBoards.service';
 import { Users } from '../../shared/Users-boards.model';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
-import { BoardManagerService } from '../main-content/boardManager.service';
+import { BoardsManagerService } from '../main-content/boardsManager.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pm-create-boards',
@@ -18,7 +19,8 @@ export class CreateBoardsComponent {
   constructor(
     private createBoardsService: CreateBoardsService,
     private authService: AuthService,
-    private boardManagerService: BoardManagerService
+    private boardsManagerService: BoardsManagerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,8 +57,9 @@ export class CreateBoardsComponent {
       .createBoard(title, owner, selectedUsers)
       .subscribe({
         next: () => {
-          this.boardManagerService.notifyBoardCreated();
+          this.boardsManagerService.notifyBoardCreated();
           this.createBoardsService.hideModalCreateBoard();
+          this.router.navigate(['/main']);
         },
         error: (errorMessage) => {
           this.error = errorMessage;

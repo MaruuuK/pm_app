@@ -23,6 +23,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthInterceptorService } from './welcome-page/auth/auth-interceptor.service';
 import { CreateBoardsComponent } from './main-page/create-boards/create-boards.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BoardComponent } from './board/board.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ConfirmationModalComponent,
     LoadingSpinnerComponent,
     CreateBoardsComponent,
+    BoardComponent,
   ],
 
   imports: [

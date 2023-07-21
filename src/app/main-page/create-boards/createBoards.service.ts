@@ -4,6 +4,7 @@ import { ConfigService } from 'src/app/shared/config.service';
 import { Users, Boards } from '../../shared/Users-boards.model';
 import { catchError, throwError } from 'rxjs';
 import { Modal } from 'bootstrap';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class CreateBoardsService {
     const boardModal = document.getElementById('createBoard');
     if (boardModal) {
       this.boardModal = new Modal(boardModal);
-      this.boardModal.show();;
+      this.boardModal.show();
     }
   }
   hideModalCreateBoard() {

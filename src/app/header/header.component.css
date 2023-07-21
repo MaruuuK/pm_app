@@ -28,6 +28,11 @@ h1 {
   color: #fff;
 }
 
+.create-board-btn,
+.logout-btn {
+  cursor: pointer;
+}
+
 @media all and (max-width: 425px) {
   .navbar-brand {
     font-size: 20px;

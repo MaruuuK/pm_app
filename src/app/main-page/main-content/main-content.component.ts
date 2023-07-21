@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { BoardManagerService } from './boardManager.service';
+import { BoardsManagerService } from './boardsManager.service';
 import { Boards } from 'src/app/shared/Users-boards.model';
 import { ConfirmationService } from 'src/app/shared/confirmation-modal/confirmation.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'pm-main-content',
@@ -17,15 +18,16 @@ export class MainContentComponent implements OnInit {
   deletedBoard!: Boards;
 
   constructor(
-    private boardManagerService: BoardManagerService,
-    private confirmationService: ConfirmationService
+    private boardsManagerService: BoardsManagerService,
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.getBoards();
-    this.boardManagerService.boardCreated$.subscribe(() => this.getBoards());
-    this.boardManagerService.boardDeleted$.subscribe(() => {
-      this.boardManagerService.deleteBoard(this.deletedBoard).subscribe(() => {
+    this.boardsManagerService.boardCreated$.subscribe(() => this.getBoards());
+    this.boardsManagerService.boardDeleted$.subscribe(() => {
+      this.boardsManagerService.deleteBoard(this.deletedBoard).subscribe(() => {
         this.confirmationService.hideConfirmModal();
         this.getBoards();
       });
@@ -34,7 +36,7 @@ export class MainContentComponent implements OnInit {
 
   private getBoards() {
     this.isLoading = true;
-    this.boardManagerService.getBoards().subscribe((boards) => {
+    this.boardsManagerService.getBoards().subscribe((boards) => {
       this.boards = boards;
       this.isLoading = false;
     });
@@ -44,5 +46,12 @@ export class MainContentComponent implements OnInit {
     this.confirmationService.showConfirmModal();
     this.alertMessage = `"${board.title}" board`;
     this.deletedBoard = board;
+  }
+
+  OnNavigateToBoard(board: Boards) {
+    this.router.navigate(['/main/board', board.title], {
+      queryParams: { id: board._id },
+    });
+    console.log(board._id);
   }
 }

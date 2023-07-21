@@ -8,7 +8,7 @@ import { Modal } from 'bootstrap';
 @Injectable({
   providedIn: 'root',
 })
-export class BoardManagerService {
+export class BoardsManagerService {
   private boardCreatedSubject = new Subject<void>();
   boardCreated$ = this.boardCreatedSubject.asObservable();
   private boardDeletedSubject = new Subject<void>();

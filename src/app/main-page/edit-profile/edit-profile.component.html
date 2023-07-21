@@ -10,7 +10,7 @@
           <div class="mb-3">
             <label for="name-field" class="form-label">Name</label>
             <input type="text" class="form-control border border-primary input-field " id="name-field"
-              formControlName="name">
+              formControlName="name" autocomplete="username">
             <span *ngIf="!editProfileForm.get('name')?.valid && editProfileForm.get('name')?.touched"
               class="help is-danger">
               <span *ngIf="editProfileForm.get('name')?.hasError('invalidName')">
@@ -24,7 +24,7 @@
           <div class="mb-3">
             <label for="login-field" class="form-label">Login</label>
             <input type="text" class="form-control border border-primary input-field" id="login-field"
-              formControlName="login">
+              formControlName="login" autocomplete="username">
             <span *ngIf="!editProfileForm.get('login')?.valid && editProfileForm.get('login')?.touched"
               class="help is-danger">
               This field is required

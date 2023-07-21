@@ -56,7 +56,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !user ? false : true;
     });
-    this.onRedirectPage();
   }
 
   onRedirectPage() {
@@ -72,9 +71,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     e.preventDefault();
   }
 
-  onCreateBoard(e: Event) {
+  async onCreateBoard() {
     this.createBoardsService.openModalCreateBoard();
-    e.preventDefault();
   }
 
   ngOnDestroy() {
