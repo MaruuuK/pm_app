@@ -3,30 +3,26 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/shared/config.service';
 import { Users, Boards } from '../../shared/Users-boards.model';
 import { catchError, throwError } from 'rxjs';
-
+import { Modal } from 'bootstrap';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CreateBoardsService {
-  constructor(
-    private http: HttpClient,
-    private configService: ConfigService,
+  private boardModal: Modal | null = null;
 
-  ) {}
+  constructor(private http: HttpClient, private configService: ConfigService) {}
 
   openModalCreateBoard() {
-    const modalCreateBoard = document.getElementById('createBoard');
-    if (modalCreateBoard) {
-      modalCreateBoard.style.display = 'block';
+    const boardModal = document.getElementById('createBoard');
+    if (boardModal) {
+      this.boardModal = new Modal(boardModal);
+      this.boardModal.show();;
     }
   }
-
-  closeModal() {
-    const modalCreateBoard = document.getElementById('createBoard');
-    if (modalCreateBoard) {
-      modalCreateBoard.style.display = 'none';
-    }
+  hideModalCreateBoard() {
+    this.boardModal?.hide();
+    this.boardModal = null;
   }
 
   getUsers() {

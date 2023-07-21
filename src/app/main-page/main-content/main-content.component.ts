@@ -4,7 +4,6 @@ import { BoardManagerService } from './boardManager.service';
 import { Boards } from 'src/app/shared/Users-boards.model';
 import { ConfirmationService } from 'src/app/shared/confirmation-modal/confirmation.service';
 
-
 @Component({
   selector: 'pm-main-content',
   templateUrl: './main-content.component.html',
@@ -14,11 +13,11 @@ export class MainContentComponent implements OnInit {
   isLoading = false;
   faXmark = faXmark;
   boards: Boards[] = [];
+  alertMessage = '';
 
   constructor(
     private boardManagerService: BoardManagerService,
-    private confirmationService: ConfirmationService,
-
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -34,11 +33,8 @@ export class MainContentComponent implements OnInit {
     });
   }
 
-  onDeleteBoard(board: Boards, modal: any) {
-    // this.confirmationService.showModal(board);
-    // this.boardManagerService.deleteBoard(board).subscribe(() => {
-    //   this.boards.filter((b) => b._id !== board._id);
-    //   this.getBoards();
-    // })
+  onDeleteBoard(board: Boards) {
+    this.confirmationService.showConfirmModal();
+    this.alertMessage = `"${board.title}" board`;
   }
 }

@@ -1,25 +1,23 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Boards } from '../Users-boards.model';
+import { Modal } from 'bootstrap';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfirmationService {
-  board!: Boards | null;
+  private confirmModal: Modal | null = null;
 
-  showModal(board: Boards) {
-    const modalCreateBoard = document.getElementById('confirmation-modal');
-    if (modalCreateBoard) {
-      modalCreateBoard.style.display = 'block';
+  showConfirmModal() {
+    const confirmModal = document.getElementById('confirmationModal');
+    if (confirmModal) {
+      this.confirmModal = new Modal(confirmModal);
+      this.confirmModal.show();
     }
-    this.board = board;
   }
 
-  cancelDeletion() {
-    const modalCreateBoard = document.getElementById('confirmation-modal');
-    if (modalCreateBoard) {
-      modalCreateBoard.style.display = 'block';
-    }
-    this.board = null;
+  hideConfirmModal() {
+    this.confirmModal?.hide();
+    this.confirmModal = null;
   }
 }

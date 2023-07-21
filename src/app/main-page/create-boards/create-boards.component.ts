@@ -30,35 +30,38 @@ export class CreateBoardsComponent {
     this.createBoardsService.getUsers().subscribe((users: Users[]) => {
       this.users = users;
     });
+
+    const boardModal = document.getElementById('createBoard');
+    if (boardModal) {
+      boardModal.addEventListener('hidden.bs.modal', () => {
+        this.createBoardForm.reset();
+      });
+    }
   }
 
-  closeModalWindow(e: Event) {
-    this.createBoardsService.closeModal();
-    e.preventDefault();
-    this.createBoardForm.reset();
-  }
-
-  onCreate(createBoardForm: FormGroup, e: Event) {
+  onCreate(createBoardForm: FormGroup) {
     if (!createBoardForm.valid) {
       return;
     }
 
     const title = createBoardForm.value.title;
     const owner = this.authService.user.value!.id;
-    const selectedUsers = createBoardForm.get('usersOfBoard')?.value;
+    let selectedUsers = createBoardForm.get('usersOfBoard')?.value;
+    if (selectedUsers === null) {
+      selectedUsers = [];
+    }
 
     this.createBoardsService
       .createBoard(title, owner, selectedUsers)
       .subscribe({
         next: () => {
           this.boardManagerService.notifyBoardCreated();
+          this.createBoardsService.hideModalCreateBoard();
         },
         error: (errorMessage) => {
           this.error = errorMessage;
           this.isLoading = false;
         },
       });
-    this.closeModalWindow(e);
-    this.createBoardForm.reset();
   }
 }

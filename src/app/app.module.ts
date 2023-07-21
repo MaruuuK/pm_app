@@ -22,7 +22,7 @@ import { ConfirmationModalComponent } from './shared/confirmation-modal/confirma
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './welcome-page/auth/auth-interceptor.service';
 import { CreateBoardsComponent } from './main-page/create-boards/create-boards.component';
-import { ModalContentComponent } from './modal-content/modal-content.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,6 @@ import { ModalContentComponent } from './modal-content/modal-content.component';
     ConfirmationModalComponent,
     LoadingSpinnerComponent,
     CreateBoardsComponent,
-    ModalContentComponent,
   ],
 
   imports: [
@@ -52,6 +51,7 @@ import { ModalContentComponent } from './modal-content/modal-content.component';
     FontAwesomeModule,
     MatSlideToggleModule,
     BrowserAnimationsModule,
+    NgbModule,
   ],
   providers: [
     {

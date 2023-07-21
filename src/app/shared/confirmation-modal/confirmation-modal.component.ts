@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BoardManagerService } from 'src/app/main-page/main-content/boardManager.service';
 
 @Component({
   selector: 'pm-confirmation-modal',
@@ -7,13 +8,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ConfirmationModalComponent {
   @Input() message!: string;
-  @Output() deleted = new EventEmitter();
-  @Output() cancelled = new EventEmitter();
 
-  cancel() {
-    this.cancelled.emit();
-  }
+  constructor(private boardManager: BoardManagerService) { }
+
   delete() {
-    this.deleted.emit();
   }
 }

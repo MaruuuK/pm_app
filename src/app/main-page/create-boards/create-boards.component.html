@@ -3,14 +3,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Create Board</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="closeModalWindow($event)"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="alert alert-danger text-center" *ngIf="error">
           <p class="m-0">{{error}}</p>
         </div>
-        <form [formGroup]="createBoardForm" (ngSubmit)="onCreate(createBoardForm, $event)">
+        <form [formGroup]="createBoardForm" (ngSubmit)="onCreate(createBoardForm)">
           <div class="mb-3">
             <label for="title-field" class="form-label">Title</label>
             <input type="text" class="form-control border border-primary input-field" id="title-field"
@@ -28,8 +27,7 @@
             </select>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-              (click)="closeModalWindow($event)">CLOSE</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
             <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid">CREATE</button>
           </div>
         </form>
