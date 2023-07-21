@@ -14,6 +14,7 @@ export class MainContentComponent implements OnInit {
   faXmark = faXmark;
   boards: Boards[] = [];
   alertMessage = '';
+  deletedBoard!: Boards;
 
   constructor(
     private boardManagerService: BoardManagerService,
@@ -23,6 +24,12 @@ export class MainContentComponent implements OnInit {
   ngOnInit() {
     this.getBoards();
     this.boardManagerService.boardCreated$.subscribe(() => this.getBoards());
+    this.boardManagerService.boardDeleted$.subscribe(() => {
+      this.boardManagerService.deleteBoard(this.deletedBoard).subscribe(() => {
+        this.confirmationService.hideConfirmModal();
+        this.getBoards();
+      });
+    });
   }
 
   private getBoards() {
@@ -36,5 +43,6 @@ export class MainContentComponent implements OnInit {
   onDeleteBoard(board: Boards) {
     this.confirmationService.showConfirmModal();
     this.alertMessage = `"${board.title}" board`;
+    this.deletedBoard = board;
   }
 }

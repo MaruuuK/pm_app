@@ -12,5 +12,6 @@ export class ConfirmationModalComponent {
   constructor(private boardManager: BoardManagerService) { }
 
   delete() {
+    this.boardManager.notifyBoardDeleted();
   }
 }

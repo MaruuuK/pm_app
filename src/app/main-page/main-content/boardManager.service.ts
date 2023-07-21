@@ -11,6 +11,8 @@ import { Modal } from 'bootstrap';
 export class BoardManagerService {
   private boardCreatedSubject = new Subject<void>();
   boardCreated$ = this.boardCreatedSubject.asObservable();
+  private boardDeletedSubject = new Subject<void>();
+  boardDeleted$ = this.boardDeletedSubject.asObservable();
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
   openModalCreateBoard() {
@@ -23,6 +25,9 @@ export class BoardManagerService {
 
   notifyBoardCreated() {
     this.boardCreatedSubject.next();
+  }
+  notifyBoardDeleted() {
+    this.boardDeletedSubject.next();
   }
   getBoards() {
     return this.http.get<Boards[]>(this.configService.apiUrl + '/boards');
