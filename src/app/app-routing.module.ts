@@ -15,6 +15,7 @@ const routes: Routes = [
   {
     path: '',
     component: WelcomeComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: MainWelcomeComponent },
       { path: 'login', component: LogInComponent },
@@ -24,7 +25,6 @@ const routes: Routes = [
   {
     path: 'main',
     component: MainComponent,
-    canActivate: [AuthGuard],
     children: [
       { path: '', component: MainContentComponent },
       {
