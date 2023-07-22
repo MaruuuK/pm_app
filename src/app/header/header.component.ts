@@ -23,7 +23,7 @@ import { CreateBoardsService } from '../main-page/create-boards/createBoards.ser
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy{
   private userSub!: Subscription;
   isAuthenticated = false;
 
@@ -40,24 +40,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faPenToSquare = faPenToSquare;
   faPlus = faPlus;
 
-  //ShowBurgerMenu
-  navbarShow = false;
-  toggleNavbar() {
-    this.navbarShow = !this.navbarShow;
-  }
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.navbarShow = false;
-    }
-  }
+  // //ShowBurgerMenu
+  // navbarShow = false;
+  // toggleNavbar() {
+  //   this.navbarShow = !this.navbarShow;
+  // }
+  // @HostListener('document:click', ['$event'])
+  // onDocumentClick(event: MouseEvent) {
+  //   if (!this.elementRef.nativeElement.contains(event.target)) {
+  //     this.navbarShow = false;
+  //   }
+  // }
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !user ? false : true;
     });
   }
-
   onRedirectPage() {
     if (this.isAuthenticated) {
       this.router.navigate(['/main']);

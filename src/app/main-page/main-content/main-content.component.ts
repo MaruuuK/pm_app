@@ -42,10 +42,11 @@ export class MainContentComponent implements OnInit {
     });
   }
 
-  onDeleteBoard(board: Boards) {
+  onDeleteBoard(e: Event, board: Boards) {
     this.confirmationService.showConfirmModal();
     this.alertMessage = `"${board.title}" board`;
     this.deletedBoard = board;
+    e.stopPropagation();
   }
 
   OnNavigateToBoard(board: Boards) {
