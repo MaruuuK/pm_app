@@ -49,7 +49,12 @@ export class AuthService {
           const userId = decodedToken ? decodedToken.id : null;
           const user = new User(userId, login, resData.token, expirationDate);
           this.user.next(user);
-          this.autoLogout(+expirationDate!);
+
+          if (expirationDate) {
+            const expirationDuration =
+              expirationDate.getTime() - new Date().getTime();
+            this.autoLogout(expirationDuration);
+          }
           localStorage.setItem('userData', JSON.stringify(user));
         })
       );
