@@ -24,6 +24,7 @@ import { AuthInterceptorService } from './welcome-page/auth/auth-interceptor.ser
 import { CreateBoardsComponent } from './main-page/create-boards/create-boards.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BoardComponent } from './board/board.component';
+import { CreateColumnsComponent } from './board/create-columns/create-columns.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { BoardComponent } from './board/board.component';
     LoadingSpinnerComponent,
     CreateBoardsComponent,
     BoardComponent,
+    CreateColumnsComponent,
   ],
 
   imports: [

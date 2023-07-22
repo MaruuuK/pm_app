@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { BoardsManagerService } from './boardsManager.service';
+import { BoardsManagerService } from '../../shared/boardsManager.service';
 import { Boards } from 'src/app/shared/Users-boards.model';
 import { ConfirmationService } from 'src/app/shared/confirmation-modal/confirmation.service';
 import { NavigationExtras, Router } from '@angular/router';

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BoardsManagerService } from 'src/app/main-page/main-content/boardsManager.service';
+import { BoardsManagerService } from 'src/app/shared/boardsManager.service';
 
 @Component({
   selector: 'pm-confirmation-modal',

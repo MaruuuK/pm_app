@@ -26,9 +26,11 @@ export class BoardsManagerService {
   notifyBoardCreated() {
     this.boardCreatedSubject.next();
   }
+
   notifyBoardDeleted() {
     this.boardDeletedSubject.next();
   }
+
   getBoards() {
     return this.http.get<Boards[]>(this.configService.apiUrl + '/boards');
   }
@@ -37,5 +39,9 @@ export class BoardsManagerService {
     return this.http.delete<Boards>(
       this.configService.apiUrl + '/boards/' + board._id
     );
+  }
+
+  openModalCreateColumn() {
+
   }
 }

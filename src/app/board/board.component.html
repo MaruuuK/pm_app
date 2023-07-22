@@ -1,0 +1,23 @@
+<div class="container min-vh-100">
+  <div class="row header-board justify-content-between pt-4 pb-3 px-2">
+    <div class="back-to-main col text-start p-0" (click)="backToBoardsList()">
+      <fa-icon [icon]="faArrowLeft" size="2xl" ngbTooltip="Back to Boards" class="text-primary"></fa-icon>
+    </div>
+    <div class="col-8 text-end p-0">
+      <button class="btn btn-primary me-3"><fa-icon [icon]="faPlus"></fa-icon> Column</button>
+      <button class="btn btn-primary"><fa-icon [icon]="faPlus"></fa-icon> Task</button>
+    </div>
+  </div>
+
+  <h3 class="text-center">{{boardTitle}}</h3>
+
+  <div class="row border border-primary bg-primary-subtle">
+    <div class="col">
+      <p>Column</p>
+      <div>
+        <p>Task</p>
+      </div>
+    </div>
+  </div>
+</div>
+
