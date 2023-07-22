@@ -9,6 +9,7 @@ import { CreateColumnService } from './create-column.service';
 })
 export class CreateColumnsComponent implements OnInit {
   createColumnForm!: FormGroup;
+  isButtonDisabled = false;
 
   constructor(private createColumnService: CreateColumnService) {}
 
@@ -21,7 +22,14 @@ export class CreateColumnsComponent implements OnInit {
     if (!createColumnForm.valid) {
       return;
     }
+    if (this.isButtonDisabled) {
+      return;
+    }
+    this.isButtonDisabled = true;
     this.createColumnService.setFormData(createColumnForm);
     this.createColumnService.emitCreateButtonClick();
+    setTimeout(() => {
+      this.isButtonDisabled = false;
+    }, 2000);
   }
 }
