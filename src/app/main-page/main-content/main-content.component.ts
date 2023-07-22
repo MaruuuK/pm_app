@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { BoardsManagerService } from '../../shared/boardsManager.service';
+import { BoardsService } from './boards.service';
 import { Boards } from 'src/app/shared/Users-boards.model';
 import { ConfirmationService } from 'src/app/shared/confirmation-modal/confirmation.service';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pm-main-content',
@@ -18,16 +18,16 @@ export class MainContentComponent implements OnInit {
   deletedBoard!: Boards;
 
   constructor(
-    private boardsManagerService: BoardsManagerService,
+    private boardsService: BoardsService,
     private confirmationService: ConfirmationService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.getBoards();
-    this.boardsManagerService.boardCreated$.subscribe(() => this.getBoards());
-    this.boardsManagerService.boardDeleted$.subscribe(() => {
-      this.boardsManagerService.deleteBoard(this.deletedBoard).subscribe(() => {
+    this.boardsService.boardCreated$.subscribe(() => this.getBoards());
+    this.boardsService.boardDeleted$.subscribe(() => {
+      this.boardsService.deleteBoard(this.deletedBoard).subscribe(() => {
         this.confirmationService.hideConfirmModal();
         this.getBoards();
       });
@@ -36,7 +36,7 @@ export class MainContentComponent implements OnInit {
 
   private getBoards() {
     this.isLoading = true;
-    this.boardsManagerService.getBoards().subscribe((boards) => {
+    this.boardsService.getBoards().subscribe((boards) => {
       this.boards = boards;
       this.isLoading = false;
     });

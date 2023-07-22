@@ -1,1 +1,27 @@
-<p>create-columns works!</p>
+<div class="modal" tabindex="-1" id="createColumn">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Board</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createColumnForm" (ngSubmit)="onCreate(createColumnForm)">
+          <div class="mb-3">
+            <label for="title-field" class="form-label">Title</label>
+            <input type="text" class="form-control border border-primary input-field" id="title-field"
+              formControlName="title" autocomplete="title">
+            <span *ngIf="!createColumnForm.get('title')?.valid && createColumnForm.get('title')?.touched"
+              class="help is-danger">
+              This field is required
+            </span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createColumnForm.valid">CREATE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

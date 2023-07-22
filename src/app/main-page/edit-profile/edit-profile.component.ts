@@ -21,7 +21,6 @@ export class EditProfileComponent {
       ]),
       login: new FormControl('', Validators.required),
       password: new FormControl('', [
-        Validators.required,
         Validators.minLength(6),
         CustomValidators.containSpecialSymbols,
       ]),
@@ -41,6 +40,17 @@ export class EditProfileComponent {
     });
   }
 
-  onSubmit() {}
+  onUpdateUser(editProfileForm: FormGroup) {
+    if (!editProfileForm.valid) {
+      return;
+    }
+
+    const name = editProfileForm.value.name;
+    const login = editProfileForm.value.login;
+    const password = editProfileForm.value.password;
+
+    console.log(password);
+  }
+
   onDeleteProfile() {}
 }

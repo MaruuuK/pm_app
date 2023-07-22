@@ -1,18 +1,25 @@
 <div class="container min-vh-100">
   <div class="row header-board justify-content-between pt-4 pb-3 px-2">
-    <div class="back-to-main col text-start p-0" (click)="backToBoardsList()">
+    <div class="back-to-main col text-start p-0" (click)="onBackToBoardsList()">
       <fa-icon [icon]="faArrowLeft" size="2xl" ngbTooltip="Back to Boards" class="text-primary"></fa-icon>
     </div>
     <div class="col-8 text-end p-0">
-      <button class="btn btn-primary me-3"><fa-icon [icon]="faPlus"></fa-icon> Column</button>
-      <button class="btn btn-primary"><fa-icon [icon]="faPlus"></fa-icon> Task</button>
+      <button class="btn btn-warning me-3" (click)="onOpenModalCreateColumn()"><fa-icon [icon]="faPlus"></fa-icon>
+        Column</button>
+      <button class="btn btn-warning" *ngIf="columns && columns.length > 0"><fa-icon [icon]="faPlus"></fa-icon>
+        Task</button>
     </div>
   </div>
-
   <h3 class="text-center">{{boardTitle}}</h3>
+  <div *ngIf="isLoading" class="text-center m-auto">
+    <pm-loading-spinner></pm-loading-spinner>
+  </div>
+  <div class="alert alert-danger text-center" *ngIf="error">
+    <p class="m-0">{{error}}</p>
+  </div>
+  <div class="row border border-primary bg-primary-subtle overflow-auto" *ngIf="!isLoading">
 
-  <div class="row border border-primary bg-primary-subtle">
-    <div class="col">
+    <div class="col" style="max-width: 25rem;" *ngFor="let column of columns">
       <p>Column</p>
       <div>
         <p>Task</p>
@@ -20,4 +27,4 @@
     </div>
   </div>
 </div>
-
+<pm-create-columns></pm-create-columns>

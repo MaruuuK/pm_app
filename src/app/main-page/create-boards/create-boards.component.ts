@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateBoardsService } from './createBoards.service';
 import { Users } from '../../shared/Users-boards.model';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
-import { BoardsManagerService } from '../../shared/boardsManager.service';
+import { BoardsService } from '../main-content/boards.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class CreateBoardsComponent {
   constructor(
     private createBoardsService: CreateBoardsService,
     private authService: AuthService,
-    private boardsManagerService: BoardsManagerService,
+    private boardsService: BoardsService,
     private router: Router
   ) {}
 
@@ -57,7 +57,7 @@ export class CreateBoardsComponent {
       .createBoard(title, owner, selectedUsers)
       .subscribe({
         next: () => {
-          this.boardsManagerService.notifyBoardCreated();
+          this.boardsService.notifyBoardCreated();
           this.createBoardsService.hideModalCreateBoard();
           this.router.navigate(['/main']);
         },

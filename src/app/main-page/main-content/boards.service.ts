@@ -8,7 +8,7 @@ import { Modal } from 'bootstrap';
 @Injectable({
   providedIn: 'root',
 })
-export class BoardsManagerService {
+export class BoardsService {
   private boardCreatedSubject = new Subject<void>();
   boardCreated$ = this.boardCreatedSubject.asObservable();
   private boardDeletedSubject = new Subject<void>();
@@ -39,9 +39,5 @@ export class BoardsManagerService {
     return this.http.delete<Boards>(
       this.configService.apiUrl + '/boards/' + board._id
     );
-  }
-
-  openModalCreateColumn() {
-
   }
 }
