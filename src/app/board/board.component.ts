@@ -11,6 +11,7 @@ import { Column } from './create-columns/column.model';
 import { CreateColumnService } from './create-columns/create-column.service';
 import { FormGroup } from '@angular/forms';
 import { Subscription, take } from 'rxjs';
+import { ConfirmationService } from '../shared/confirmation-modal/confirmation.service';
 
 @Component({
   selector: 'pm-board',
@@ -27,10 +28,12 @@ export class BoardComponent implements OnInit, OnDestroy {
   isLoading = false;
   error: string | null = null;
   editingTitle = false;
+  alertMessage = '';
 
   columns!: Column[];
   createColumnsData!: FormGroup;
   boardId!: string;
+  deletedColumn!: Column;
 
   private clickEventSubscription!: Subscription;
 
@@ -38,7 +41,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private boardManagerService: BoardManagerService,
-    private createColumnService: CreateColumnService
+    private createColumnService: CreateColumnService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -69,6 +73,13 @@ export class BoardComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.createColumn();
       });
+
+    this.boardManagerService.columnDeleted$.subscribe(() => {
+      this.boardManagerService.deleteColumn(this.boardId, this.deletedColumn).subscribe(() => {
+        this.confirmationService.hideConfirmModal();
+        this.getColumns(this.boardId);
+      });
+    });
   }
 
   onOpenModalCreateColumn() {
@@ -99,6 +110,13 @@ export class BoardComponent implements OnInit, OnDestroy {
           this.isLoading = false;
         },
       });
+  }
+
+  onDeleteColumn(e: Event, column: Column) {
+    this.confirmationService.showConfirmModal();
+    this.alertMessage = `"${column.title}" column`;
+    this.deletedColumn = column;
+    e.stopPropagation();
   }
 
   private getColumns(boardId: string) {

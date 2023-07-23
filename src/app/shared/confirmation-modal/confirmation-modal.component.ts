@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { BoardManagerService } from 'src/app/board/boardManager.service';
 import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 
 @Component({
@@ -9,9 +10,10 @@ import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 export class ConfirmationModalComponent {
   @Input() message!: string;
 
-  constructor(private boardsManager: BoardsService) {}
+  constructor(private boardsService: BoardsService, private boardManagerService: BoardManagerService ) {}
 
   delete() {
-    this.boardsManager.notifyBoardDeleted();
+    this.boardsService.notifyBoardDeleted();
+    this.boardManagerService.notifyColumnDeleted();
   }
 }
