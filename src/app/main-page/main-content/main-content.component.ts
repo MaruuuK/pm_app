@@ -53,6 +53,5 @@ export class MainContentComponent implements OnInit {
     this.router.navigate(['/main/board', board.title], {
       queryParams: { id: board._id },
     });
-    console.log(board._id);
   }
 }

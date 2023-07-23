@@ -18,12 +18,26 @@ export class BoardManagerService {
 
   createColumn(boardId: string, title: string, order: number) {
     return this.http
-      .post<Column>(
-        this.configService.apiUrl + `/boards/${boardId}/columns`,
+      .post<Column>(this.configService.apiUrl + `/boards/${boardId}/columns`, {
+        title: title,
+        order: order,
+      })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  updateColumnTitle(
+    boardId: string,
+    columnId: string,
+    columnTitle: string,
+    order: number
+  ) {
+    return this.http
+      .put<Column>(
+        this.configService.apiUrl + `/boards/${boardId}/columns/${columnId}`,
         {
-          'title': title,
-          'order': order,
-       }
+          title: columnTitle,
+          order: order,
+        }
       )
       .pipe(catchError(this.handleError.bind(this)));
   }

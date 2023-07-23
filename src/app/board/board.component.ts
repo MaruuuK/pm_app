@@ -1,26 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faPlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus,
+  faArrowLeft,
+  faCheck,
+  faBan,
+} from '@fortawesome/free-solid-svg-icons';
 import { BoardManagerService } from './boardManager.service';
 import { Column } from './create-columns/column.model';
 import { CreateColumnService } from './create-columns/create-column.service';
 import { FormGroup } from '@angular/forms';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'pm-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   faArrowLeft = faArrowLeft;
   faPlus = faPlus;
+  faCheck = faCheck;
+  faBan = faBan;
+
   boardTitle!: string;
   isLoading = false;
   error: string | null = null;
+  editingTitle = false;
 
   columns!: Column[];
   createColumnsData!: FormGroup;
   boardId!: string;
+
+  private clickEventSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,27 +58,53 @@ export class BoardComponent implements OnInit {
 
     this.getColumns(this.boardId);
 
-    this.createColumnService.getFormData().subscribe((formColumnData) => {
-      this.createColumnsData = formColumnData;
-    });
-    this.createColumnService.onCreateButtonClick().subscribe(() => {
-      this.createColumn();
-    });
-  }
-
-  onBackToBoardsList() {
-    this.router.navigate(['/main']);
+    this.createColumnService
+      .getFormData()
+      .pipe(take(1))
+      .subscribe((formColumnData) => {
+        this.createColumnsData = formColumnData;
+      });
+    this.clickEventSubscription = this.createColumnService
+      .onCreateButtonClick()
+      .subscribe(() => {
+        this.createColumn();
+      });
   }
 
   onOpenModalCreateColumn() {
     this.createColumnService.openModalCreateBoard();
   }
 
+  onChangeTitle() {
+    this.editingTitle = true;
+  }
+
+  OnCancelChangeTitle() {
+    this.editingTitle = false;
+  }
+
+  onUpdateColumnTitle(column: Column) {
+    const columnId = column._id;
+    const columnTitle = column.title;
+    const columnOrder = column.order;
+
+    this.boardManagerService
+      .updateColumnTitle(this.boardId, columnId, columnTitle, columnOrder)
+      .subscribe({
+        next: () => {
+          this.editingTitle = false;
+        },
+        error: (errorMessage) => {
+          this.error = errorMessage;
+          this.isLoading = false;
+        },
+      });
+  }
+
   private getColumns(boardId: string) {
     this.isLoading = true;
     this.boardManagerService.getColumns(boardId).subscribe((columns) => {
       this.columns = columns;
-      console.log(this.columns);
       this.isLoading = false;
     });
   }
@@ -89,5 +127,13 @@ export class BoardComponent implements OnInit {
           this.createColumnService.hideModalCreateBoard();
         },
       });
+  }
+
+  onBackToBoardsList() {
+    this.router.navigate(['/main']);
+  }
+
+  ngOnDestroy() {
+    this.clickEventSubscription.unsubscribe();
   }
 }
