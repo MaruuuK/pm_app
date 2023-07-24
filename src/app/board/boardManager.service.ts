@@ -20,6 +20,9 @@ export class BoardManagerService {
   private columnDeletedSubject = new Subject<void>();
   columnDeleted$ = this.columnDeletedSubject.asObservable();
 
+  private taskDeletedSubject = new Subject<void>();
+  taskDeleted$ = this.taskDeletedSubject.asObservable();
+
   constructor(private configService: ConfigService, private http: HttpClient) {}
 
   getColumnsAndTasks(boardId: string): Observable<Column[]> {
@@ -107,6 +110,12 @@ export class BoardManagerService {
       .pipe(catchError(this.handleError.bind(this)));
   }
 
+  deleteTask(boardId: string, columnId: string, task: Task) {
+    return this.http.delete<Task>(
+      this.configService.apiUrl +
+        `/boards/${boardId}/columns/${columnId}/tasks/${task?._id}`
+    );
+  }
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'Something went wrong. Please try later';
     if (!errorRes.error?.error) {
@@ -117,5 +126,9 @@ export class BoardManagerService {
 
   notifyColumnDeleted() {
     this.columnDeletedSubject.next();
+  }
+
+  notifyTaskDeleted() {
+    this.taskDeletedSubject.next();
   }
 }

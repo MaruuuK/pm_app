@@ -10,10 +10,14 @@ import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 export class ConfirmationModalComponent {
   @Input() message!: string;
 
-  constructor(private boardsService: BoardsService, private boardManagerService: BoardManagerService ) {}
+  constructor(
+    private boardsService: BoardsService,
+    private boardManagerService: BoardManagerService
+  ) {}
 
   delete() {
     this.boardsService.notifyBoardDeleted();
     this.boardManagerService.notifyColumnDeleted();
+    this.boardManagerService.notifyTaskDeleted();
   }
 }

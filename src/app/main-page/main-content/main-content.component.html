@@ -7,7 +7,8 @@
       <div class="card border border-primary m-4 p-0" style="width: 20rem;" *ngFor="let board of boards"
         (click)="OnNavigateToBoard(board)">
         <div class="card-header text-end bg-warning">
-          <button type="button" class="btn-close" aria-label="Close" (click)="onDeleteBoard($event, board)"></button>
+          <button type="button" class="btn btn-link text-white" (click)="onDeleteBoard($event, board)"><fa-icon
+              [icon]="faXmark" size="xl"></fa-icon></button>
         </div>
         <div class="card-body">
           <h4 class="card-title">{{ board.title}}</h4>

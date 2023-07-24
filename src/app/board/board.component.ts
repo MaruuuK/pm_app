@@ -5,6 +5,7 @@ import {
   faArrowLeft,
   faCheck,
   faBan,
+  faXmark
 } from '@fortawesome/free-solid-svg-icons';
 import { BoardManagerService } from './boardManager.service';
 import { Column } from './create-columns/column.model';
@@ -14,6 +15,7 @@ import { Subscription, take } from 'rxjs';
 import { ConfirmationService } from '../shared/confirmation-modal/confirmation.service';
 import { CreateTaskService } from './create-task/create-task.service';
 import { AuthService } from '../welcome-page/auth/auth.service';
+import { Task } from './create-task/task.model';
 
 @Component({
   selector: 'pm-board',
@@ -25,6 +27,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   faPlus = faPlus;
   faCheck = faCheck;
   faBan = faBan;
+  faXmark = faXmark;
 
   boardTitle!: string;
   isLoading = false;
@@ -41,6 +44,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   deletedColumnOrder!: number;
 
   createTaskData!: FormGroup;
+  deletedTask!: Task;
 
   private clickEventSubscriptionColumn!: Subscription;
   private clickEventSubscriptionTask!: Subscription;
@@ -93,6 +97,24 @@ export class BoardComponent implements OnInit, OnDestroy {
           this.confirmationService.hideConfirmModal();
           this.columns = this.columns.filter((column) => {
             return column._id !== this.deletedColumn._id;
+          });
+        });
+    });
+
+    this.boardManagerService.taskDeleted$.subscribe(() => {
+      this.boardManagerService
+        .deleteTask(this.boardId, this.columnId, this.deletedTask)
+        .subscribe(() => {
+          this.confirmationService.hideConfirmModal();
+          this.columns.forEach((column) => {
+            if (column._id === this.deletedTask.columnId) {
+              const taskIndex = column?.tasks?.findIndex(
+                (task) => task._id === this.deletedTask._id
+              );
+              if (taskIndex && taskIndex !== -1) {
+                column?.tasks?.splice(taskIndex, 1);
+              }
+            }
           });
         });
     });
@@ -231,6 +253,13 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.columnId = columnId;
   }
 
+  onDeleteTask(e: Event, task: Task, columnId: string) {
+    this.confirmationService.showConfirmModal();
+    this.alertMessage = `"${task.title}" task`;
+    this.deletedTask = task;
+    this.columnId = columnId;
+    e.stopPropagation();
+  }
   onBackToBoardsList() {
     this.router.navigate(['/main']);
   }

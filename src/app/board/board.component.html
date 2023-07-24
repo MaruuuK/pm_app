@@ -17,14 +17,14 @@
     <p class="m-0">{{error}}</p>
   </div>
 
-  <div class="row overflow-x-auto flex-nowrap" id="style-4" *ngIf="!isLoading">
+  <div class="row overflow-x-auto flex-nowrap style-4" *ngIf="!isLoading">
     <div *ngIf="columns && columns.length === 0">
       <p class="fs-5 text m-2 border  border-1 rounded border-primary bg-primary-subtle p-2">
         Create new column
       </p>
     </div>
-    <div class="card m-1 mb-3  column-container" style="max-width: 17rem; " *ngFor="let column of columns">
-      <div class="d-flex justify-content-between m-2" *ngIf="!editingTitle" (click)="onChangeTitle()">
+    <div class="card m-1 mb-3  column-container style-4" style="max-width: 17rem; " *ngFor="let column of columns">
+      <div class="d-flex justify-content-between m-2 column-title" *ngIf="!editingTitle" (click)="onChangeTitle()">
         <div>
           <p class="m-0 fs-5 text-wrap text-break">{{ column.title }}</p>
         </div>
@@ -38,18 +38,23 @@
             [icon]="faCheck"></fa-icon></button>
         <input [(ngModel)]="column.title" type="text" class="form-control border border-primary input-field">
       </div>
-      <hr class="m-0">
-      <div class="overflow-y-auto flex-nowrap">
-        <div class="card m-2 bg-info-subtle" style="max-width: 15rem; " *ngFor="let task of column.tasks">
-          <p class="m-0 p-2 fs-5 text-wrap text-break">{{ task.title }}</p>
+      <hr class="m-0 mb-2">
+      <div class="card mb-2 bg-info-subtle" style="max-width: 17rem; " *ngFor="let task of column.tasks">
+        <div class="d-flex justify-content-between m-2">
+          <div>
+            <p class="m-0 fs-5 text-wrap text-break">{{ task.title }}</p>
+          </div>
+          <button type="button" class="btn btn-link flex-shrink-0" (click)="onDeleteTask($event, task, column._id)"><fa-icon
+              [icon]="faXmark" size="lg"></fa-icon></button>
         </div>
-        <div class="d-grid m-3" (click)="onOpenModalCreateTask(column._id)">
-          <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
-            Task</button>
-        </div>
+      </div>
+      <div class="d-grid m-3" (click)="onOpenModalCreateTask(column._id)">
+        <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
+          Task</button>
       </div>
     </div>
   </div>
-  <pm-create-columns></pm-create-columns>
-  <pm-create-task></pm-create-task>
-  <pm-confirmation-modal [message]="alertMessage"></pm-confirmation-modal>
+</div>
+<pm-create-columns></pm-create-columns>
+<pm-create-task></pm-create-task>
+<pm-confirmation-modal [message]="alertMessage"></pm-confirmation-modal>
