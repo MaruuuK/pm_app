@@ -14,3 +14,12 @@
 #style-4::-webkit-scrollbar-thumb {
   background-color: #e4e4e4;
 }
+
+.column-container {
+  /* Set the desired height for the column container */
+  max-height: 530px;
+  /* Adjust this value as needed */
+
+  /* Apply the vertical scroll bar when tasks overflow */
+  overflow-y: auto;
+}

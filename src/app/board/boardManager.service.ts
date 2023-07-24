@@ -9,6 +9,7 @@ import {
   forkJoin,
   mergeMap,
   throwError,
+  of,
 } from 'rxjs';
 import { Task } from './create-task/task.model';
 
@@ -28,6 +29,9 @@ export class BoardManagerService {
 
     return columns$.pipe(
       mergeMap((columns: Column[]) => {
+        if (columns.length === 0) {
+          return of([]);
+        }
         const tasksRequests: Observable<Task[]>[] = columns.map((column) =>
           this.http.get<Task[]>(
             this.configService.apiUrl +
@@ -93,11 +97,11 @@ export class BoardManagerService {
         this.configService.apiUrl +
           `/boards/${boardId}/columns/${columnId}/tasks`,
         {
-          'title': title,
-          'order': order,
-          'description': description,
-          'userId': userId,
-          'users': selectedUsers,
+          title: title,
+          order: order,
+          description: description,
+          userId: userId,
+          users: selectedUsers,
         }
       )
       .pipe(catchError(this.handleError.bind(this)));

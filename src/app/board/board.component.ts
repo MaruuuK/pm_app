@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   faPlus,
@@ -20,7 +20,7 @@ import { AuthService } from '../welcome-page/auth/auth.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
-export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BoardComponent implements OnInit, OnDestroy {
   faArrowLeft = faArrowLeft;
   faPlus = faPlus;
   faCheck = faCheck;
@@ -71,6 +71,8 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
+    this.getColumnsAndTasks(this.boardId);
+
     this.createColumnService
       .getFormData()
       .pipe(take(1))
@@ -89,7 +91,9 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         .deleteColumn(this.boardId, this.deletedColumn)
         .subscribe(() => {
           this.confirmationService.hideConfirmModal();
-          this.getColumnsAndTasks(this.boardId);
+          this.columns = this.columns.filter((column) => {
+            return column._id !== this.deletedColumn._id;
+          });
         });
     });
 
@@ -105,10 +109,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(() => {
         this.createTask();
       });
-  }
-
-  ngAfterViewInit() {
-    this.getColumnsAndTasks(this.boardId);
   }
 
   onOpenModalCreateColumn() {
@@ -154,7 +154,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
       .getColumnsAndTasks(boardId)
       .subscribe((columns) => {
         this.columns = columns;
-        console.log(this.columns);
         this.isLoading = false;
       });
   }
@@ -183,6 +182,9 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     const column: Column | undefined = this.columns.find((column) => {
       return this.columnId === column._id;
     });
+    if (column && !column?.hasOwnProperty('tasks')) {
+      column.tasks = [];
+    }
     const title = this.createTaskData.value.title;
     const order =
       column?.tasks?.length !== undefined ? column.tasks.length + 1 : 0;
@@ -227,7 +229,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
   onOpenModalCreateTask(columnId: string) {
     this.createTaskService.openModalCreateTask();
     this.columnId = columnId;
-    console.log(columnId);
   }
 
   onBackToBoardsList() {
