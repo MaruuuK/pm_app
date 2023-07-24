@@ -7,8 +7,6 @@
       <button class="btn btn-warning me-3 btn-lg" (click)="onOpenModalCreateColumn()"><fa-icon
           [icon]="faPlus"></fa-icon>
         Column</button>
-      <button class="btn btn-warning btn-lg" *ngIf="columns && columns.length > 0"><fa-icon [icon]="faPlus"></fa-icon>
-        Task</button>
     </div>
   </div>
   <h3 class="text-center mb-3">{{boardTitle}}</h3>
@@ -41,12 +39,17 @@
         <input [(ngModel)]="column.title" type="text" class="form-control border border-primary input-field">
       </div>
       <hr class="m-0">
+      <div class="card m-2" style="max-width: 15rem; " *ngFor="let task of column.tasks">
+        <p class="m-0 p-2 fs-5 text-wrap text-break">{{ task.title }}</p>
+      </div>
       <div>
-        <div>
-          <p>Task</p>
+        <div class="d-grid m-3" (click)="onOpenModalCreateTask()">
+          <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
+            Task</button>
         </div>
       </div>
     </div>
   </div>
   <pm-create-columns></pm-create-columns>
+  <pm-create-task></pm-create-task>
   <pm-confirmation-modal [message]="alertMessage"></pm-confirmation-modal>

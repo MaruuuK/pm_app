@@ -12,6 +12,8 @@ import { CreateColumnService } from './create-columns/create-column.service';
 import { FormGroup } from '@angular/forms';
 import { Subscription, take } from 'rxjs';
 import { ConfirmationService } from '../shared/confirmation-modal/confirmation.service';
+import { CreateTaskService } from './create-task/create-task.service';
+import { Task } from './create-task/task.model';
 
 @Component({
   selector: 'pm-board',
@@ -30,19 +32,25 @@ export class BoardComponent implements OnInit, OnDestroy {
   editingTitle = false;
   alertMessage = '';
 
+  boardId!: string;
+
   columns!: Column[];
   createColumnsData!: FormGroup;
-  boardId!: string;
   deletedColumn!: Column;
+  deletedColumnOrder!: number;
 
-  private clickEventSubscription!: Subscription;
+  createTaskData!: FormGroup;
+
+  private clickEventSubscriptionColumn!: Subscription;
+  private clickEventSubscriptionTask!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private boardManagerService: BoardManagerService,
     private createColumnService: CreateColumnService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private createTaskService: CreateTaskService
   ) {}
 
   ngOnInit() {
@@ -57,10 +65,11 @@ export class BoardComponent implements OnInit, OnDestroy {
       const boardId = params.get('id');
       if (boardId) {
         this.boardId = boardId;
+        console.log(boardId);
       }
     });
 
-    this.getColumns(this.boardId);
+    this.getColumnsAndTasks(this.boardId);
 
     this.createColumnService
       .getFormData()
@@ -68,18 +77,34 @@ export class BoardComponent implements OnInit, OnDestroy {
       .subscribe((formColumnData) => {
         this.createColumnsData = formColumnData;
       });
-    this.clickEventSubscription = this.createColumnService
+
+    this.clickEventSubscriptionColumn = this.createColumnService
       .onCreateButtonClick()
       .subscribe(() => {
         this.createColumn();
       });
 
     this.boardManagerService.columnDeleted$.subscribe(() => {
-      this.boardManagerService.deleteColumn(this.boardId, this.deletedColumn).subscribe(() => {
-        this.confirmationService.hideConfirmModal();
-        this.getColumns(this.boardId);
-      });
+      this.boardManagerService
+        .deleteColumn(this.boardId, this.deletedColumn)
+        .subscribe(() => {
+          this.confirmationService.hideConfirmModal();
+          this.getColumnsAndTasks(this.boardId);
+        });
     });
+
+    this.createTaskService
+      .getFormTaskData()
+      .pipe(take(1))
+      .subscribe((formTaskData) => {
+        this.createTaskData = formTaskData;
+      });
+
+    this.clickEventSubscriptionTask = this.createTaskService
+      .onCreateTaskButtonClick()
+      .subscribe(() => {
+        console.log('data');
+      });
   }
 
   onOpenModalCreateColumn() {
@@ -119,12 +144,14 @@ export class BoardComponent implements OnInit, OnDestroy {
     e.stopPropagation();
   }
 
-  private getColumns(boardId: string) {
+  private getColumnsAndTasks(boardId: string) {
     this.isLoading = true;
-    this.boardManagerService.getColumns(boardId).subscribe((columns) => {
-      this.columns = columns;
-      this.isLoading = false;
-    });
+    this.boardManagerService
+      .getColumnsAndTasks(boardId)
+      .subscribe((columns) => {
+        this.columns = columns;
+        this.isLoading = false;
+      });
   }
 
   private createColumn() {
@@ -134,10 +161,11 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.boardManagerService
       .createColumn(this.boardId, title, order)
       .subscribe({
-        next: () => {
+        next: (column) => {
           this.createColumnService.hideModalCreateBoard();
-          this.getColumns(this.boardId);
+          this.getColumnsAndTasks(this.boardId);
           this.createColumnsData.reset();
+          console.log(column);
         },
         error: (errorMessage) => {
           this.error = errorMessage;
@@ -147,11 +175,18 @@ export class BoardComponent implements OnInit, OnDestroy {
       });
   }
 
+  private createTask() {}
+
+  onOpenModalCreateTask() {
+    this.createTaskService.openModalCreateBoard();
+  }
+
   onBackToBoardsList() {
     this.router.navigate(['/main']);
   }
 
   ngOnDestroy() {
-    this.clickEventSubscription.unsubscribe();
+    this.clickEventSubscriptionColumn.unsubscribe();
+    this.clickEventSubscriptionTask.unsubscribe();
   }
 }

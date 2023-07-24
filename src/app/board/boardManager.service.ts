@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '../shared/config.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Column } from './create-columns/column.model';
-import { Subject, catchError, throwError } from 'rxjs';
+import { Observable, Subject, catchError, forkJoin, mergeMap, throwError } from 'rxjs';
+import { Task } from './create-task/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,32 @@ export class BoardManagerService {
   getColumns(boardId: string) {
     return this.http.get<Column[]>(
       this.configService.apiUrl + `/boards/${boardId}/columns`
+    );
+  }
+
+  getColumnsAndTasks(boardId: string): Observable<Column[]> {
+    const columns$ = this.http.get<Column[]>(
+      this.configService.apiUrl + `/boards/${boardId}/columns`
+    );
+
+    return columns$.pipe(
+      mergeMap((columns: Column[]) => {
+        const tasksRequests: Observable<Task[]>[] = columns.map((column) =>
+          this.http.get<Task[]>(
+            this.configService.apiUrl +
+              `/boards/${boardId}/columns/${column._id}/tasks`
+          )
+        );
+
+        return forkJoin(tasksRequests).pipe(
+          mergeMap((tasks: Task[][]) => {
+            columns.forEach((column, index) => {
+              column.tasks = tasks[index];
+            });
+            return [columns];
+          })
+        );
+      })
     );
   }
 
@@ -47,7 +74,7 @@ export class BoardManagerService {
 
   deleteColumn(boardId: string, column: Column) {
     return this.http.delete<Column>(
-      this.configService.apiUrl + `/boards/${boardId}/columns/${column._id}`
+      this.configService.apiUrl + `/boards/${boardId}/columns/${column?._id}`
     );
   }
 
