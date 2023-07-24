@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '../shared/config.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Column } from './create-columns/column.model';
-import { Observable, Subject, catchError, forkJoin, mergeMap, throwError } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  forkJoin,
+  mergeMap,
+  throwError,
+} from 'rxjs';
 import { Task } from './create-task/task.model';
 
 @Injectable({
@@ -13,12 +20,6 @@ export class BoardManagerService {
   columnDeleted$ = this.columnDeletedSubject.asObservable();
 
   constructor(private configService: ConfigService, private http: HttpClient) {}
-
-  getColumns(boardId: string) {
-    return this.http.get<Column[]>(
-      this.configService.apiUrl + `/boards/${boardId}/columns`
-    );
-  }
 
   getColumnsAndTasks(boardId: string): Observable<Column[]> {
     const columns$ = this.http.get<Column[]>(
@@ -76,6 +77,30 @@ export class BoardManagerService {
     return this.http.delete<Column>(
       this.configService.apiUrl + `/boards/${boardId}/columns/${column?._id}`
     );
+  }
+
+  createTask(
+    boardId: string,
+    columnId: string,
+    title: string,
+    order: number,
+    description: string,
+    userId: string | null,
+    selectedUsers: string[]
+  ) {
+    return this.http
+      .post<Task>(
+        this.configService.apiUrl +
+          `/boards/${boardId}/columns/${columnId}/tasks`,
+        {
+          'title': title,
+          'order': order,
+          'description': description,
+          'userId': userId,
+          'users': selectedUsers,
+        }
+      )
+      .pipe(catchError(this.handleError.bind(this)));
   }
 
   private handleError(errorRes: HttpErrorResponse) {

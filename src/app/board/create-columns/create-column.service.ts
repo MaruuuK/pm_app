@@ -10,15 +10,15 @@ export class CreateColumnService {
   private createButtonClickSubject = new Subject<void>();
   private columnModal: Modal | null = null;
 
-  openModalCreateBoard() {
+  openModalCreateColumn() {
     const columnModal = document.getElementById('createColumn');
     if (columnModal) {
       this.columnModal = new Modal(columnModal);
       this.columnModal.show();
     }
   }
-  
-  hideModalCreateBoard() {
+
+  hideModalCreateColumn() {
     this.columnModal?.hide();
     this.columnModal = null;
   }
@@ -31,7 +31,7 @@ export class CreateColumnService {
     this.createButtonClickSubject.next();
   }
 
-  onCreateButtonClick() {
+  createButtonClick() {
     return this.createButtonClickSubject.asObservable();
   }
 

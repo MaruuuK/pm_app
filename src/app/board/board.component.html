@@ -43,7 +43,7 @@
         <p class="m-0 p-2 fs-5 text-wrap text-break">{{ task.title }}</p>
       </div>
       <div>
-        <div class="d-grid m-3" (click)="onOpenModalCreateTask()">
+        <div class="d-grid m-3" (click)="onOpenModalCreateTask(column._id)">
           <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
             Task</button>
         </div>

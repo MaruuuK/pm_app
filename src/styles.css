@@ -62,6 +62,11 @@ input.ng-invalid.ng-touched {
   box-shadow: 0 0 8px red !important;
 }
 
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+  box-shadow: 0 0 8px red !important;
+}
+
 .help {
   color: red;
 }

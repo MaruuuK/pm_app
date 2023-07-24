@@ -37,7 +37,7 @@ export class BoardsService {
 
   deleteBoard(board: Boards) {
     return this.http.delete<Boards>(
-      this.configService.apiUrl + '/boards/' + board._id
+      this.configService.apiUrl + '/boards/' + board?._id
     );
   }
 }

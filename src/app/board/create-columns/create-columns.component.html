@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="createColumnForm" (ngSubmit)="onCreate(createColumnForm)">
+        <form [formGroup]="createColumnForm" (ngSubmit)="onCreateColumn(createColumnForm)">
           <div class="mb-3">
             <label for="title-field" class="form-label">Title</label>
             <input type="text" class="form-control border border-primary input-field" id="title-field"
@@ -18,7 +18,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-            <button type="submit" class="btn btn-success" [disabled]="!createColumnForm.valid && isButtonDisabled">CREATE</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createColumnForm.valid && !isButtonDisabled">CREATE</button>
           </div>
         </form>
       </div>

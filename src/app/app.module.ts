@@ -25,6 +25,7 @@ import { CreateBoardsComponent } from './main-page/create-boards/create-boards.c
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BoardComponent } from './board/board.component';
 import { CreateColumnsComponent } from './board/create-columns/create-columns.component';
+import { CreateTaskComponent } from './board/create-task/create-task.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CreateColumnsComponent } from './board/create-columns/create-columns.co
     CreateBoardsComponent,
     BoardComponent,
     CreateColumnsComponent,
+    CreateTaskComponent,
   ],
 
   imports: [

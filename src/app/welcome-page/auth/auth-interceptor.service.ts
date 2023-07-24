@@ -16,12 +16,10 @@ export class AuthInterceptorService implements HttpInterceptor {
     return this.authService.user.pipe(
       take(1),
       exhaustMap((user) => {
-        if (!user || !user.token) {
-          return next.handle(req);
-        }
+        const token = user?.token;
         const modifiedReq = req.clone({
           headers: new HttpHeaders({
-            Authorization: 'Bearer ' + user.token,
+            Authorization: token ? 'Bearer ' + token: '',
           }),
         });
         return next.handle(modifiedReq);

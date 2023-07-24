@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   faPlus,
@@ -13,14 +13,14 @@ import { FormGroup } from '@angular/forms';
 import { Subscription, take } from 'rxjs';
 import { ConfirmationService } from '../shared/confirmation-modal/confirmation.service';
 import { CreateTaskService } from './create-task/create-task.service';
-import { Task } from './create-task/task.model';
+import { AuthService } from '../welcome-page/auth/auth.service';
 
 @Component({
   selector: 'pm-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
-export class BoardComponent implements OnInit, OnDestroy {
+export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
   faArrowLeft = faArrowLeft;
   faPlus = faPlus;
   faCheck = faCheck;
@@ -35,6 +35,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   boardId!: string;
 
   columns!: Column[];
+  columnId!: string;
   createColumnsData!: FormGroup;
   deletedColumn!: Column;
   deletedColumnOrder!: number;
@@ -50,7 +51,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private boardManagerService: BoardManagerService,
     private createColumnService: CreateColumnService,
     private confirmationService: ConfirmationService,
-    private createTaskService: CreateTaskService
+    private createTaskService: CreateTaskService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -69,8 +71,6 @@ export class BoardComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.getColumnsAndTasks(this.boardId);
-
     this.createColumnService
       .getFormData()
       .pipe(take(1))
@@ -79,7 +79,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       });
 
     this.clickEventSubscriptionColumn = this.createColumnService
-      .onCreateButtonClick()
+      .createButtonClick()
       .subscribe(() => {
         this.createColumn();
       });
@@ -101,14 +101,18 @@ export class BoardComponent implements OnInit, OnDestroy {
       });
 
     this.clickEventSubscriptionTask = this.createTaskService
-      .onCreateTaskButtonClick()
+      .createTaskButtonClick()
       .subscribe(() => {
-        console.log('data');
+        this.createTask();
       });
   }
 
+  ngAfterViewInit() {
+    this.getColumnsAndTasks(this.boardId);
+  }
+
   onOpenModalCreateColumn() {
-    this.createColumnService.openModalCreateBoard();
+    this.createColumnService.openModalCreateColumn();
   }
 
   onChangeTitle() {
@@ -150,6 +154,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       .getColumnsAndTasks(boardId)
       .subscribe((columns) => {
         this.columns = columns;
+        console.log(this.columns);
         this.isLoading = false;
       });
   }
@@ -162,23 +167,67 @@ export class BoardComponent implements OnInit, OnDestroy {
       .createColumn(this.boardId, title, order)
       .subscribe({
         next: (column) => {
-          this.createColumnService.hideModalCreateBoard();
-          this.getColumnsAndTasks(this.boardId);
+          this.createColumnService.hideModalCreateColumn();
           this.createColumnsData.reset();
-          console.log(column);
+          this.columns.push(column);
         },
         error: (errorMessage) => {
           this.error = errorMessage;
-          this.isLoading = false;
-          this.createColumnService.hideModalCreateBoard();
+          this.createColumnService.hideModalCreateColumn();
+          this.createColumnsData.reset();
         },
       });
   }
 
-  private createTask() {}
+  private createTask() {
+    const column: Column | undefined = this.columns.find((column) => {
+      return this.columnId === column._id;
+    });
+    const title = this.createTaskData.value.title;
+    const order =
+      column?.tasks?.length !== undefined ? column.tasks.length + 1 : 0;
+    const description =
+      this.createTaskData.value?.description === null
+        ? ''
+        : this.createTaskData.value?.description;
+    const userId = this.authService.user.value!.id;
+    const selectedUsers =
+      this.createTaskData.value?.usersOfTask === null
+        ? []
+        : this.createTaskData.value?.usersOfTask;
+    this.boardManagerService
+      .createTask(
+        this.boardId,
+        this.columnId,
+        title,
+        order,
+        description,
+        userId,
+        selectedUsers
+      )
+      .subscribe({
+        next: (task) => {
+          this.columns.forEach((column) => {
+            if (this.columnId === column._id) {
+              column.tasks?.push(task);
+            }
+          });
+          this.createTaskService.hideModalCreateTask();
+          this.createTaskData.reset();
+        },
+        error: (errorMessage) => {
+          this.error = errorMessage;
+          this.isLoading = false;
+          this.createTaskService.hideModalCreateTask();
+          this.createTaskData.reset();
+        },
+      });
+  }
 
-  onOpenModalCreateTask() {
-    this.createTaskService.openModalCreateBoard();
+  onOpenModalCreateTask(columnId: string) {
+    this.createTaskService.openModalCreateTask();
+    this.columnId = columnId;
+    console.log(columnId);
   }
 
   onBackToBoardsList() {

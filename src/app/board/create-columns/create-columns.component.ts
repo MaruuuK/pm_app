@@ -17,8 +17,17 @@ export class CreateColumnsComponent implements OnInit {
     this.createColumnForm = new FormGroup({
       title: new FormControl('', Validators.required),
     });
+
+    const columnModal = document.getElementById('createColumn');
+    if (columnModal) {
+      columnModal.addEventListener('hidden.bs.modal', () => {
+        this.createColumnForm.reset();
+      });
+    }
   }
-  onCreate(createColumnForm: FormGroup): void {
+
+
+  onCreateColumn(createColumnForm: FormGroup): void {
     if (!createColumnForm.valid) {
       return;
     }
