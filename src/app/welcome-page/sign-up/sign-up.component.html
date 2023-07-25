@@ -15,8 +15,9 @@
           </div>
         </div>
         <h2 class="text-center mb-4 text-primary signup-login-header" *ngIf="!isSignup">Sign Up</h2>
-        <div class="alert alert-danger text-center" *ngIf="error">
+        <div class="alert alert-danger text-center alert-dismissible fade show" *ngIf="error">
           <p class="m-0">{{error}}</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" *ngIf="!isSignup">
           <div class="mb-3">

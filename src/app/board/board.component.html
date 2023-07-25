@@ -13,8 +13,9 @@
   <div *ngIf="isLoading" class="text-center m-auto">
     <pm-loading-spinner></pm-loading-spinner>
   </div>
-  <div class="alert alert-danger text-center" *ngIf="error">
+  <div class="alert alert-danger text-center alert-dismissible fade show" *ngIf="error">
     <p class="m-0">{{error}}</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 
   <div class="row overflow-x-auto flex-nowrap style-4" *ngIf="!isLoading">

@@ -167,6 +167,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     const columnId = column._id;
     const columnTitle = column.title;
     const columnOrder = column.order;
+    this.error = '';
 
     this.boardManagerService
       .updateColumnTitle(this.boardId, columnId, columnTitle, columnOrder)
@@ -199,6 +200,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   private createColumn() {
+    this.error = '';
     const title = this.createColumnsData.value.title;
     const order = this.columns.length + 1;
 
@@ -219,6 +221,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   private createTask() {
+    this.error = '';
     const column: Column | undefined = this.columns.find((column) => {
       return this.columnId === column._id;
     });
@@ -280,6 +283,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   updateTask() {
+    this.error = '';
     const column = this.columns.find((column) => {
       return column._id === this.updatedTask?.columnId;
     });

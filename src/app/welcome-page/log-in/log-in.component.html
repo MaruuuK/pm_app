@@ -7,8 +7,9 @@
       <div class="col-lg-5 col-md-10 col-sm-8 p-3 p-sm-5 border rounded-5 border-primary bg-white mx-auto h-75"
         *ngIf="!isLoading">
         <h2 class="text-center mb-4 text-primary signup-login-header">Log In</h2>
-        <div class="alert alert-danger text-center" *ngIf="error">
+        <div class="alert alert-danger text-center alert-dismissible fade show" *ngIf="error">
           <p class="m-0">{{error}}</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
           <div class="mb-3">
