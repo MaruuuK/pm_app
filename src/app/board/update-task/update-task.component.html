@@ -1,0 +1,48 @@
+<div class="modal" tabindex="-1" id="updateTask">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+
+    <div class="modal-content">
+      <div *ngIf="isLoading" class="text-center m-auto">
+        <pm-loading-spinner></pm-loading-spinner>
+      </div>
+      <div class="modal-header" *ngIf="!isLoading">
+        <h5 class="modal-title">Update Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="!isLoading">
+        <form [formGroup]="updateTaskForm" (ngSubmit)="onUpdateTask(updateTaskForm)">
+          <div class="mb-3">
+            <label for="title-field" class="form-label">Title</label>
+            <input type="text" class="form-control border border-primary input-field" id="title-field"
+              formControlName="title" autocomplete="title">
+            <span *ngIf="!updateTaskForm.get('title')?.valid && updateTaskForm.get('title')?.touched"
+              class="help is-danger">
+              This field is required
+            </span>
+          </div>
+          <div>
+            <label for="title-field" class="form-label">Description</label>
+            <textarea class="form-control border border-primary input-field" id="exampleFormControlTextarea1" rows="2"
+              formControlName="description"></textarea>
+            <span *ngIf="!updateTaskForm.get('description')?.valid && updateTaskForm.get('description')?.touched"
+              class="help is-danger">
+              This field is required
+            </span>
+          </div>
+          <div class="mb-3">
+            <label for="usersOfBoard" class="form-label">Users</label>
+            <select id="usersOfBoard" class="form-control border border-primary input-field"
+              formControlName="usersOfTask" multiple>
+              <option *ngFor="let user of users" [value]="user._id">{{user.name}} ({{user.login}})</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+            <button type="submit" class="btn btn-success"
+              [disabled]="!updateTaskForm.valid && !isButtonDisabled">UPDATE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

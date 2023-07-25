@@ -23,6 +23,9 @@ export class BoardManagerService {
   private taskDeletedSubject = new Subject<void>();
   taskDeleted$ = this.taskDeletedSubject.asObservable();
 
+  private updatedTaskSubject = new Subject<void>();
+  taskUpdated$ = this.updatedTaskSubject.asObservable();
+
   constructor(private configService: ConfigService, private http: HttpClient) {}
 
   getColumnsAndTasks(boardId: string): Observable<Column[]> {
@@ -86,6 +89,13 @@ export class BoardManagerService {
     );
   }
 
+  getTask(boardId: string, columnId: string, taskId: string) {
+    return this.http.get<Task>(
+      this.configService.apiUrl +
+        `/boards/${boardId}/columns/${columnId}/tasks/${taskId}`
+    );
+  }
+
   createTask(
     boardId: string,
     columnId: string,
@@ -110,12 +120,30 @@ export class BoardManagerService {
       .pipe(catchError(this.handleError.bind(this)));
   }
 
+  updateTask(task: Task | undefined) {
+    return this.http
+      .put<Task>(
+        this.configService.apiUrl +
+          `/boards/${task?.boardId}/columns/${task?.columnId}/tasks/${task?._id}`,
+        {
+          title: task?.title,
+          order: task?.order,
+          description: task?.description,
+          columnId: task?.columnId,
+          userId: task?.userId,
+          users: task?.users,
+        }
+      )
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
   deleteTask(boardId: string, columnId: string, task: Task) {
     return this.http.delete<Task>(
       this.configService.apiUrl +
         `/boards/${boardId}/columns/${columnId}/tasks/${task?._id}`
     );
   }
+
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'Something went wrong. Please try later';
     if (!errorRes.error?.error) {
@@ -130,5 +158,9 @@ export class BoardManagerService {
 
   notifyTaskDeleted() {
     this.taskDeletedSubject.next();
+  }
+
+  notifyTaskUpdated() {
+    this.updatedTaskSubject.next();
   }
 }

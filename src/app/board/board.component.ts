@@ -5,7 +5,7 @@ import {
   faArrowLeft,
   faCheck,
   faBan,
-  faXmark
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { BoardManagerService } from './boardManager.service';
 import { Column } from './create-columns/column.model';
@@ -16,6 +16,7 @@ import { ConfirmationService } from '../shared/confirmation-modal/confirmation.s
 import { CreateTaskService } from './create-task/create-task.service';
 import { AuthService } from '../welcome-page/auth/auth.service';
 import { Task } from './create-task/task.model';
+import { UpdateTaskService } from './update-task/update-task.service';
 
 @Component({
   selector: 'pm-board',
@@ -44,10 +45,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   deletedColumnOrder!: number;
 
   createTaskData!: FormGroup;
+  updateTaskData!: FormGroup;
+  updatedTask!: Task | undefined;
   deletedTask!: Task;
 
   private clickEventSubscriptionColumn!: Subscription;
   private clickEventSubscriptionTask!: Subscription;
+  private clickEventSubscriptionUpdateTask!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,7 +60,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private createColumnService: CreateColumnService,
     private confirmationService: ConfirmationService,
     private createTaskService: CreateTaskService,
-    private authService: AuthService
+    private authService: AuthService,
+    private updateTaskService: UpdateTaskService
   ) {}
 
   ngOnInit() {
@@ -130,6 +135,19 @@ export class BoardComponent implements OnInit, OnDestroy {
       .createTaskButtonClick()
       .subscribe(() => {
         this.createTask();
+      });
+
+    this.updateTaskService
+      .getFormUpdateTaskData()
+      .pipe(take(1))
+      .subscribe((formUpdateTaskData) => {
+        this.updateTaskData = formUpdateTaskData;
+      });
+
+    this.clickEventSubscriptionUpdateTask = this.updateTaskService
+      .updateTaskButtonClick()
+      .subscribe(() => {
+        this.updateTask();
       });
   }
 
@@ -260,6 +278,41 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.columnId = columnId;
     e.stopPropagation();
   }
+
+  updateTask() {
+    const column = this.columns.find((column) => {
+      return column._id === this.updatedTask?.columnId;
+    });
+    if (column) {
+      this.updatedTask = column.tasks?.find((task) => {
+        return task._id === this.updatedTask?._id;
+      });
+    }
+    if (this.updatedTask) {
+      this.updatedTask.title = this.updateTaskData.value.title;
+      this.updatedTask.description = this.updateTaskData.value.description;
+      this.updatedTask.users =
+        this.updateTaskData.value.usersOfTask === null
+          ? []
+          : this.updateTaskData.value.usersOfTask;
+    }
+    this.boardManagerService.updateTask(this.updatedTask).subscribe({
+      next: () => {
+        this.updateTaskService.hideModalUpdateTask();
+      },
+      error: (errorMessage) => {
+        this.error = errorMessage;
+        this.updateTaskService.hideModalUpdateTask();
+      },
+    });
+  }
+
+  onOpenModalUpdateTask(task: Task) {
+    this.updateTaskService.openModalUpdateTask();
+    this.updateTaskService.emitUpdateTaskEvent(task);
+    this.updatedTask = task;
+  }
+
   onBackToBoardsList() {
     this.router.navigate(['/main']);
   }
@@ -267,5 +320,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.clickEventSubscriptionColumn.unsubscribe();
     this.clickEventSubscriptionTask.unsubscribe();
+    this.clickEventSubscriptionUpdateTask.unsubscribe();
   }
 }

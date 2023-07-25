@@ -23,7 +23,7 @@
         Create new column
       </p>
     </div>
-    <div class="card m-1 mb-3  column-container style-4" style="max-width: 17rem; " *ngFor="let column of columns">
+    <div class="card m-1 mb-3  column-container" style="max-width: 17rem; " *ngFor="let column of columns">
       <div class="d-flex justify-content-between m-2 column-title" *ngIf="!editingTitle" (click)="onChangeTitle()">
         <div>
           <p class="m-0 fs-5 text-wrap text-break">{{ column.title }}</p>
@@ -39,22 +39,25 @@
         <input [(ngModel)]="column.title" type="text" class="form-control border border-primary input-field">
       </div>
       <hr class="m-0 mb-2">
-      <div class="card mb-2 bg-info-subtle" style="max-width: 17rem; " *ngFor="let task of column.tasks">
-        <div class="d-flex justify-content-between m-2">
-          <div>
-            <p class="m-0 fs-5 text-wrap text-break">{{ task.title }}</p>
+      <div class="overflow-y-auto style-4">
+        <div class="card mb-2 bg-info-subtle" style="max-width: 17rem; " *ngFor="let task of column.tasks">
+          <div class="d-flex justify-content-between m-2 task-update" (click)="onOpenModalUpdateTask(task)">
+            <div>
+              <p class="m-0 fs-5 text-wrap text-break">{{ task.title }}</p>
+            </div>
+            <button type="button" class="btn btn-link flex-shrink-0"
+              (click)="onDeleteTask($event, task, column._id)"><fa-icon [icon]="faXmark" size="lg"></fa-icon></button>
           </div>
-          <button type="button" class="btn btn-link flex-shrink-0" (click)="onDeleteTask($event, task, column._id)"><fa-icon
-              [icon]="faXmark" size="lg"></fa-icon></button>
         </div>
-      </div>
-      <div class="d-grid m-3" (click)="onOpenModalCreateTask(column._id)">
-        <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
-          Task</button>
+        <div class="d-grid m-3" (click)="onOpenModalCreateTask(column._id)">
+          <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
+            Task</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <pm-create-columns></pm-create-columns>
 <pm-create-task></pm-create-task>
+<pm-update-task></pm-update-task>
 <pm-confirmation-modal [message]="alertMessage"></pm-confirmation-modal>
