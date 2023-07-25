@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateBoardsService } from './createBoards.service';
 import { Users } from '../../shared/Users-boards.model';
-import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 import { BoardsService } from '../main-content/boards.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'pm-create-boards',
@@ -15,12 +13,11 @@ export class CreateBoardsComponent {
   createBoardForm!: FormGroup;
   users: Users[] = [];
   isLoading = false;
+  isButtonDisabled = false;
   error: string | null = null;
   constructor(
     private createBoardsService: CreateBoardsService,
-    private authService: AuthService,
-    private boardsService: BoardsService,
-    private router: Router
+    private boardsService: BoardsService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +26,7 @@ export class CreateBoardsComponent {
       usersOfBoard: new FormControl([]),
     });
 
-    this.createBoardsService.getUsers().subscribe((users: Users[]) => {
+    this.boardsService.getUsers().subscribe((users: Users[]) => {
       this.users = users;
     });
 
@@ -45,26 +42,14 @@ export class CreateBoardsComponent {
     if (!createBoardForm.valid) {
       return;
     }
-
-    const title = createBoardForm.value.title;
-    const owner = this.authService.user.value!.id;
-    let selectedUsers = createBoardForm.get('usersOfBoard')?.value;
-    if (selectedUsers === null) {
-      selectedUsers = [];
+    if (this.isButtonDisabled) {
+      return;
     }
-
-    this.createBoardsService
-      .createBoard(title, owner, selectedUsers)
-      .subscribe({
-        next: () => {
-          this.boardsService.notifyBoardCreated();
-          this.createBoardsService.hideModalCreateBoard();
-          this.router.navigate(['/main']);
-        },
-        error: (errorMessage) => {
-          this.error = errorMessage;
-          this.isLoading = false;
-        },
-      });
+    this.isButtonDisabled = true;
+    this.createBoardsService.setFormBoardData(createBoardForm);
+    this.createBoardsService.emitCreateBoardButtonClick();
+    setTimeout(() => {
+      this.isButtonDisabled = false;
+    }, 2000);
   }
 }

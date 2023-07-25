@@ -6,9 +6,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="alert alert-danger text-center" *ngIf="error">
-          <p class="m-0">{{error}}</p>
-        </div>
         <form [formGroup]="createBoardForm" (ngSubmit)="onCreate(createBoardForm)">
           <div class="mb-3">
             <label for="title-field" class="form-label">Title</label>
@@ -28,7 +25,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-            <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid">CREATE</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid && !isButtonDisabled">CREATE</button>
           </div>
         </form>
       </div>

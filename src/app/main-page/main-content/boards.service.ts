@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Boards } from 'src/app/shared/Users-boards.model';
+import { Subject, catchError, throwError } from 'rxjs';
+import { Boards, Users } from 'src/app/shared/Users-boards.model';
 import { ConfigService } from 'src/app/shared/config.service';
 import { Modal } from 'bootstrap';
 
@@ -23,10 +23,6 @@ export class BoardsService {
     }
   }
 
-  notifyBoardCreated() {
-    this.boardCreatedSubject.next();
-  }
-
   notifyBoardDeleted() {
     this.boardDeletedSubject.next();
   }
@@ -35,9 +31,31 @@ export class BoardsService {
     return this.http.get<Boards[]>(this.configService.apiUrl + '/boards');
   }
 
+  createBoard(title: string, owner: string | null, users: string[]) {
+    return this.http
+      .post<Boards>(this.configService.apiUrl + '/boards', {
+        title: title,
+        owner: owner,
+        users: users,
+      })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  private handleError(errorRes: HttpErrorResponse) {
+    let errorMessage = 'Something went wrong. Please try later';
+    if (!errorRes.error?.error) {
+      return throwError(() => errorMessage);
+    }
+    return throwError(() => errorMessage);
+  }
+
   deleteBoard(board: Boards) {
     return this.http.delete<Boards>(
       this.configService.apiUrl + '/boards/' + board?._id
     );
+  }
+
+  getUsers() {
+    return this.http.get<Users[]>(this.configService.apiUrl + '/users');
   }
 }

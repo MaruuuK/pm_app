@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateBoardsService } from 'src/app/main-page/create-boards/createBoards.service';
 import { Users } from 'src/app/shared/Users-boards.model';
 import { Task } from '../create-task/task.model';
 import { BoardManagerService } from '../boardManager.service';
 import { Subscription } from 'rxjs';
 import { UpdateTaskService } from './update-task.service';
+import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 
 @Component({
   selector: 'pm-update-task',
@@ -22,9 +22,9 @@ export class UpdateTaskComponent implements OnInit, OnDestroy {
   updateTaskForm!: FormGroup;
 
   constructor(
-    private createBoardsService: CreateBoardsService,
     private boardManagerService: BoardManagerService,
-    private updateTaskService: UpdateTaskService
+    private updateTaskService: UpdateTaskService,
+    private boardsService: BoardsService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class UpdateTaskComponent implements OnInit, OnDestroy {
       usersOfTask: new FormControl([]),
     });
 
-    this.createBoardsService.getUsers().subscribe((users: Users[]) => {
+    this.boardsService.getUsers().subscribe((users: Users[]) => {
       this.users = users;
     });
 

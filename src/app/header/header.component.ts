@@ -23,7 +23,7 @@ import { CreateBoardsService } from '../main-page/create-boards/createBoards.ser
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit, OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
   isAuthenticated = false;
 
@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
     e.preventDefault();
   }
 
-  async onCreateBoard() {
+  onCreateBoard() {
     this.createBoardsService.openModalCreateBoard();
   }
 

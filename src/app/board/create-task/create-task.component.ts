@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateBoardsService } from 'src/app/main-page/create-boards/createBoards.service';
 import { Users } from 'src/app/shared/Users-boards.model';
 import { CreateTaskService } from './create-task.service';
+import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 
 @Component({
   selector: 'pm-create-task',
@@ -15,7 +15,7 @@ export class CreateTaskComponent implements OnInit {
   users: Users[] = [];
 
   constructor(
-    private createBoardsService: CreateBoardsService,
+    private boardsService: BoardsService,
     private createTaskService: CreateTaskService
   ) {}
 
@@ -26,7 +26,7 @@ export class CreateTaskComponent implements OnInit {
       usersOfTask: new FormControl([]),
     });
 
-    this.createBoardsService.getUsers().subscribe((users: Users[]) => {
+    this.boardsService.getUsers().subscribe((users: Users[]) => {
       this.users = users;
     });
 
