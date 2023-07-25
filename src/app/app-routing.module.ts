@@ -10,6 +10,7 @@ import { AuthGuard } from './welcome-page/auth/auth.guard';
 import { MainContentComponent } from './main-page/main-content/main-content.component';
 import { CreateBoardsComponent } from './main-page/create-boards/create-boards.component';
 import { BoardComponent } from './board/board.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'not-found',
+    component: ErrorPageComponent,
+  },
+  { path: '**', redirectTo: '/not-found' },
 ];
 
 @NgModule({

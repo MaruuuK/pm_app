@@ -27,6 +27,7 @@ import { BoardComponent } from './board/board.component';
 import { CreateColumnsComponent } from './board/create-columns/create-columns.component';
 import { CreateTaskComponent } from './board/create-task/create-task.component';
 import { UpdateTaskComponent } from './board/update-task/update-task.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { UpdateTaskComponent } from './board/update-task/update-task.component';
     CreateColumnsComponent,
     CreateTaskComponent,
     UpdateTaskComponent,
+    ErrorPageComponent,
   ],
 
   imports: [
