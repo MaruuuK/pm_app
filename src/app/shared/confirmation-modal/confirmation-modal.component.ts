@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BoardManagerService } from 'src/app/board/boardManager.service';
+import { EditProfileService } from 'src/app/main-page/edit-profile/editProfile.service';
 import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 
 @Component({
@@ -12,12 +13,14 @@ export class ConfirmationModalComponent {
 
   constructor(
     private boardsService: BoardsService,
-    private boardManagerService: BoardManagerService
+    private boardManagerService: BoardManagerService,
+    private editProfileService: EditProfileService
   ) {}
 
   delete() {
     this.boardsService.notifyBoardDeleted();
     this.boardManagerService.notifyColumnDeleted();
     this.boardManagerService.notifyTaskDeleted();
+    this.editProfileService.notifyDeleteUserButtonClick();
   }
 }

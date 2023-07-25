@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { EditProfileService } from './editProfile.service';
+import { AuthService } from 'src/app/welcome-page/auth/auth.service';
+import { ConfirmationService } from 'src/app/shared/confirmation-modal/confirmation.service';
 
 @Component({
   selector: 'pm-edit-profile',
@@ -9,9 +11,18 @@ import { EditProfileService } from './editProfile.service';
   styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent {
+  alertMessage: string = '';
   isLoading = false;
+  error: string = '';
+  successMessage: string = '';
+
   editProfileForm!: FormGroup;
-  constructor(private editProfileService: EditProfileService) {}
+
+  constructor(
+    private editProfileService: EditProfileService,
+    private authService: AuthService,
+    private confirmationService: ConfirmationService
+  ) {}
 
   ngOnInit(): void {
     this.editProfileForm = new FormGroup({
@@ -21,12 +32,20 @@ export class EditProfileComponent {
       ]),
       login: new FormControl('', Validators.required),
       password: new FormControl('', [
+        Validators.required,
         Validators.minLength(6),
         CustomValidators.containSpecialSymbols,
       ]),
     });
 
     this.getUserData();
+
+    this.editProfileService.userDeleted$.subscribe(() => {
+      this.editProfileService.deleteUser().subscribe(() => {
+        this.confirmationService.hideConfirmModal();
+        this.authService.logout();
+      });
+    });
   }
 
   private getUserData() {
@@ -41,6 +60,9 @@ export class EditProfileComponent {
   }
 
   onUpdateUser(editProfileForm: FormGroup) {
+    this.isLoading = true;
+    this.successMessage = '';
+    this.error = '';
     if (!editProfileForm.valid) {
       return;
     }
@@ -48,9 +70,20 @@ export class EditProfileComponent {
     const name = editProfileForm.value.name;
     const login = editProfileForm.value.login;
     const password = editProfileForm.value.password;
-
-    console.log(password);
+    this.editProfileService.updateUserData(name, login, password).subscribe({
+      next: () => {
+        this.successMessage = 'User updated successfully';
+        this.isLoading = false;
+      },
+      error: (errorMessage) => {
+        this.error = errorMessage;
+        this.isLoading = false;
+      },
+    });
   }
 
-  onDeleteProfile() {}
+  onDeleteProfile() {
+    this.confirmationService.showConfirmModal();
+    this.alertMessage = 'this account';
+  }
 }
