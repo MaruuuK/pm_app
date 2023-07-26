@@ -290,10 +290,6 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.columnId = columnId;
         e.stopPropagation();
       });
-    this.confirmationService.showConfirmModal();
-    this.deletedTask = task;
-    this.columnId = columnId;
-    e.stopPropagation();
   }
 
   updateTask() {
