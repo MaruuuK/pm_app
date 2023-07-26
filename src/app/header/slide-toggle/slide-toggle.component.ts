@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'pm-slide-toggle',
@@ -12,7 +12,11 @@ export class SlideToggleComponent {
   checked = true;
   disabled = false;
 
-  onLanguageToggleChange(event: MatSlideToggleChange) {
-    this.isEnglish = event.checked;
+  constructor(private translateService: TranslateService) {}
+
+  onLanguageToggleChange() {
+    this.isEnglish = !this.isEnglish;
+    const lang = this.isEnglish ? 'en' : 'ru';
+    this.translateService.use(lang);
   }
 }

@@ -8,80 +8,85 @@
         *ngIf="!isLoading">
         <div *ngIf="isSignup">
           <div class="alert alert-success">
-            <p class="m-0">Registration was successful.</p>
+            <p class="m-0">{{ 'signupPage.successful' | translate}}</p>
           </div>
           <div class="m-auto text-center">
-            <button class="btn btn-primary btn-lg" (click)="onLogin()">Log In</button>
+            <button class="btn btn-primary btn-lg" (click)="onLogin()">{{ 'signupPage.loginHeader' |
+              translate}}</button>
           </div>
         </div>
-        <h2 class="text-center mb-4 text-primary signup-login-header" *ngIf="!isSignup">Sign Up</h2>
+        <h2 class="text-center mb-4 text-primary signup-login-header" *ngIf="!isSignup">{{ 'signupPage.signupHeader' |
+          translate}}</h2>
         <div class="alert alert-danger text-center alert-dismissible fade show" *ngIf="error">
-          <p class="m-0">{{error}}</p>
+          <p class="m-0" translate>{{error}}</p>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" *ngIf="!isSignup">
           <div class="mb-3">
-            <label for="name-field" class="form-label">Name</label>
+            <label for="name-field" class="form-label">{{ 'signupPage.nameField' | translate}}</label>
             <input type="text" class="form-control border border-primary input-field " id="name-field"
               formControlName="name" autocomplete="username">
             <span *ngIf="!signupForm.get('name')?.valid && signupForm.get('name')?.touched" class="help is-danger">
               <span *ngIf="signupForm.get('name')?.hasError('invalidName')">
-                This name is invalid
+                {{ 'signupPage.invalidName' | translate}}
               </span>
               <span *ngIf="signupForm.get('name')?.hasError('required')">
-                This field is required
+                {{ 'signupPage.RequiredField' | translate}}
               </span>
             </span>
           </div>
           <div class="mb-3">
-            <label for="login-field" class="form-label">Login</label>
+            <label for="login-field" class="form-label">{{ 'signupPage.loginLabel' | translate}}</label>
             <input type="text" class="form-control border border-primary input-field" id="login-field"
               formControlName="login" autocomplete="username">
             <span *ngIf="!signupForm.get('login')?.valid && signupForm.get('login')?.touched" class="help is-danger">
-              This field is required
+              {{ 'signupPage.RequiredField' | translate}}
             </span>
           </div>
           <div class="mb-3">
-            <label for="password-field" class="form-label">Password</label>
+            <label for="password-field" class="form-label">{{ 'signupPage.PasswordLabel' | translate}}</label>
             <input type="password" class="form-control border border-primary input-field" id="password-field"
               formControlName="password" autocomplete="new-password">
             <span *ngIf="!signupForm.get('password')?.valid && signupForm.get('password')?.touched"
               class="help is-danger">
               <span
                 *ngIf="signupForm.get('password')?.value.length > 0 && signupForm.get('password')?.value.length < 6">
-                Password must contain at least 6 characters
+                {{ 'signupPage.lengthValidation' | translate}}
               </span>
               <span
                 *ngIf="signupForm.get('password')?.value.length > 5 && signupForm.get('password')?.hasError('passwordWithoutSpecialSymbols')">
-                Password must contain special symbols
+                {{ 'signupPage.specialSymbol' | translate}}
               </span>
               <span *ngIf="signupForm.get('password')?.hasError('required')">
-                This field is required
+                {{ 'signupPage.RequiredField' | translate}}
               </span>
             </span>
           </div>
           <div class="mb-3">
-            <label for="confirm-password-field" class="form-label">Confirm Password</label>
+            <label for="confirm-password-field" class="form-label">{{ 'signupPage.confirmPasswordLabel' |
+              translate}}</label>
             <input type="password" class="form-control border border-primary input-field" id="confirm-password-field"
               formControlName="confirmPassword" autocomplete="new-password">
             <span *ngIf="!signupForm.get('confirmPassword')?.valid && signupForm.get('confirmPassword')?.touched"
               class="help is-danger m-1">
-              <span *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch')">
-                Passwords do not match
+              <span *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch')">{{ 'signupPage.matchPassword' |
+                translate}}
               </span>
-              <span *ngIf="signupForm.get('confirmPassword')?.hasError('required')">
-                This field is required
+              <span *ngIf="signupForm.get('confirmPassword')?.hasError('required')">{{ 'signupPage.RequiredField' |
+                translate}}
               </span>
             </span>
           </div>
           <div class="d-grid">
-            <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">{{ 'signupPage.signUpButton' |
+            translate}}</button>
           </div>
         </form>
         <div class="mt-3" *ngIf="!isSignup">
-          <p class="mb-0  text-center">Already have an account?<br><a class="text-primary fw-bold have-account"
-              routerLink="/login">Log
-              In</a>
+          <p class="mb-0  text-center">{{ 'signupPage.questionAccount' |
+          translate}}<br><a class="text-primary fw-bold have-account"
+              routerLink="/login">{{ 'signupPage.loginHeader' |
+              translate}}</a>
           </p>
         </div>
       </div>

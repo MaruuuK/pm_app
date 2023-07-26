@@ -12,21 +12,21 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item p-2" *ngIf="!isAuthenticated">
           <a class="nav-link" routerLink="/login"><fa-icon [icon]="faArrowRightToBracket"></fa-icon>
-            Log In</a>
+            {{ 'login' | translate }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="!isAuthenticated">
-          <a class="nav-link" routerLink="/signup"><fa-icon [icon]="faUserPlus"></fa-icon> Sign Up</a>
+          <a class="nav-link" routerLink="/signup"><fa-icon [icon]="faUserPlus"></fa-icon> {{ 'signup' | translate }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
           <a class="nav-link create-board-btn" (click)="onCreateBoard()"><fa-icon [icon]="faPlus"></fa-icon>
-            Board</a>
+            {{ 'createBoardBtn' | translate }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link" routerLink="/main/editProfile"><fa-icon [icon]="faPenToSquare"></fa-icon> Profile</a>
+          <a class="nav-link" routerLink="/main/editProfile"><fa-icon [icon]="faPenToSquare"></fa-icon> {{ 'profile' | translate }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link logout-btn" (click)="onLogout($event)"><fa-icon [icon]="faArrowRightToBracket"></fa-icon> Log
-            Out</a>
+          <a class="nav-link logout-btn" (click)="onLogout($event)"><fa-icon [icon]="faArrowRightToBracket"></fa-icon>
+            {{ 'logout' | translate }}</a>
         </li>
       </ul>
     </div>

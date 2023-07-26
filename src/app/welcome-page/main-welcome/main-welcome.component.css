@@ -1,7 +1,6 @@
 h3 {
   color: var(--cyanBlue);
   font-family: 'georgia bold', sans-serif;
-  text-transform: capitalize;
 }
 
 .banner-header {

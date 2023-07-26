@@ -2,30 +2,30 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Create Board</h5>
+        <h5 class="modal-title">{{'createBoardModal.createBoard' | translate}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="createBoardForm" (ngSubmit)="onCreate(createBoardForm)">
           <div class="mb-3">
-            <label for="title-field" class="form-label">Title</label>
+            <label for="title-field" class="form-label">{{'createBoardModal.titleLabel' | translate}}</label>
             <input type="text" class="form-control border border-primary input-field" id="title-field"
               formControlName="title" autocomplete="title">
             <span *ngIf="!createBoardForm.get('title')?.valid && createBoardForm.get('title')?.touched"
               class="help is-danger">
-              This field is required
+              {{'createBoardModal.RequiredField' | translate}}
             </span>
           </div>
           <div class="mb-3">
-            <label for="usersOfBoard" class="form-label">Users</label>
+            <label for="usersOfBoard" class="form-label">{{'createBoardModal.usersLabel' | translate}}</label>
             <select id="usersOfBoard" class="form-control border border-primary input-field"
               formControlName="usersOfBoard" multiple>
               <option *ngFor="let user of users" [value]="user._id">{{user.name}} ({{user.login}})</option>
             </select>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-            <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid && !isButtonDisabled">CREATE</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{'createBoardModal.closeBtn' | translate}}</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid && !isButtonDisabled">{{'createBoardModal.createBtn' | translate}}</button>
           </div>
         </form>
       </div>

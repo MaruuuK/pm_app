@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { CreateBoardsService } from '../create-boards/createBoards.service';
 import { Subscription, take } from 'rxjs';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'pm-main-content',
@@ -30,7 +31,8 @@ export class MainContentComponent implements OnInit, OnDestroy {
     private createBoardsService: CreateBoardsService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -92,10 +94,14 @@ export class MainContentComponent implements OnInit, OnDestroy {
   }
 
   onDeleteBoard(e: Event, board: Boards) {
-    this.confirmationService.showConfirmModal();
-    this.alertMessage = `"${board.title}" board`;
-    this.deletedBoard = board;
-    e.stopPropagation();
+    this.translateService
+      .get('confirmAlert.deleteBoard', { boardTitle: board.title })
+      .subscribe((translation: string) => {
+        this.alertMessage = translation;
+        this.confirmationService.showConfirmModal();
+        this.deletedBoard = board;
+        e.stopPropagation();
+      });
   }
 
   OnNavigateToBoard(board: Boards) {

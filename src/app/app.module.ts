@@ -1,10 +1,17 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+} from '@angular/common/http';
+import {
+  TranslateModule,
+} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +35,8 @@ import { CreateColumnsComponent } from './board/create-columns/create-columns.co
 import { CreateTaskComponent } from './board/create-task/create-task.component';
 import { UpdateTaskComponent } from './board/update-task/update-task.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AuthService } from './welcome-page/auth/auth.service';
+import { NgxTranslateModule } from './translate/translate.module';
 
 @NgModule({
   declarations: [
@@ -62,6 +71,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     MatSlideToggleModule,
     BrowserAnimationsModule,
     NgbModule,
+    NgxTranslateModule,
   ],
   providers: [
     {
@@ -71,5 +81,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     },
   ],
   bootstrap: [AppComponent],
+  exports: [TranslateModule],
 })
 export class AppModule {}
+

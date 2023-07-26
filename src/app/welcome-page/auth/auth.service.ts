@@ -1,16 +1,18 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { SignupResponseData, LoginResponseData } from './auth-interfaces';
 import { ConfigService } from 'src/app/shared/config.service';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   private tokenExpirationTimer!: any;
+  private injector: Injector;
 
   errMessageLoginExist = 'Login already exist';
   errMessageLoginNotExist = 'Authorization error';
@@ -18,8 +20,15 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private configService: ConfigService,
-    private router: Router
-  ) {}
+    private router: Router,
+    injector: Injector
+  ) {
+    this.injector = injector;
+  }
+
+  private getTranslateService() {
+    return this.injector.get(TranslateService);
+  }
 
   signup(name: string, login: string, password: string) {
     return this.http
@@ -104,22 +113,24 @@ export class AuthService {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'Something went wrong. Please try later';
+    const translateService = this.getTranslateService();
+    let errorMessage = translateService.instant('errorMessages.defaultError');
     if (
       errorRes.error.statusCode === 409 &&
       errorRes.error.message === this.errMessageLoginExist
     ) {
-      errorMessage = 'This login already exist';
+      errorMessage = translateService.instant('errorMessages.loginExistError');
     }
     if (
       errorRes.error.statusCode === 401 &&
       errorRes.error.message === this.errMessageLoginNotExist
     ) {
-      errorMessage = 'Login or password are not correct';
+      errorMessage = translateService.instant('errorMessages.loginNotExistError');
     }
     if (!errorRes.error?.error) {
-      return throwError(() => errorMessage);
+      return throwError(errorMessage);
     }
-    return throwError(() => errorMessage);
+
+    return throwError(errorMessage);
   }
 }

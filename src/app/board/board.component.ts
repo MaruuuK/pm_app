@@ -17,6 +17,7 @@ import { CreateTaskService } from './create-task/create-task.service';
 import { AuthService } from '../welcome-page/auth/auth.service';
 import { Task } from './create-task/task.model';
 import { UpdateTaskService } from './update-task/update-task.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'pm-board',
@@ -61,7 +62,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private createTaskService: CreateTaskService,
     private authService: AuthService,
-    private updateTaskService: UpdateTaskService
+    private updateTaskService: UpdateTaskService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -183,10 +185,14 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   onDeleteColumn(e: Event, column: Column) {
-    this.confirmationService.showConfirmModal();
-    this.alertMessage = `"${column.title}" column`;
-    this.deletedColumn = column;
-    e.stopPropagation();
+    this.translateService
+      .get('confirmAlert.deleteColumn', { columnTitle: column.title })
+      .subscribe((translation: string) => {
+        this.alertMessage = translation;
+        this.confirmationService.showConfirmModal();
+        this.deletedColumn = column;
+        e.stopPropagation();
+      });
   }
 
   private getColumnsAndTasks(boardId: string) {
@@ -275,8 +281,16 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   onDeleteTask(e: Event, task: Task, columnId: string) {
+    this.translateService
+      .get('confirmAlert.deleteTask', { taskTitle: task.title })
+      .subscribe((translation: string) => {
+        this.alertMessage = translation;
+        this.confirmationService.showConfirmModal();
+        this.deletedTask = task;
+        this.columnId = columnId;
+        e.stopPropagation();
+      });
     this.confirmationService.showConfirmModal();
-    this.alertMessage = `"${task.title}" task`;
     this.deletedTask = task;
     this.columnId = columnId;
     e.stopPropagation();

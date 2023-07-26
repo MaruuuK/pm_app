@@ -4,6 +4,7 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 import { EditProfileService } from './editProfile.service';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 import { ConfirmationService } from 'src/app/shared/confirmation-modal/confirmation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'pm-edit-profile',
@@ -21,7 +22,8 @@ export class EditProfileComponent {
   constructor(
     private editProfileService: EditProfileService,
     private authService: AuthService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +74,9 @@ export class EditProfileComponent {
     const password = editProfileForm.value.password;
     this.editProfileService.updateUserData(name, login, password).subscribe({
       next: () => {
-        this.successMessage = 'User updated successfully';
+        this.successMessage = this.translateService.instant(
+          'editProfile.successMessage'
+        );
         this.isLoading = false;
       },
       error: (errorMessage) => {
@@ -84,6 +88,8 @@ export class EditProfileComponent {
 
   onDeleteProfile() {
     this.confirmationService.showConfirmModal();
-    this.alertMessage = 'this account';
+    this.alertMessage = this.translateService.instant(
+      'confirmAlert.deleteUser'
+    );
   }
 }

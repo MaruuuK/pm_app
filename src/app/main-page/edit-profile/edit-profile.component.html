@@ -7,62 +7,62 @@
 
       <div class="col-10 col-lg-5 col-md-10 col-sm-8 p-3 p-sm-5 border rounded-5 border-primary bg-white m-auto"
         *ngIf="!isLoading">
-        <h2 class="text-center mb-4 text-primary signup-login-header">Edit Profile</h2>
+        <h2 class="text-center mb-4 text-primary signup-login-header">{{'editProfile.editHeader' | translate}}</h2>
 
         <div *ngIf="successMessage">
           <div class="alert alert-success alert-dismissible fade show">
-            <p class="m-0">{{ successMessage }}</p>
+            <p class="m-0" translate>{{ successMessage }}</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
         <div class="alert alert-danger alert-dismissible fade show" *ngIf="error">
-          <p class="m-0">{{error}}</p>
+          <p class="m-0" translate>{{error}}</p>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
         <form [formGroup]="editProfileForm" (ngSubmit)="onUpdateUser(editProfileForm)">
           <div class="mb-3">
-            <label for="name-field" class="form-label">Name</label>
+            <label for="name-field" class="form-label">{{'editProfile.nameField' | translate}}</label>
             <input type="text" class="form-control border border-primary input-field " id="name-field"
               formControlName="name" autocomplete="username">
             <span *ngIf="!editProfileForm.get('name')?.valid && editProfileForm.get('name')?.touched"
               class="help is-danger">
               <span *ngIf="editProfileForm.get('name')?.hasError('invalidName')">
-                This name is invalid
+                {{'editProfile.invalidName' | translate}}
               </span>
               <span *ngIf="editProfileForm.get('name')?.hasError('required')">
-                This field is required
+                {{'editProfile.RequiredField' | translate}}
               </span>
             </span>
           </div>
           <div class="mb-3">
-            <label for="login-field" class="form-label">Login</label>
+            <label for="login-field" class="form-label">{{'editProfile.loginLabel' | translate}}</label>
             <input type="text" class="form-control border border-primary input-field" id="login-field"
               formControlName="login" autocomplete="username">
             <span *ngIf="!editProfileForm.get('login')?.valid && editProfileForm.get('login')?.touched"
               class="help is-danger">
-              This field is required
+              {{'editProfile.RequiredField' | translate}}
             </span>
           </div>
           <div class="mb-3">
-            <label for="password-field" class="form-label">Password</label>
+            <label for="password-field" class="form-label">{{'editProfile.PasswordLabel' | translate}}</label>
             <input type="password" class="form-control border border-primary input-field" id="password-field"
               formControlName="password" autocomplete="new-password">
             <span *ngIf="!editProfileForm.get('password')?.valid && editProfileForm.get('password')?.touched"
               class="help is-danger">
               <span
                 *ngIf="editProfileForm.get('password')?.value.length > 0 && editProfileForm.get('password')?.value.length < 6">
-                Password must contain at least 6 characters
+                {{'editProfile.lengthValidation' | translate}}
               </span>
               <span
                 *ngIf="editProfileForm.get('password')?.value.length > 5 && editProfileForm.get('password')?.hasError('passwordWithoutSpecialSymbols')">
-                Password must contain special symbols
+                {{'editProfile.specialSymbol' | translate}}
               </span>
             </span>
           </div>
           <div class="text-end">
-            <button class="btn btn-success mx-3" type="submit" [disabled]="!editProfileForm.valid">UPDATE</button>
-            <button class="btn btn-danger" type="button" (click)="onDeleteProfile()">DELETE</button>
+            <button class="btn btn-success mx-3" type="submit" [disabled]="!editProfileForm.valid">{{'editProfile.updateBTN' | translate}}</button>
+            <button class="btn btn-danger" type="button" (click)="onDeleteProfile()">{{'editProfile.deleteBTN' | translate}}</button>
           </div>
         </form>
       </div>
