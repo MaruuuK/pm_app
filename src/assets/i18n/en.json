@@ -112,5 +112,6 @@
   "errorPage":{
     "errorText": "That page doesn't exist",
     "toMainBtn": "To main page"
-  }
+  },
+  "createNewBoard": "Create new board"
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateBoardsService } from './createBoards.service';
 import { Users } from '../../shared/Users-boards.model';

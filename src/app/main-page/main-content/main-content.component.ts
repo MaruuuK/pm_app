@@ -37,7 +37,7 @@ export class MainContentComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getBoards();
-    
+
     this.createBoardsService
       .getFormBoardData()
       .pipe(take(1))

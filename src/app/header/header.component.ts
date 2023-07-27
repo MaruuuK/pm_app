@@ -40,18 +40,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faPenToSquare = faPenToSquare;
   faPlus = faPlus;
 
-  // //ShowBurgerMenu
-  // navbarShow = false;
-  // toggleNavbar() {
-  //   this.navbarShow = !this.navbarShow;
-  // }
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent) {
-  //   if (!this.elementRef.nativeElement.contains(event.target)) {
-  //     this.navbarShow = false;
-  //   }
-  // }
-
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !user ? false : true;
@@ -71,6 +59,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onCreateBoard() {
+    this.router.navigate(['/main']);
     this.createBoardsService.openModalCreateBoard();
   }
 

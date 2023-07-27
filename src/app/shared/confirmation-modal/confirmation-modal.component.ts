@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { BoardManagerService } from 'src/app/board/boardManager.service';
-import { EditProfileService } from 'src/app/main-page/edit-profile/editProfile.service';
 
 
 @Component({
@@ -11,16 +10,16 @@ import { EditProfileService } from 'src/app/main-page/edit-profile/editProfile.s
 export class ConfirmationModalComponent {
   @Input() message!: string;
   @Output() deleteEvent = new EventEmitter<void>();
+  @Output() cancelEvent = new EventEmitter<void>();
 
-
-  constructor(
-    private boardManagerService: BoardManagerService,
-    private editProfileService: EditProfileService
-  ) {}
+  constructor(private boardManagerService: BoardManagerService) {}
 
   delete() {
     this.deleteEvent.emit();
     this.boardManagerService.notifyColumnDeleted();
     this.boardManagerService.notifyTaskDeleted();
+  }
+  cancel() {
+    this.cancelEvent.emit();
   }
 }
