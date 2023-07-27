@@ -1,17 +1,12 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClientModule,
-} from '@angular/common/http';
-import {
-  TranslateModule,
-} from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -72,6 +67,7 @@ import { NgxTranslateModule } from './translate/translate.module';
     BrowserAnimationsModule,
     NgbModule,
     NgxTranslateModule,
+    DragDropModule,
   ],
   providers: [
     {
@@ -84,4 +80,3 @@ import { NgxTranslateModule } from './translate/translate.module';
   exports: [TranslateModule],
 })
 export class AppModule {}
-

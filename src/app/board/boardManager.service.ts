@@ -49,7 +49,9 @@ export class BoardManagerService {
           mergeMap((tasks: Task[][]) => {
             columns.forEach((column, index) => {
               column.tasks = tasks[index];
+              column.tasks.sort((a, b) => a.order - b.order);
             });
+            columns.sort((a, b) => a.order - b.order);
             return [columns];
           })
         );
@@ -144,6 +146,29 @@ export class BoardManagerService {
     );
   }
 
+  updateColumnSet(
+    columnsOnServer: {
+      _id: string;
+      order: number;
+    }[]
+  ) {
+    return this.http
+      .patch(this.configService.apiUrl + '/columnsSet', columnsOnServer)
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  updateTaskSet(
+    columnsOnServer: {
+      _id: string;
+      order: number;
+      columnId: string;
+    }[]
+  ) {
+    return this.http
+      .patch(this.configService.apiUrl + '/tasksSet', columnsOnServer)
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+  
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'Something went wrong. Please try later';
     if (!errorRes.error?.error) {

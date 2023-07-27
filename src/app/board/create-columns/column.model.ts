@@ -4,5 +4,6 @@ export interface Column extends Task {
   title: string;
   order: number;
   boardId: string;
-  tasks?: Task[];
+  tasks: Task[];
+  editingTitle?: boolean;
 }

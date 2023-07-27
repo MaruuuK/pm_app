@@ -9,6 +9,8 @@ import { CreateBoardsService } from '../create-boards/createBoards.service';
 import { Subscription, take } from 'rxjs';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Task } from 'src/app/board/create-task/task.model';
+import { BoardManagerService } from 'src/app/board/boardManager.service';
 
 @Component({
   selector: 'pm-main-content',
@@ -22,6 +24,7 @@ export class MainContentComponent implements OnInit, OnDestroy {
   alertMessage = '';
   deletedBoard!: Boards;
   formBoardData!: FormGroup;
+  taskSearch: Task[] = [];
   error = '';
 
   private clickEventSubscriptionBoard!: Subscription;
@@ -32,8 +35,10 @@ export class MainContentComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private router: Router,
     private authService: AuthService,
-    private translateService: TranslateService
-  ) {}
+    private translateService: TranslateService,
+  ) {
+
+  }
 
   ngOnInit() {
     this.getBoards();

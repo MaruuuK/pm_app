@@ -9,8 +9,7 @@ import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 })
 export class EditProfileService {
   errMessageLoginExist = 'Login already exist';
-  private deleteUserButtonClickSubject = new Subject<void>();
-  userDeleted$= this.deleteUserButtonClickSubject.asObservable()
+
 
   constructor(
     private authService: AuthService,
@@ -57,8 +56,5 @@ export class EditProfileService {
     return throwError(() => errorMessage);
   }
 
-  notifyDeleteUserButtonClick() {
-    this.deleteUserButtonClickSubject.next();
-  }
 
 }

@@ -18,6 +18,13 @@ import { AuthService } from '../welcome-page/auth/auth.service';
 import { Task } from './create-task/task.model';
 import { UpdateTaskService } from './update-task/update-task.service';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'pm-board',
@@ -34,7 +41,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   boardTitle!: string;
   isLoading = false;
   error: string | null = null;
-  editingTitle = false;
   alertMessage = '';
 
   boardId!: string;
@@ -105,6 +111,8 @@ export class BoardComponent implements OnInit, OnDestroy {
           this.columns = this.columns.filter((column) => {
             return column._id !== this.deletedColumn._id;
           });
+          this.updateOrder();
+          this.updateColumnsSet();
         });
     });
 
@@ -123,6 +131,8 @@ export class BoardComponent implements OnInit, OnDestroy {
             if (taskIndex !== undefined && taskIndex !== -1) {
               columnToUpdate.tasks?.splice(taskIndex, 1);
             }
+            this.updateOrder();
+            this.updateTasksSet();
           }
         });
     });
@@ -154,16 +164,84 @@ export class BoardComponent implements OnInit, OnDestroy {
       });
   }
 
+  onDropColumn(event: CdkDragDrop<Column[]>) {
+    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    this.updateOrder();
+    this.updateColumnsSet();
+  }
+
+  onDropTask(event: CdkDragDrop<Task[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+    this.updateOrder();
+    this.updateTasksSet();
+  }
+
+  updateOrder() {
+    this.columns.forEach((column, index) => {
+      column.tasks.forEach((task, index) => {
+        task.order = index + 1;
+        task.columnId = column._id;
+      });
+      column.order = index + 1;
+    });
+  }
+
+  updateTasksSet() {
+    const tasksOnServer: {
+      _id: string;
+      order: number;
+      columnId: string;
+    }[] = [];
+    this.columns.forEach((column) => {
+      column.tasks.forEach((task) => {
+        tasksOnServer.push({
+          _id: task._id,
+          order: task.order,
+          columnId: task.columnId,
+        });
+      });
+    });
+
+    this.boardManagerService.updateTaskSet(tasksOnServer).subscribe({
+      next: () => {},
+      error: (errorMessage) => {
+        this.error = errorMessage;
+      },
+    });
+  }
+
+  updateColumnsSet() {
+    const columnsOnServer: {
+      _id: string;
+      order: number;
+    }[] = [];
+    this.columns.forEach((column) => {
+      columnsOnServer.push({ _id: column._id, order: column.order });
+    });
+
+    this.boardManagerService.updateColumnSet(columnsOnServer).subscribe({
+      next: () => {},
+      error: (errorMessage) => {
+        this.error = errorMessage;
+      },
+    });
+  }
+
   onOpenModalCreateColumn() {
     this.createColumnService.openModalCreateColumn();
-  }
-
-  onChangeTitle() {
-    this.editingTitle = true;
-  }
-
-  OnCancelChangeTitle() {
-    this.editingTitle = false;
   }
 
   onUpdateColumnTitle(column: Column) {
@@ -171,12 +249,13 @@ export class BoardComponent implements OnInit, OnDestroy {
     const columnTitle = column.title;
     const columnOrder = column.order;
     this.error = '';
+    column.editingTitle = false;
 
     this.boardManagerService
       .updateColumnTitle(this.boardId, columnId, columnTitle, columnOrder)
       .subscribe({
         next: () => {
-          this.editingTitle = false;
+          column.editingTitle = false;
         },
         error: (errorMessage) => {
           this.error = errorMessage;
