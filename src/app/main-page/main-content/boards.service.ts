@@ -11,8 +11,7 @@ import { Modal } from 'bootstrap';
 export class BoardsService {
   private boardCreatedSubject = new Subject<void>();
   boardCreated$ = this.boardCreatedSubject.asObservable();
-  private boardDeletedSubject = new Subject<void>();
-  boardDeleted$ = this.boardDeletedSubject.asObservable();
+
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
   openModalCreateBoard() {
@@ -21,10 +20,6 @@ export class BoardsService {
       const boardModalBS = new Modal(boardModal);
       boardModalBS.show();
     }
-  }
-
-  notifyBoardDeleted() {
-    this.boardDeletedSubject.next();
   }
 
   getBoards() {

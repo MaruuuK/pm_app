@@ -37,17 +37,7 @@ export class MainContentComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getBoards();
-
-    this.boardsService.boardCreated$.subscribe(() => this.getBoards());
-    this.boardsService.boardDeleted$.subscribe(() => {
-      this.boardsService.deleteBoard(this.deletedBoard).subscribe(() => {
-        this.confirmationService.hideConfirmModal();
-        this.boards = this.boards.filter((board) => {
-          return board._id !== this.deletedBoard._id;
-        });
-      });
-    });
-
+    
     this.createBoardsService
       .getFormBoardData()
       .pipe(take(1))
@@ -94,16 +84,23 @@ export class MainContentComponent implements OnInit, OnDestroy {
   }
 
   onDeleteBoard(e: Event, board: Boards) {
-    this.translateService
-      .get('confirmAlert.deleteBoard', { boardTitle: board.title })
-      .subscribe((translation: string) => {
-        this.alertMessage = translation;
-        this.confirmationService.showConfirmModal();
-        this.deletedBoard = board;
-        e.stopPropagation();
-      });
+    this.confirmationService.showConfirmModal();
+    this.deletedBoard = board;
+    e.stopPropagation();
+    this.alertMessage = this.translateService.instant(
+      'confirmAlert.deleteBoard',
+      { boardTitle: board.title }
+    );
   }
 
+  onDeleteEvent() {
+    this.boardsService.deleteBoard(this.deletedBoard).subscribe(() => {
+      this.confirmationService.hideConfirmModal();
+      this.boards = this.boards.filter((board) => {
+        return board._id !== this.deletedBoard._id;
+      });
+    });
+  }
   OnNavigateToBoard(board: Boards) {
     this.router.navigate(['/main/board', board.title], {
       queryParams: { id: board._id },

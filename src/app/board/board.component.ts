@@ -113,16 +113,17 @@ export class BoardComponent implements OnInit, OnDestroy {
         .deleteTask(this.boardId, this.columnId, this.deletedTask)
         .subscribe(() => {
           this.confirmationService.hideConfirmModal();
-          this.columns.forEach((column) => {
-            if (column._id === this.deletedTask.columnId) {
-              const taskIndex = column?.tasks?.findIndex(
-                (task) => task._id === this.deletedTask._id
-              );
-              if (taskIndex && taskIndex !== -1) {
-                column?.tasks?.splice(taskIndex, 1);
-              }
+          const columnToUpdate = this.columns.find(
+            (column) => column._id === this.deletedTask.columnId
+          );
+          if (columnToUpdate) {
+            const taskIndex = columnToUpdate.tasks?.findIndex(
+              (task) => task._id === this.deletedTask._id
+            );
+            if (taskIndex !== undefined && taskIndex !== -1) {
+              columnToUpdate.tasks?.splice(taskIndex, 1);
             }
-          });
+          }
         });
     });
 
@@ -185,14 +186,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   onDeleteColumn(e: Event, column: Column) {
-    this.translateService
-      .get('confirmAlert.deleteColumn', { columnTitle: column.title })
-      .subscribe((translation: string) => {
-        this.alertMessage = translation;
-        this.confirmationService.showConfirmModal();
-        this.deletedColumn = column;
-        e.stopPropagation();
-      });
+    this.confirmationService.showConfirmModal();
+    this.alertMessage = this.translateService.instant(
+      'confirmAlert.deleteColumn',
+      { columnTitle: column.title }
+    );
+    this.deletedColumn = column;
+    e.stopPropagation();
   }
 
   private getColumnsAndTasks(boardId: string) {
@@ -281,15 +281,14 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   onDeleteTask(e: Event, task: Task, columnId: string) {
-    this.translateService
-      .get('confirmAlert.deleteTask', { taskTitle: task.title })
-      .subscribe((translation: string) => {
-        this.alertMessage = translation;
-        this.confirmationService.showConfirmModal();
-        this.deletedTask = task;
-        this.columnId = columnId;
-        e.stopPropagation();
-      });
+    this.confirmationService.showConfirmModal();
+    this.alertMessage = this.translateService.instant(
+      'confirmAlert.deleteTask',
+      { taskTitle: task.title }
+    );
+    this.deletedTask = task;
+    this.columnId = columnId;
+    e.stopPropagation();
   }
 
   updateTask() {

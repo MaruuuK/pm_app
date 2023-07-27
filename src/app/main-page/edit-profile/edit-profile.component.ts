@@ -23,7 +23,7 @@ export class EditProfileComponent {
     private editProfileService: EditProfileService,
     private authService: AuthService,
     private confirmationService: ConfirmationService,
-    private translateService: TranslateService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -41,13 +41,13 @@ export class EditProfileComponent {
     });
 
     this.getUserData();
+  }
 
-    this.editProfileService.userDeleted$.subscribe(() => {
-      this.editProfileService.deleteUser().subscribe(() => {
+  OnDeleteProfileNew() {
+    this.editProfileService.deleteUser().subscribe(() => {
         this.confirmationService.hideConfirmModal();
         this.authService.logout();
       });
-    });
   }
 
   private getUserData() {

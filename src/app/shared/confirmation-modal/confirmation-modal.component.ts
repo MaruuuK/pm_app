@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { BoardManagerService } from 'src/app/board/boardManager.service';
 import { EditProfileService } from 'src/app/main-page/edit-profile/editProfile.service';
-import { BoardsService } from 'src/app/main-page/main-content/boards.service';
+
 
 @Component({
   selector: 'pm-confirmation-modal',
@@ -10,17 +10,17 @@ import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 })
 export class ConfirmationModalComponent {
   @Input() message!: string;
+  @Output() deleteEvent = new EventEmitter<void>();
+
 
   constructor(
-    private boardsService: BoardsService,
     private boardManagerService: BoardManagerService,
     private editProfileService: EditProfileService
   ) {}
 
   delete() {
-    this.boardsService.notifyBoardDeleted();
+    this.deleteEvent.emit();
     this.boardManagerService.notifyColumnDeleted();
     this.boardManagerService.notifyTaskDeleted();
-    this.editProfileService.notifyDeleteUserButtonClick();
   }
 }
