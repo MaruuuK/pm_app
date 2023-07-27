@@ -108,5 +108,9 @@
     "deleteColumn": "\"{{ columnTitle }}\" column",
     "deleteTask": "\"{{ taskTitle }}\" task",
     "deleteUser": "this account"
+  },
+  "errorPage":{
+    "errorText": "That page doesn't exist",
+    "toMainBtn": "To main page"
   }
 }

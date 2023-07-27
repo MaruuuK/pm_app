@@ -108,5 +108,9 @@
     "deleteColumn": "\"{{ columnTitle }}\" колонку",
     "deleteTask": "\"{{ taskTitle }}\" задачу",
     "deleteUser": "эту учетную запись"
+  },
+  "errorPage": {
+    "errorText": "Такой страницы не существует",
+    "toMainBtn": "На главную страницу"
   }
 }
