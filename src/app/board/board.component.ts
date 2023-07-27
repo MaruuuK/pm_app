@@ -84,7 +84,6 @@ export class BoardComponent implements OnInit, OnDestroy {
       const boardId = params.get('id');
       if (boardId) {
         this.boardId = boardId;
-        console.log(boardId);
       }
     });
 
