@@ -68,5 +68,5 @@
       </div>
     </div>
   </div>
-  <pm-confirmation-modal [message]="alertMessage" (deleteEvent)="OnDeleteProfileNew()"></pm-confirmation-modal>
+  <pm-confirmation-modal [message]="alertMessage" (deleteEvent)="OnDeleteProfileNew()" (cancelEvent)="OnCancel()"></pm-confirmation-modal>
 </main>

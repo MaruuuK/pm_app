@@ -45,9 +45,9 @@ export class EditProfileComponent {
 
   OnDeleteProfileNew() {
     this.editProfileService.deleteUser().subscribe(() => {
-        this.confirmationService.hideConfirmModal();
-        this.authService.logout();
-      });
+      this.confirmationService.hideConfirmModal();
+      this.authService.logout();
+    });
   }
 
   private getUserData() {
@@ -91,5 +91,8 @@ export class EditProfileComponent {
     this.alertMessage = this.translateService.instant(
       'confirmAlert.deleteUser'
     );
+  }
+  OnCancel() {
+    this.confirmationService.hideConfirmModal();
   }
 }
