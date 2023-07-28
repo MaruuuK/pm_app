@@ -31,11 +31,15 @@
               formControlName="usersOfTask" multiple>
               <option *ngFor="let user of users" [value]="user._id">{{user.name}} ({{user.login}})</option>
             </select>
+            <div class="form-text">
+              {{ 'createNewTask.ctrlUse' | translate}}
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'createNewTask.closeBtn' | translate}}</button>
-            <button type="submit" class="btn btn-success"
-              [disabled]="!createTaskForm.valid && !isButtonDisabled">{{ 'createNewTask.createBtn' | translate}}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'createNewTask.closeBtn' |
+              translate}}</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createTaskForm.valid && !isButtonDisabled">{{
+              'createNewTask.createBtn' | translate}}</button>
           </div>
         </form>
       </div>

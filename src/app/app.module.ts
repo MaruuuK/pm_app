@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +31,6 @@ import { CreateColumnsComponent } from './board/create-columns/create-columns.co
 import { CreateTaskComponent } from './board/create-task/create-task.component';
 import { UpdateTaskComponent } from './board/update-task/update-task.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { AuthService } from './welcome-page/auth/auth.service';
 import { NgxTranslateModule } from './translate/translate.module';
 
 @NgModule({
@@ -68,6 +68,7 @@ import { NgxTranslateModule } from './translate/translate.module';
     NgbModule,
     NgxTranslateModule,
     DragDropModule,
+    MatSelectModule,
   ],
   providers: [
     {

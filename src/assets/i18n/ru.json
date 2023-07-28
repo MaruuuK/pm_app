@@ -53,8 +53,9 @@
     "titleLabel": "Название",
     "RequiredField": "Это поле обязательно для заполнения",
     "usersLabel": "Пользователи",
-    "closeBtn": "Закрыть",
-    "createBtn": "Создать"
+    "closeBtn": "ЗАКРЫТЬ",
+    "createBtn": "СОЗДАТЬ",
+    "ctrlUse": "Зажмите Ctrl, чтобы выбрать несколько вариантов"
   },
   "editProfile": {
     "editHeader": "Редактировать профиль",
@@ -88,7 +89,8 @@
     "descriptionLabel": "Описание",
     "usersLabel": "Пользователи",
     "closeBtn": "ЗАКРЫТЬ",
-    "createBtn": "СОЗДАТЬ"
+    "createBtn": "СОЗДАТЬ",
+    "ctrlUse": "Зажмите Ctrl, чтобы выбрать несколько вариантов"
   },
   "updateTask": {
     "updateTask": "Редактировать задачу",
@@ -97,7 +99,8 @@
     "descriptionLabel": "Описание",
     "usersLabel": "Пользователи",
     "closeBtn": "ЗАКРЫТЬ",
-    "createBtn": "ОБНОВИТЬ"
+    "createBtn": "ОБНОВИТЬ",
+    "ctrlUse": "Зажмите Ctrl, чтобы выбрать несколько вариантов"
   },
   "confirmAlert": {
     "deleteBoard": "\"{{ boardTitle }}\" борд",
@@ -113,5 +116,5 @@
     "errorText": "Такой страницы не существует",
     "toMainBtn": "На главную страницу"
   },
-    "createNewBoard": "Создайте новый борд"
+  "createNewBoard": "Создайте новый борд"
 }

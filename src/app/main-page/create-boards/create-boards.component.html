@@ -22,10 +22,16 @@
               formControlName="usersOfBoard" multiple>
               <option *ngFor="let user of users" [value]="user._id">{{user.name}} ({{user.login}})</option>
             </select>
+            <div class="form-text">
+              {{ 'createNewTask.ctrlUse' | translate}}
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{'createBoardModal.closeBtn' | translate}}</button>
-            <button type="submit" class="btn btn-success" [disabled]="!createBoardForm.valid && !isButtonDisabled">{{'createBoardModal.createBtn' | translate}}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{'createBoardModal.closeBtn' |
+              translate}}</button>
+            <button type="submit" class="btn btn-success"
+              [disabled]="!createBoardForm.valid && !isButtonDisabled">{{'createBoardModal.createBtn' |
+              translate}}</button>
           </div>
         </form>
       </div>

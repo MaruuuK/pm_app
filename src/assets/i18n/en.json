@@ -54,7 +54,8 @@
     "RequiredField": "This field is required",
     "usersLabel": "Users",
     "closeBtn": "CLOSE",
-    "createBtn": "CREATE"
+    "createBtn": "CREATE",
+    "ctrlUse": "Press Ctrl to choose several options"
   },
   "editProfile": {
     "editHeader": "Edit Profile",
@@ -88,7 +89,8 @@
     "descriptionLabel": "Description",
     "usersLabel": "Users",
     "closeBtn": "CLOSE",
-    "createBtn": "CREATE"
+    "createBtn": "CREATE",
+    "ctrlUse": "Press Ctrl to choose several options"
   },
   "updateTask": {
     "updateTask": "Update Task",
@@ -97,7 +99,8 @@
     "descriptionLabel": "Description",
     "usersLabel": "Users",
     "closeBtn": "CLOSE",
-    "createBtn": "UPDATE"
+    "createBtn": "UPDATE",
+    "ctrlUse": "Press Ctrl to choose several options"
   },
   "confirmAlert": {
     "deleteBoard": "\"{{ boardTitle }}\" board",

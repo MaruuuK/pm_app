@@ -20,8 +20,6 @@ import { UpdateTaskService } from './update-task/update-task.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
@@ -111,7 +109,6 @@ export class BoardComponent implements OnInit, OnDestroy {
             return column._id !== this.deletedColumn._id;
           });
           this.updateOrder();
-          this.updateColumnsSet();
         });
     });
 
@@ -131,7 +128,6 @@ export class BoardComponent implements OnInit, OnDestroy {
               columnToUpdate.tasks?.splice(taskIndex, 1);
             }
             this.updateOrder();
-            this.updateTasksSet();
           }
         });
     });
