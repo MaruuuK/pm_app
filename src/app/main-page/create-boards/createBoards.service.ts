@@ -1,17 +1,15 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/shared/config.service';
-import { Users, Boards } from '../../shared/Users-boards.model';
-import { Subject, catchError, throwError } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Modal } from 'bootstrap';
-import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CreateBoardsService {
-  private formBoardDataSubject = new Subject<any>();
+  private formBoardDataSubject = new Subject<FormGroup>();
   private createBoardButtonClickSubject = new Subject<void>();
 
   private boardModal: Modal | null = null;

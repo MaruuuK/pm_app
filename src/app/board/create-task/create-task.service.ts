@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CreateTaskService {
-  private formTaskDataSubject = new Subject<any>();
+  private formTaskDataSubject = new Subject<FormGroup>();
   private createTaskButtonClickSubject = new Subject<void>();
 
   private taskModal: Modal | null = null;

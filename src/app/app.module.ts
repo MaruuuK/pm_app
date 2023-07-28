@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,8 +66,7 @@ import { NgxTranslateModule } from './translate/translate.module';
     BrowserAnimationsModule,
     NgbModule,
     NgxTranslateModule,
-    DragDropModule,
-    MatSelectModule,
+    DragDropModule
   ],
   providers: [
     {

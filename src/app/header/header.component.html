@@ -3,7 +3,12 @@
     <div class="header-toggle-btn">
       <pm-slide-toggle></pm-slide-toggle>
     </div>
-    <h1 class="m-0" (click)="onRedirectPage()"><a class="navbar-brand m-0">WellDone</a></h1>
+    <h1 class="m-0" (click)="onRedirectPage()"
+    (keyup.enter)="onRedirectPage()"
+    (keyup.space)="onRedirectPage()"
+    tabindex="0"
+    aria-label="To the Main Page"><a
+        class="navbar-brand m-0">WellDone</a></h1>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
       aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -15,17 +20,27 @@
             {{ 'login' | translate }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="!isAuthenticated">
-          <a class="nav-link" routerLink="/signup"><fa-icon [icon]="faUserPlus"></fa-icon> {{ 'signup' | translate }}</a>
+          <a class="nav-link" routerLink="/signup"><fa-icon [icon]="faUserPlus"></fa-icon> {{ 'signup' | translate
+            }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link create-board-btn" (click)="onCreateBoard()"><fa-icon [icon]="faPlus"></fa-icon>
+          <a class="nav-link create-board-btn"
+          (click)="onCreateBoard()"
+          (keyup.enter)="onCreateBoard()"
+          tabindex="0"
+          aria-label="Create Board"><fa-icon [icon]="faPlus"></fa-icon>
             {{ 'createBoardBtn' | translate }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link" routerLink="/main/editProfile"><fa-icon [icon]="faPenToSquare"></fa-icon> {{ 'profile' | translate }}</a>
+          <a class="nav-link" routerLink="/main/editProfile"><fa-icon [icon]="faPenToSquare"></fa-icon> {{ 'profile' |
+            translate }}</a>
         </li>
         <li class="nav-item p-2" *ngIf="isAuthenticated">
-          <a class="nav-link logout-btn" (click)="onLogout($event)"><fa-icon [icon]="faArrowRightToBracket"></fa-icon>
+          <a class="nav-link logout-btn"
+          (click)="onLogout($event)"
+          (keyup.enter)="onLogout($event)"
+          tabindex="0"
+          aria-label="Log Out"><fa-icon [icon]="faArrowRightToBracket"></fa-icon>
             {{ 'logout' | translate }}</a>
         </li>
       </ul>

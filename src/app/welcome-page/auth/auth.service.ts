@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
-  private tokenExpirationTimer!: any;
+  private tokenExpirationTimer!: ReturnType<typeof setTimeout> | null;
   private injector: Injector;
 
   errMessageLoginExist = 'Login already exist';
@@ -100,7 +100,12 @@ export class AuthService {
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
-    clearTimeout(this.tokenExpirationTimer);
+    if (
+      this.tokenExpirationTimer !== null &&
+      this.tokenExpirationTimer !== undefined
+    ) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
     this.tokenExpirationTimer = null;
     this.router.navigate(['/']);
   }
@@ -125,7 +130,9 @@ export class AuthService {
       errorRes.error.statusCode === 401 &&
       errorRes.error.message === this.errMessageLoginNotExist
     ) {
-      errorMessage = translateService.instant('errorMessages.loginNotExistError');
+      errorMessage = translateService.instant(
+        'errorMessages.loginNotExistError'
+      );
     }
     if (!errorRes.error?.error) {
       return throwError(errorMessage);

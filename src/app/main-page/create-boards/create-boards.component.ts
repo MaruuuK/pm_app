@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateBoardsService } from './createBoards.service';
 import { Users } from '../../shared/Users-boards.model';
@@ -9,7 +9,7 @@ import { BoardsService } from '../main-content/boards.service';
   templateUrl: './create-boards.component.html',
   styleUrls: ['./create-boards.component.css'],
 })
-export class CreateBoardsComponent {
+export class CreateBoardsComponent implements OnInit{
   createBoardForm!: FormGroup;
   users: Users[] = [];
   isLoading = false;

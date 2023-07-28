@@ -4,10 +4,6 @@ import { Users } from 'src/app/shared/Users-boards.model';
 import { CreateTaskService } from './create-task.service';
 import { BoardsService } from 'src/app/main-page/main-content/boards.service';
 
-interface Food {
-  value: string;
-  viewValue: string;
-}
 @Component({
   selector: 'pm-create-task',
   templateUrl: './create-task.component.html',

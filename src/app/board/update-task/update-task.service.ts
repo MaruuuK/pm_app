@@ -8,10 +8,10 @@ import { Task } from '../create-task/task.model';
   providedIn: 'root',
 })
 export class UpdateTaskService {
-  private clickUpdateTask = new Subject<any>();
+  private clickUpdateTask = new Subject<Task>();
   updateTask$ = this.clickUpdateTask.asObservable();
 
-  private formUpdateTaskDataSubject = new Subject<any>();
+  private formUpdateTaskDataSubject = new Subject<FormGroup>();
   private updateTaskButtonClickSubject = new Subject<void>();
 
   emitUpdateTaskEvent(task: Task) {

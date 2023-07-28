@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Modal } from 'bootstrap';
 import { Subject } from 'rxjs';
 
@@ -6,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CreateColumnService {
-  private formDataSubject = new Subject<any>();
+  private formDataSubject = new Subject<FormGroup>();
   private createButtonClickSubject = new Subject<void>();
   private columnModal: Modal | null = null;
 
@@ -23,7 +24,7 @@ export class CreateColumnService {
     this.columnModal = null;
   }
 
-  setFormData(formData: any) {
+  setFormData(formData: FormGroup) {
     this.formDataSubject.next(formData);
   }
 

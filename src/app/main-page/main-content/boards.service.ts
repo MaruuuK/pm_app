@@ -4,6 +4,7 @@ import { Subject, catchError, throwError } from 'rxjs';
 import { Boards, Users } from 'src/app/shared/Users-boards.model';
 import { ConfigService } from 'src/app/shared/config.service';
 import { Modal } from 'bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,8 @@ export class BoardsService {
   private boardCreatedSubject = new Subject<void>();
   boardCreated$ = this.boardCreatedSubject.asObservable();
 
-  constructor(private http: HttpClient, private configService: ConfigService) {}
+  constructor(private http: HttpClient, private configService: ConfigService,
+    private translateService: TranslateService) { }
 
   openModalCreateBoard() {
     const boardModal = document.getElementById('createBoard');
@@ -37,7 +39,9 @@ export class BoardsService {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'Something went wrong. Please try later';
+    const errorMessage = this.translateService.instant(
+      'errorMessages.defaultError'
+    );
     if (!errorRes.error?.error) {
       return throwError(() => errorMessage);
     }

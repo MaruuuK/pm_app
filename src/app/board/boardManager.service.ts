@@ -12,6 +12,7 @@ import {
   of,
 } from 'rxjs';
 import { Task } from './create-task/task.model';
+import { TranslateService} from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,8 @@ export class BoardManagerService {
   private updatedTaskSubject = new Subject<void>();
   taskUpdated$ = this.updatedTaskSubject.asObservable();
 
-  constructor(private configService: ConfigService, private http: HttpClient) {}
+  constructor(private configService: ConfigService, private http: HttpClient,
+    private translateService: TranslateService) { }
 
   getColumnsAndTasks(boardId: string): Observable<Column[]> {
     const columns$ = this.http.get<Column[]>(
@@ -168,9 +170,9 @@ export class BoardManagerService {
       .patch(this.configService.apiUrl + '/tasksSet', columnsOnServer)
       .pipe(catchError(this.handleError.bind(this)));
   }
-  
+
   private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'Something went wrong. Please try later';
+    const errorMessage = this.translateService.instant('errorMessages.defaultError');
     if (!errorRes.error?.error) {
       return throwError(() => errorMessage);
     }

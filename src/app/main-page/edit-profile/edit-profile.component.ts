@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { EditProfileService } from './editProfile.service';
@@ -11,11 +11,11 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css'],
 })
-export class EditProfileComponent {
-  alertMessage: string = '';
+export class EditProfileComponent implements OnInit{
+  alertMessage = '';
   isLoading = false;
-  error: string = '';
-  successMessage: string = '';
+  error = '';
+  successMessage = '';
 
   editProfileForm!: FormGroup;
 

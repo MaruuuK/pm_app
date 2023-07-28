@@ -1,5 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Boards } from '../Users-boards.model';
+import { Injectable } from '@angular/core';
 import { Modal } from 'bootstrap';
 
 @Injectable({

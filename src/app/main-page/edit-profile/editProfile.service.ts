@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, catchError, throwError } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { catchError, throwError } from 'rxjs';
 import { ConfigService } from 'src/app/shared/config.service';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 
@@ -14,7 +15,8 @@ export class EditProfileService {
   constructor(
     private authService: AuthService,
     private configService: ConfigService,
-    private http: HttpClient
+    private http: HttpClient,
+    private translateService: TranslateService,
   ) {}
 
   getUserData() {
@@ -43,12 +45,14 @@ export class EditProfileService {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'Something went wrong. Please try later';
+    let errorMessage = this.translateService.instant('errorMessages.defaultError');
     if (
       errorRes.error.statusCode === 409 &&
       errorRes.error.message === this.errMessageLoginExist
     ) {
-      errorMessage = 'This login already exist';
+      errorMessage = this.translateService.instant(
+        'errorMessages.loginExistError'
+      );
     }
     if (!errorRes.error?.error) {
       return throwError(() => errorMessage);

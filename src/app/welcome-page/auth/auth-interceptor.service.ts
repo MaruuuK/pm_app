@@ -13,7 +13,7 @@ import { exhaustMap, take } from 'rxjs';
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<void>, next: HttpHandler) {
     this.authService.autoLogin();
     return this.authService.user.pipe(
       take(1),

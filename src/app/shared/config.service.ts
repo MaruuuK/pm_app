@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConfigService {
-  public apiUrl: string =
+  public apiUrl =
     'https://final-task-backend-production-e3b5.up.railway.app';
 }

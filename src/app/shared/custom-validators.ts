@@ -24,7 +24,7 @@ export class CustomValidators {
     control: AbstractControl
   ): ValidationErrors | null {
     const password: string = control.value;
-    const specialSymbolsRegex: RegExp = /[!@#$%^&*(),.?":{}|<>]/;
+    const specialSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
 
     if (!specialSymbolsRegex.test(password)) {
       return { passwordWithoutSpecialSymbols: true };

@@ -211,7 +211,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
 
     this.boardManagerService.updateTaskSet(tasksOnServer).subscribe({
-      next: () => {},
       error: (errorMessage) => {
         this.error = errorMessage;
       },
@@ -228,7 +227,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
 
     this.boardManagerService.updateColumnSet(columnsOnServer).subscribe({
-      next: () => {},
       error: (errorMessage) => {
         this.error = errorMessage;
       },
@@ -305,7 +303,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     const column: Column | undefined = this.columns.find((column) => {
       return this.columnId === column._id;
     });
-    if (column && !column?.hasOwnProperty('tasks')) {
+    if (column && !Object.prototype.hasOwnProperty.call(column, 'tasks')) {
       column.tasks = [];
     }
     const title = this.createTaskData.value.title;
@@ -315,7 +313,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.createTaskData.value?.description === null
         ? ''
         : this.createTaskData.value?.description;
-    const userId = this.authService.user.value!.id;
+    const userId = this.authService.user.value?.id ?? null;
     const selectedUsers =
       this.createTaskData.value?.usersOfTask === null
         ? []

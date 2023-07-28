@@ -10,7 +10,7 @@ import { Subscription, take } from 'rxjs';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Task } from 'src/app/board/create-task/task.model';
-import { BoardManagerService } from 'src/app/board/boardManager.service';
+
 
 @Component({
   selector: 'pm-main-content',
@@ -68,7 +68,7 @@ export class MainContentComponent implements OnInit, OnDestroy {
   private createBoard() {
     this.error = '';
     const title = this.formBoardData.value.title;
-    const owner = this.authService.user.value!.id;
+    const owner = this.authService.user.value?.id ?? null;
     let users = this.formBoardData.get('usersOfBoard')?.value;
     if (users === null) {
       users = [];
