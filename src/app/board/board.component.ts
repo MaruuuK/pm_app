@@ -101,22 +101,25 @@ export class BoardComponent implements OnInit, OnDestroy {
       });
 
     this.boardManagerService.columnDeleted$.subscribe(() => {
+      this.confirmationService.hideConfirmModal();
+      this.isLoading = true;
       this.boardManagerService
         .deleteColumn(this.boardId, this.deletedColumn)
         .subscribe(() => {
-          this.confirmationService.hideConfirmModal();
           this.columns = this.columns.filter((column) => {
             return column._id !== this.deletedColumn._id;
           });
+          this.isLoading = false;
           this.updateOrder();
         });
     });
 
     this.boardManagerService.taskDeleted$.subscribe(() => {
+      this.confirmationService.hideConfirmModal();
+      this.isLoading = true;
       this.boardManagerService
         .deleteTask(this.boardId, this.columnId, this.deletedTask)
         .subscribe(() => {
-          this.confirmationService.hideConfirmModal();
           const columnToUpdate = this.columns.find(
             (column) => column._id === this.deletedTask.columnId
           );
@@ -127,6 +130,7 @@ export class BoardComponent implements OnInit, OnDestroy {
             if (taskIndex !== undefined && taskIndex !== -1) {
               columnToUpdate.tasks?.splice(taskIndex, 1);
             }
+            this.isLoading = false;
             this.updateOrder();
           }
         });

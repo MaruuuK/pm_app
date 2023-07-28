@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Task } from 'src/app/board/create-task/task.model';
 
-
 @Component({
   selector: 'pm-main-content',
   templateUrl: './main-content.component.html',
@@ -35,10 +34,8 @@ export class MainContentComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private router: Router,
     private authService: AuthService,
-    private translateService: TranslateService,
-  ) {
-
-  }
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit() {
     this.getBoards();
@@ -99,11 +96,13 @@ export class MainContentComponent implements OnInit, OnDestroy {
   }
 
   onDeleteEvent() {
+    this.confirmationService.hideConfirmModal();
+    this.isLoading = true;
     this.boardsService.deleteBoard(this.deletedBoard).subscribe(() => {
-      this.confirmationService.hideConfirmModal();
       this.boards = this.boards.filter((board) => {
         return board._id !== this.deletedBoard._id;
       });
+      this.isLoading = false;
     });
   }
   OnNavigateToBoard(board: Boards) {
