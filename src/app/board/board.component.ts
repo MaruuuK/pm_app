@@ -288,6 +288,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         next: (column) => {
           this.createColumnService.hideModalCreateColumn();
           this.createColumnsData.reset();
+          column.tasks = [];
           this.columns.push(column);
         },
         error: (errorMessage) => {
