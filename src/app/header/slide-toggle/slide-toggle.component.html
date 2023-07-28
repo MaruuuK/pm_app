@@ -1,7 +1,4 @@
-<div class="switcher" (click)="onLanguageToggleChange()"
-(keyup.enter)="onLanguageToggleChange()"
-tabindex="0"
-aria-label="CHANGE THE LANGUAGE">
+<div class="switcher" (change)="onLanguageToggleChange()" tabindex="0" aria-label="CHANGE THE LANGUAGE">
   <label class="toggle">
     <input type="checkbox" id="play-mode-checkbox">
     <span class="slider"></span>
