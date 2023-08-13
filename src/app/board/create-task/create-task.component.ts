@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Users } from 'src/app/shared/Users-boards.model';
 import { CreateTaskService } from './create-task.service';
@@ -8,6 +8,7 @@ import { BoardsService } from 'src/app/main-page/main-content/boards.service';
   selector: 'pm-create-task',
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateTaskComponent implements OnInit {
   createTaskForm!: FormGroup;

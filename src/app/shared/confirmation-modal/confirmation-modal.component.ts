@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { BoardManagerService } from 'src/app/board/boardManager.service';
 
 
@@ -6,6 +6,7 @@ import { BoardManagerService } from 'src/app/board/boardManager.service';
   selector: 'pm-confirmation-modal',
   templateUrl: './confirmation-modal.component.html',
   styleUrls: ['./confirmation-modal.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmationModalComponent {
   @Input() message!: string;

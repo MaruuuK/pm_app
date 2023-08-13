@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../shared/custom-validators';
 import { AuthService } from '../auth/auth.service';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   selector: 'pm-signup',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent implements OnInit {
   isSignup = false;

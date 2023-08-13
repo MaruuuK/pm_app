@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
@@ -21,6 +22,7 @@ import { CreateBoardsService } from '../main-page/create-boards/createBoards.ser
   selector: 'pm-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;

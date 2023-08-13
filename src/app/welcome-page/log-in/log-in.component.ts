@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   selector: 'pm-login',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogInComponent implements OnInit {
   loginForm!: FormGroup;

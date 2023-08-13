@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   faPlus,
@@ -24,10 +24,12 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
+
 @Component({
   selector: 'pm-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent implements OnInit, OnDestroy {
   faArrowLeft = faArrowLeft;
@@ -278,6 +280,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       .subscribe((columns) => {
         this.columns = columns;
         this.isLoading = false;
+        console.log(this.columns);
       });
   }
 

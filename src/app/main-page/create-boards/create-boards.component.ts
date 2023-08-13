@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateBoardsService } from './createBoards.service';
 import { Users } from '../../shared/Users-boards.model';
@@ -8,8 +8,9 @@ import { BoardsService } from '../main-content/boards.service';
   selector: 'pm-create-boards',
   templateUrl: './create-boards.component.html',
   styleUrls: ['./create-boards.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateBoardsComponent implements OnInit{
+export class CreateBoardsComponent implements OnInit {
   createBoardForm!: FormGroup;
   users: Users[] = [];
   isLoading = false;

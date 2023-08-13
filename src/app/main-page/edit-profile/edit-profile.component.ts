@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { EditProfileService } from './editProfile.service';
@@ -10,8 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'pm-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditProfileComponent implements OnInit{
+export class EditProfileComponent implements OnInit {
   alertMessage = '';
   isLoading = false;
   error = '';

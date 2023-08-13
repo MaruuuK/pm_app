@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateColumnService } from './create-column.service';
 
@@ -6,6 +6,7 @@ import { CreateColumnService } from './create-column.service';
   selector: 'pm-create-columns',
   templateUrl: './create-columns.component.html',
   styleUrls: ['./create-columns.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateColumnsComponent implements OnInit {
   createColumnForm!: FormGroup;
@@ -25,7 +26,6 @@ export class CreateColumnsComponent implements OnInit {
       });
     }
   }
-
 
   onCreateColumn(createColumnForm: FormGroup): void {
     if (!createColumnForm.valid) {

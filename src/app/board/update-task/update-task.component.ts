@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Users } from 'src/app/shared/Users-boards.model';
 import { Task } from '../create-task/task.model';
@@ -11,6 +11,7 @@ import { BoardsService } from 'src/app/main-page/main-content/boards.service';
   selector: 'pm-update-task',
   templateUrl: './update-task.component.html',
   styleUrls: ['./update-task.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdateTaskComponent implements OnInit, OnDestroy {
   updatedTask!: Task;
