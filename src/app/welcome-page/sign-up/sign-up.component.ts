@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
-  isSignup = false;
-  isLoading = false;
-  error: string | null = null;
+  public isSignup = false;
+  public isLoading = false;
+  public error: string | null = null;
 
-  signupForm!: FormGroup;
+  public signupForm!: FormGroup;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {

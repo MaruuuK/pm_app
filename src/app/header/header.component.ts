@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -12,6 +11,7 @@ import {
   faUserPlus,
   faPlus,
   faPenToSquare,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Subscription } from 'rxjs';
@@ -26,20 +26,19 @@ import { CreateBoardsService } from '../main-page/create-boards/createBoards.ser
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
-  isAuthenticated = false;
+  public isAuthenticated = false;
 
   constructor(
-    private elementRef: ElementRef,
     private authService: AuthService,
     private router: Router,
     private createBoardsService: CreateBoardsService
   ) {}
 
   //fontawesome
-  faArrowRightToBracket = faArrowRightToBracket;
-  faUserPlus = faUserPlus;
-  faPenToSquare = faPenToSquare;
-  faPlus = faPlus;
+  public faArrowRightToBracket: IconDefinition = faArrowRightToBracket;
+  public faUserPlus: IconDefinition = faUserPlus;
+  public faPenToSquare: IconDefinition = faPenToSquare;
+  public faPlus: IconDefinition = faPlus;
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe((user) => {

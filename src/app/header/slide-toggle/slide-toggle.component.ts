@@ -8,9 +8,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SlideToggleComponent {
   isEnglish = true;
-  color = '#fff';
-  checked = true;
-  disabled = false;
 
   constructor(private translateService: TranslateService) {}
 

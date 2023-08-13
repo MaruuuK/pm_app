@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateBoardsService } from './createBoards.service';
 import { Users } from '../../shared/Users-boards.model';
@@ -11,11 +11,11 @@ import { BoardsService } from '../main-content/boards.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateBoardsComponent implements OnInit {
-  createBoardForm!: FormGroup;
-  users: Users[] = [];
-  isLoading = false;
-  isButtonDisabled = false;
-  error: string | null = null;
+  public createBoardForm!: FormGroup;
+  public users: Users[] = [];
+  public isLoading = false;
+  public isButtonDisabled = false;
+  public error: string | null = null;
   constructor(
     private createBoardsService: CreateBoardsService,
     private boardsService: BoardsService

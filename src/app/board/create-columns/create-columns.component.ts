@@ -9,8 +9,8 @@ import { CreateColumnService } from './create-column.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateColumnsComponent implements OnInit {
-  createColumnForm!: FormGroup;
-  isButtonDisabled = false;
+  public createColumnForm!: FormGroup;
+  public isButtonDisabled = false;
 
   constructor(private createColumnService: CreateColumnService) {}
 

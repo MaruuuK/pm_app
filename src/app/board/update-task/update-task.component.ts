@@ -1,4 +1,9 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Users } from 'src/app/shared/Users-boards.model';
 import { Task } from '../create-task/task.model';
@@ -14,13 +19,13 @@ import { BoardsService } from 'src/app/main-page/main-content/boards.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdateTaskComponent implements OnInit, OnDestroy {
-  updatedTask!: Task;
+  public updatedTask!: Task;
   private updateTaskSubscription!: Subscription;
 
-  isLoading = false;
-  isButtonDisabled = false;
-  users: Users[] = [];
-  updateTaskForm!: FormGroup;
+  public isLoading = false;
+  public isButtonDisabled = false;
+  public users: Users[] = [];
+  public updateTaskForm!: FormGroup;
 
   constructor(
     private boardManagerService: BoardManagerService,

@@ -8,15 +8,13 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <div class="row justify-content-center board-card" *ngIf="!isLoading">
-      <div *ngIf="boards && boards.length === 0">
+      <div *ngIf="!boards?.length">
         <p class="fs-5 text m-2 border  border-1 rounded border-primary bg-primary-subtle p-2">
           {{ 'createNewBoard' | translate }}
         </p>
       </div>
       <div class="card border border-primary m-4 p-0" style="width: 20rem;" *ngFor="let board of boards"
-        (click)="OnNavigateToBoard(board)"
-        (keyup.enter)="OnNavigateToBoard(board)"
-        tabindex="0"
+        (click)="OnNavigateToBoard(board)" (keyup.enter)="OnNavigateToBoard(board)" tabindex="0"
         aria-label="Navigate To Board">
         <div class="card-header text-end bg-warning">
           <button type="button" class="btn btn-link text-white" (click)="onDeleteBoard($event, board)"><fa-icon

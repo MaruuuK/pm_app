@@ -11,9 +11,9 @@ import { BoardsService } from 'src/app/main-page/main-content/boards.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateTaskComponent implements OnInit {
-  createTaskForm!: FormGroup;
-  isButtonDisabled = false;
-  users: Users[] = [];
+  public createTaskForm!: FormGroup;
+  public isButtonDisabled = false;
+  public users: Users[] = [];
 
   constructor(
     private boardsService: BoardsService,

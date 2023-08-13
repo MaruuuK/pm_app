@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogInComponent implements OnInit {
-  loginForm!: FormGroup;
-  isLoading = false;
-  error: string | null = null;
+  public loginForm!: FormGroup;
+  public isLoading = false;
+  public error: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 

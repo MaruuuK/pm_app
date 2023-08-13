@@ -6,6 +6,7 @@ import {
   faCheck,
   faBan,
   faXmark,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { BoardManagerService } from './boardManager.service';
 import { Column } from './create-columns/column.model';
@@ -30,29 +31,28 @@ import {
   styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  faArrowLeft = faArrowLeft;
-  faPlus = faPlus;
-  faCheck = faCheck;
-  faBan = faBan;
-  faXmark = faXmark;
+  public faArrowLeft: IconDefinition = faArrowLeft;
+  public faPlus: IconDefinition = faPlus;
+  public faCheck: IconDefinition = faCheck;
+  public faBan: IconDefinition = faBan;
+  public faXmark: IconDefinition = faXmark;
 
-  boardTitle!: string;
-  isLoading = false;
-  error: string | null = null;
-  alertMessage = '';
+  public boardTitle!: string;
+  public isLoading = false;
+  public error: string | null = null;
+  public alertMessage = '';
 
-  boardId!: string;
+  private boardId!: string;
 
-  columns!: Column[];
-  columnId!: string;
-  createColumnsData!: FormGroup;
-  deletedColumn!: Column;
-  deletedColumnOrder!: number;
+  public columns!: Column[];
+  private columnId!: string;
+  private createColumnsData!: FormGroup;
+  private deletedColumn!: Column;
 
-  createTaskData!: FormGroup;
-  updateTaskData!: FormGroup;
-  updatedTask!: Task | undefined;
-  deletedTask!: Task;
+  private createTaskData!: FormGroup;
+  private updateTaskData!: FormGroup;
+  private updatedTask!: Task | undefined;
+  private deletedTask!: Task;
 
   private clickEventSubscriptionColumn!: Subscription;
   private clickEventSubscriptionTask!: Subscription;

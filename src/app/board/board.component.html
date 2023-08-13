@@ -50,20 +50,14 @@
         <div class="card mb-2 bg-info-subtle task-card" style="max-width: 17rem; " *ngFor="let task of column.tasks"
           cdkDrag>
           <div class="d-flex justify-content-between m-2 task-update" (click)="onOpenModalUpdateTask(task)"
-          (keyup.enter)="onOpenModalUpdateTask(task)"
-          tabindex="0"
-          aria-label="Open Modal Window To Update Task">
-
-              <p class="m-0 fs-5 text-wrap text-break">{{ task.title }}</p>
-
+            (keyup.enter)="onOpenModalUpdateTask(task)" tabindex="0" aria-label="Open Modal Window To Update Task">
+            <p class="m-0 fs-5 text-wrap text-break">{{ task.title }}</p>
             <button type="button" class="btn btn-link flex-shrink-0"
               (click)="onDeleteTask($event, task, column._id)"><fa-icon [icon]="faXmark" size="lg"></fa-icon></button>
           </div>
         </div>
         <div class="d-grid m-3" (click)="onOpenModalCreateTask(column._id)"
-        (keyup.enter)="onOpenModalCreateTask(column._id)"
-        tabindex="0"
-        aria-label="Open Modal Window To Create Task">
+          (keyup.enter)="onOpenModalCreateTask(column._id)" tabindex="0" aria-label="Open Modal Window To Create Task">
           <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
             {{ 'boardPage.addTask' | translate }}</button>
         </div>

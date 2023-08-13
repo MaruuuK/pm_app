@@ -9,15 +9,15 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'pm-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent implements OnInit {
-  alertMessage = '';
-  isLoading = false;
-  error = '';
-  successMessage = '';
+  public alertMessage = '';
+  public isLoading = false;
+  public error = '';
+  public successMessage = '';
 
-  editProfileForm!: FormGroup;
+  public editProfileForm!: FormGroup;
 
   constructor(
     private editProfileService: EditProfileService,

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BoardsService } from './boards.service';
 import { Boards } from 'src/app/shared/Users-boards.model';
 import { ConfirmationService } from 'src/app/shared/confirmation-modal/confirmation.service';
@@ -9,22 +9,19 @@ import { CreateBoardsService } from '../create-boards/createBoards.service';
 import { Subscription, take } from 'rxjs';
 import { AuthService } from 'src/app/welcome-page/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Task } from 'src/app/board/create-task/task.model';
-
 @Component({
   selector: 'pm-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.css'],
 })
 export class MainContentComponent implements OnInit, OnDestroy {
-  isLoading = false;
-  faXmark = faXmark;
-  boards: Boards[] = [];
-  alertMessage = '';
-  deletedBoard!: Boards;
-  formBoardData!: FormGroup;
-  taskSearch: Task[] = [];
-  error = '';
+  public isLoading = false;
+  public faXmark: IconDefinition = faXmark;
+  public boards: Boards[] = [];
+  public alertMessage = '';
+  public deletedBoard!: Boards;
+  public formBoardData!: FormGroup;
+  public error = '';
 
   private clickEventSubscriptionBoard!: Subscription;
 
