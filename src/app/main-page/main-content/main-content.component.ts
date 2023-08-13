@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BoardsService } from './boards.service';
 import { Boards } from 'src/app/shared/Users-boards.model';
@@ -15,7 +15,6 @@ import { Task } from 'src/app/board/create-task/task.model';
   selector: 'pm-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainContentComponent implements OnInit, OnDestroy {
   isLoading = false;

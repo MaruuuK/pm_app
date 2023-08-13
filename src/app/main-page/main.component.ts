@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'pm-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent {}

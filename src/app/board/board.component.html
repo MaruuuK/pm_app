@@ -53,9 +53,9 @@
           (keyup.enter)="onOpenModalUpdateTask(task)"
           tabindex="0"
           aria-label="Open Modal Window To Update Task">
-            <div>
+
               <p class="m-0 fs-5 text-wrap text-break">{{ task.title }}</p>
-            </div>
+
             <button type="button" class="btn btn-link flex-shrink-0"
               (click)="onDeleteTask($event, task, column._id)"><fa-icon [icon]="faXmark" size="lg"></fa-icon></button>
           </div>
