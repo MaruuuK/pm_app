@@ -1,0 +1,71 @@
+<div class="container min-vh-100">
+  <div class="row header-board justify-content-between pt-4 pb-3 px-2">
+    <div class="back-to-main col text-start p-0" (click)="onBackToBoardsList()" (keyup.enter)="onBackToBoardsList()"
+      (keyup.space)="onBackToBoardsList()" (keydown.enter)="onBackToBoardsList()" (keydown.space)="onBackToBoardsList()"
+      tabindex="0" role="button" aria-label="Back to Boards">
+      <fa-icon [icon]="faArrowLeft" size="2xl" ngbTooltip="Back to Boards" class="text-primary"></fa-icon>
+    </div>
+    <div class="col-8 text-end p-0">
+      <button class="btn btn-warning me-3 btn-lg" (click)="onOpenModalCreateColumn()"><fa-icon
+          [icon]="faPlus"></fa-icon>
+        {{ 'boardPage.addColumn' | translate }}</button>
+    </div>
+  </div>
+  <h3 class="text-center mb-3">{{boardTitle}}</h3>
+  <div *ngIf="isLoading" class="text-center m-auto">
+    <pm-loading-spinner></pm-loading-spinner>
+  </div>
+  <div class="alert alert-danger text-center alert-dismissible fade show" *ngIf="error">
+    <p class="m-0" translate>{{error}}</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <div class="row overflow-x-auto flex-nowrap style-4" *ngIf="!isLoading" cdkDropListGroup cdkDropList
+    cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDropColumn($event)">
+    <div *ngIf="columns && columns.length === 0">
+      <p class="fs-5 text m-2 border  border-1 rounded border-primary bg-primary-subtle p-2">
+        {{ 'boardPage.createNewColumn' | translate }}
+      </p>
+    </div>
+    <div class="card m-1 mb-3  column-container" style="max-width: 17rem; " *ngFor="let column of columns" cdkDropList
+      [cdkDropListData]="column.tasks" (cdkDropListDropped)="onDropTask($event)" cdkDrag>
+      <div class="d-flex justify-content-between m-2 column-title" *ngIf="!column.editingTitle"
+        (click)="column.editingTitle = true" (keyup.enter)="column.editingTitle = true"
+        (keyup.space)="column.editingTitle = true" tabindex="0" role="button" aria-label="Edit Column Title">
+        <div>
+          <p class="m-0 fs-5 text-wrap text-break">{{ column.title }}</p>
+        </div>
+        <button type="button" class="btn-close flex-shrink-0" aria-label="Close"
+          (click)="onDeleteColumn($event, column)"></button>
+      </div>
+      <div class="d-flex justify-content-between my-2" *ngIf="column.editingTitle">
+        <button class="btn btn-link btn-sm text-secondary" (click)="column.editingTitle = false"><fa-icon
+            [icon]="faBan"></fa-icon></button>
+        <button class="btn btn-link btn-sm text-success" (click)="onUpdateColumnTitle(column)"><fa-icon
+            [icon]="faCheck"></fa-icon></button>
+        <input [(ngModel)]="column.title" type="text" class="form-control border border-primary input-field">
+      </div>
+      <hr class="m-0 mb-2">
+      <div class="overflow-y-auto style-4">
+        <div class="card mb-2 bg-info-subtle task-card" style="max-width: 17rem; " *ngFor="let task of column.tasks"
+          cdkDrag>
+          <div class="d-flex justify-content-between m-2 task-update" (click)="onOpenModalUpdateTask(task)"
+            (keyup.enter)="onOpenModalUpdateTask(task)" tabindex="0" aria-label="Open Modal Window To Update Task">
+            <p class="m-0 fs-5 text-wrap text-break">{{ task.title }}</p>
+            <button type="button" class="btn btn-link flex-shrink-0"
+              (click)="onDeleteTask($event, task, column._id)"><fa-icon [icon]="faXmark" size="lg"></fa-icon></button>
+          </div>
+        </div>
+        <div class="d-grid m-3" (click)="onOpenModalCreateTask(column._id)"
+          (keyup.enter)="onOpenModalCreateTask(column._id)" tabindex="0" aria-label="Open Modal Window To Create Task">
+          <button class="btn btn-outline-primary"><fa-icon [icon]="faPlus"></fa-icon>
+            {{ 'boardPage.addTask' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pm-create-columns></pm-create-columns>
+<pm-create-task></pm-create-task>
+<pm-update-task></pm-update-task>
+<pm-confirmation-modal [message]="alertMessage"></pm-confirmation-modal>

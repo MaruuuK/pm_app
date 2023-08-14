@@ -1,0 +1,27 @@
+<div class="modal" tabindex="-1" id="createColumn">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'createNewColumn.createColumn' | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createColumnForm" (ngSubmit)="onCreateColumn(createColumnForm)">
+          <div class="mb-3">
+            <label for="title-field" class="form-label">{{ 'createNewColumn.titleLabel' | translate }}</label>
+            <input type="text" class="form-control border border-primary input-field" id="title-field"
+              formControlName="title" autocomplete="title">
+            <span *ngIf="!createColumnForm.get('title')?.valid && createColumnForm.get('title')?.touched"
+              class="help is-danger">
+              {{ 'createNewColumn.RequiredField' | translate }}
+            </span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'createNewColumn.closeBtn' | translate }}</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createColumnForm.valid && !isButtonDisabled">{{ 'createNewColumn.createBtn' | translate }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

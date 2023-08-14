@@ -1,0 +1,46 @@
+h3 {
+  color: var(--cyanBlue);
+  font-family: 'georgia bold', sans-serif;
+}
+
+.banner-header {
+  font-family: 'georgia bold', sans-serif;
+  color: var(--cyanBlue);
+  letter-spacing: 0.1rem;
+  font-size: 48px;
+}
+
+.banner-motto {
+  color: var(--cyanBlue);
+  font-size: 20px;
+}
+
+.banner-text {
+  font-size: 18px;
+}
+
+.card-title {
+  font-size: 22px;
+  color: #215b84;
+  font-family: 'georgia bold', sans-serif;
+}
+
+.card-text {
+  font-size: 17px;
+}
+
+.about-project-desc {
+  font-size: 18px;
+}
+
+
+.about-developer-header {
+  color: #215b84;
+  font-family: 'georgia bold', sans-serif;
+  font-size: 25px;
+}
+
+.about-developer-text {
+  text-align: justify;
+  font-size: 18px;
+}

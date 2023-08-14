@@ -1,0 +1,120 @@
+{
+  "login": "Log In",
+  "signup": "Sign Up",
+  "createBoardBtn": "Board",
+  "profile": "Profile",
+  "logout": "Log Out",
+  "bannerHeader": "Empower Your Projects",
+  "bannerMotto": "Simplifying Organization, Tracking, and Collaboration.",
+  "bannerText": "Create projects, assign tasks, and track progress in real-time, all in one centralized workspace.",
+  "learnMore": "Learn More",
+  "features": "Features",
+  "feature1Title": "Project Creation and Management",
+  "feature1Text": "You can create and manage multiple projects, including setting project details.",
+  "feature2Title": "Task Assignment and Tracking",
+  "feature2Text": "You can assign tasks to team members, set priorities, and track task progress in real-time.",
+  "feature3Title": "Team Collaboration",
+  "feature3Text": "The application facilitates seamless collaboration among team members.",
+  "aboutProject": "About Project",
+  "aboutProjectText": "The main idea of the project is to develop a project management application that simplifies the process of organizing, tracking, and collaborating on projects. The application aims to provide a user-friendly interface and comprehensive features to enhance project management efficiency and productivity.",
+  "aboutDeveloper": "About Developer",
+  "aboutDeveloperHeader": "Mariia Kuryleva",
+  "aboutDeveloperText": "Motivated by a desire for growth, I am committed to refining my skills and making a positive impact in the digital realm as a front-end developer. Eager to learn and grow, I embrace HTML, CSS, and JavaScript as my tools for crafting engaging user experiences. Continual growth and learning are at the core of my journey as I navigate the dynamic landscape of web development. Embracing challenges, I strive to push boundaries and stay ahead of emerging trends and technologies.",
+  "aboutCourse": "About Course",
+  "aboutCourseText": "The Upskill Frontend course by EPAM and RS School is an intensive training program that enhances your frontend web development skills. Learn HTML, CSS, JavaScript, Angular, and more through hands-on projects and expert instruction. Gain the knowledge and confidence to excel in building responsive and interactive web applications.",
+  "loginHeader": "Log In",
+  "loginLabel": "Login",
+  "PasswordLabel": "Password",
+  "RequiredField": "This field is required",
+  "questionAccount": "Don't have an account?",
+  "errorMessages": {
+    "loginExistError": "Login already exists",
+    "loginNotExistError": "Login or password are not correct",
+    "defaultError": "An error occurred. Please try again later"
+  },
+  "signupPage": {
+    "successful": "Registration was successful.",
+    "loginHeader": "Log In",
+    "signupHeader": "Sign Up",
+    "nameField": "Name",
+    "RequiredField": "This field is required",
+    "invalidName": "This name is invalid",
+    "loginLabel": "Login",
+    "PasswordLabel": "Password",
+    "lengthValidation": "Password must contain at least 6 characters",
+    "specialSymbol": "Password must contain special symbols",
+    "confirmPasswordLabel": "Confirm Password",
+    "matchPassword": "Passwords do not match",
+    "signUpButton": "Sign Up",
+    "questionAccount": "Already have an account?"
+  },
+  "createBoardModal": {
+    "createBoard": "Create Board",
+    "titleLabel": "Title",
+    "RequiredField": "This field is required",
+    "usersLabel": "Users",
+    "closeBtn": "CLOSE",
+    "createBtn": "CREATE",
+    "ctrlUse": "Press Ctrl to choose several options"
+  },
+  "editProfile": {
+    "editHeader": "Edit Profile",
+    "nameField": "Name",
+    "RequiredField": "This field is required",
+    "invalidName": "This name is invalid",
+    "loginLabel": "Login",
+    "PasswordLabel": "Password",
+    "lengthValidation": "Password must contain at least 6 characters",
+    "specialSymbol": "Password must contain special symbols",
+    "updateBTN": "UPDATE",
+    "deleteBTN": "DELETE",
+    "successMessage": "User updated successfully"
+  },
+  "boardPage": {
+    "addColumn": "Column",
+    "createNewColumn": "Create new column",
+    "addTask": "Task"
+  },
+  "createNewColumn": {
+    "createColumn": "Create Column",
+    "titleLabel": "Title",
+    "RequiredField": "This field is required",
+    "closeBtn": "CLOSE",
+    "createBtn": "CREATE"
+  },
+  "createNewTask": {
+    "createTask": "Create Task",
+    "titleLabel": "Title",
+    "RequiredField": "This field is required",
+    "descriptionLabel": "Description",
+    "usersLabel": "Users",
+    "closeBtn": "CLOSE",
+    "createBtn": "CREATE",
+    "ctrlUse": "Press Ctrl to choose several options"
+  },
+  "updateTask": {
+    "updateTask": "Update Task",
+    "titleLabel": "Title",
+    "RequiredField": "This field is required",
+    "descriptionLabel": "Description",
+    "usersLabel": "Users",
+    "closeBtn": "CLOSE",
+    "createBtn": "UPDATE",
+    "ctrlUse": "Press Ctrl to choose several options"
+  },
+  "confirmAlert": {
+    "deleteBoard": "\"{{ boardTitle }}\" board",
+    "deleteMessage": "Are you sure you want to delete {{ message }}?",
+    "actionUndone": "This action cannot be undone",
+    "cancelBtn": "CANCEL",
+    "deleteBtn": "DELETE",
+    "deleteColumn": "\"{{ columnTitle }}\" column",
+    "deleteTask": "\"{{ taskTitle }}\" task",
+    "deleteUser": "this account"
+  },
+  "errorPage":{
+    "errorText": "That page doesn't exist",
+    "toMainBtn": "To main page"
+  },
+  "createNewBoard": "Create new board"
+}

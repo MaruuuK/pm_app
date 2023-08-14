@@ -1,0 +1,39 @@
+.container-footer {
+  background-color: var(--cyanBlue);
+}
+
+.col {
+  padding: 0;
+}
+
+
+.logo-footer-rsschool {
+  filter: invert(100%) sepia(0%) saturate(572%) hue-rotate(353deg) brightness(105%) contrast(100%);
+  max-width: 150px;
+}
+
+.logo-footer-rsschool:hover {
+  opacity: 0.4;
+}
+
+.footer-year {
+  font-size: 15px;
+  color: #fafafa;
+  font-family: 'georgia bold', sans-serif;
+}
+
+.footer-url-github {
+  color: #fafafa;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.footer-url-github:hover {
+  opacity: 0.4;
+}
+
+@media all and (max-width: 425px) {
+  .footer-url-github {
+    font-size: 14px;
+  }
+}

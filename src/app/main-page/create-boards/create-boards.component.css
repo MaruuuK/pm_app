@@ -1,0 +1,5 @@
+.modal-title{
+  text-transform: uppercase;
+  color:var(--cyanBlue);
+  font-family: 'georgia bold', sans-serif;
+}
