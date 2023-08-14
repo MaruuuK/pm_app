@@ -12,7 +12,7 @@ import { BoardManagerService } from './boardManager.service';
 import { Column } from './create-columns/column.model';
 import { CreateColumnService } from './create-columns/create-column.service';
 import { FormGroup } from '@angular/forms';
-import { Subscription, take } from 'rxjs';
+import { Subscription, switchMap, take } from 'rxjs';
 import { ConfirmationService } from '../shared/confirmation-modal/confirmation.service';
 import { CreateTaskService } from './create-task/create-task.service';
 import { AuthService } from '../welcome-page/auth/auth.service';
@@ -57,6 +57,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   private clickEventSubscriptionColumn!: Subscription;
   private clickEventSubscriptionTask!: Subscription;
   private clickEventSubscriptionUpdateTask!: Subscription;
+  private columnDeletionSubscription!: Subscription;
+  private taskDeletionSubscription!: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -99,42 +102,56 @@ export class BoardComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.createColumn();
       });
+    this.subscriptions.push(this.clickEventSubscriptionColumn);
 
-    this.boardManagerService.columnDeleted$.subscribe(() => {
-      this.confirmationService.hideConfirmModal();
-      this.isLoading = true;
-      this.boardManagerService
-        .deleteColumn(this.boardId, this.deletedColumn)
-        .subscribe(() => {
-          this.columns = this.columns.filter((column) => {
-            return column._id !== this.deletedColumn._id;
-          });
+    this.columnDeletionSubscription = this.boardManagerService.columnDeleted$
+      .pipe(
+        switchMap(() => {
+          this.confirmationService.hideConfirmModal();
+          this.isLoading = true;
+          return this.boardManagerService.deleteColumn(
+            this.boardId,
+            this.deletedColumn
+          );
+        })
+      )
+      .subscribe(() => {
+        this.columns = this.columns.filter((column) => {
+          return column._id !== this.deletedColumn._id;
+        });
+        this.isLoading = false;
+        this.updateOrder();
+      });
+    this.subscriptions.push(this.columnDeletionSubscription);
+
+    this.taskDeletionSubscription = this.boardManagerService.taskDeleted$
+      .pipe(
+        switchMap(() => {
+          this.confirmationService.hideConfirmModal();
+          this.isLoading = true;
+          return this.boardManagerService.deleteTask(
+            this.boardId,
+            this.columnId,
+            this.deletedTask
+          );
+        })
+      )
+      .subscribe(() => {
+        const columnToUpdate = this.columns.find(
+          (column) => column._id === this.deletedTask.columnId
+        );
+        if (columnToUpdate) {
+          const taskIndex = columnToUpdate.tasks?.findIndex(
+            (task) => task._id === this.deletedTask._id
+          );
+          if (taskIndex !== undefined && taskIndex !== -1) {
+            columnToUpdate.tasks?.splice(taskIndex, 1);
+          }
           this.isLoading = false;
           this.updateOrder();
-        });
-    });
-
-    this.boardManagerService.taskDeleted$.subscribe(() => {
-      this.confirmationService.hideConfirmModal();
-      this.isLoading = true;
-      this.boardManagerService
-        .deleteTask(this.boardId, this.columnId, this.deletedTask)
-        .subscribe(() => {
-          const columnToUpdate = this.columns.find(
-            (column) => column._id === this.deletedTask.columnId
-          );
-          if (columnToUpdate) {
-            const taskIndex = columnToUpdate.tasks?.findIndex(
-              (task) => task._id === this.deletedTask._id
-            );
-            if (taskIndex !== undefined && taskIndex !== -1) {
-              columnToUpdate.tasks?.splice(taskIndex, 1);
-            }
-            this.isLoading = false;
-            this.updateOrder();
-          }
-        });
-    });
+        }
+      });
+    this.subscriptions.push(this.taskDeletionSubscription);
 
     this.createTaskService
       .getFormTaskData()
@@ -149,6 +166,8 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.createTask();
       });
 
+    this.subscriptions.push(this.clickEventSubscriptionTask);
+
     this.updateTaskService
       .getFormUpdateTaskData()
       .pipe(take(1))
@@ -161,6 +180,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.updateTask();
       });
+    this.subscriptions.push(this.clickEventSubscriptionUpdateTask);
   }
 
   onDropColumn(event: CdkDragDrop<Column[]>) {
@@ -409,8 +429,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.clickEventSubscriptionColumn.unsubscribe();
-    this.clickEventSubscriptionTask.unsubscribe();
-    this.clickEventSubscriptionUpdateTask.unsubscribe();
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
   }
 }
